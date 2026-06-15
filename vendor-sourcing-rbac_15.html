@@ -25,6 +25,23 @@
   };
   // Shared workspace id — ทุกคนที่ใช้ค่าเดียวกันจะเห็นข้อมูลชุดเดียวกัน
   window.TCS_WORKSPACE = "tcs-default";
+  // Secret access key — ต้องตรงกับค่าใน Firestore Rules (ป้องกันคนนอกเขียน/ลบข้อมูล)
+  // เปลี่ยนเป็นรหัสลับของคุณเอง แล้วใส่ค่าเดียวกันใน Rules (ดู firestore.rules ที่แนบมา)
+  window.TCS_ACCESS_KEY = "CHANGE_ME_SECRET_2026";
+  /* ───────────────────────────────────────────────────────────────
+     Firestore Rules ที่ต้องวาง (Console → Firestore → Rules):
+       rules_version = '2';
+       service cloud.firestore {
+         match /databases/{database}/documents {
+           match /workspaces/{ws}/data/{doc} {
+             allow read: if true;                                            // อ่านได้ (repo เป็น private อยู่แล้ว)
+             allow create, update: if request.resource.data.accessKey == 'CHANGE_ME_SECRET_2026';
+             allow delete: if resource.data.accessKey == 'CHANGE_ME_SECRET_2026';
+           }
+         }
+       }
+     ⚠ เปลี่ยน 'CHANGE_ME_SECRET_2026' ทั้งใน window.TCS_ACCESS_KEY ข้างบน และใน Rules ให้ตรงกัน
+     ─────────────────────────────────────────────────────────────── */
 </script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
@@ -1528,6 +1545,7 @@ const Cloud = {
   ready: false,
   db: null,
   ws: (window.TCS_WORKSPACE || 'tcs-default'),
+  key: (window.TCS_ACCESS_KEY || ''),
   _unsub: [],
   _saving: false,
 
@@ -1569,7 +1587,7 @@ const Cloud = {
   // Save a named blob to cloud (master plan / stage1)
   async save(name, obj){
     if (!this.ready) return false;
-    try{ this._saving = true; await this._doc(name).set({ payload: JSON.stringify(obj), updatedAt: Date.now() }); this._saving = false; return true; }
+    try{ this._saving = true; await this._doc(name).set({ payload: JSON.stringify(obj), accessKey: this.key, updatedAt: Date.now() }); this._saving = false; return true; }
     catch(e){ this._saving = false; console.warn('[Cloud] save '+name+' failed:', e.message); return false; }
   },
 
