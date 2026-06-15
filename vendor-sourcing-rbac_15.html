@@ -1,0 +1,3075 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vendor Sourcing Process — TCS</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',sans-serif;background:#f3f4f6;display:flex;justify-content:center;align-items:flex-start;min-height:100vh;padding:32px 20px;}
+.app-wrapper{width:1200px;}
+
+/* ── TABS ── */
+.tab-bar{display:flex;gap:0;margin-bottom:0;align-items:flex-end;}
+.tab-btn{padding:11px 22px;font-size:12.5px;font-weight:600;font-family:'Inter',sans-serif;border:1.5px solid #D1D5DB;border-bottom:none;background:#E5E7EB;color:#6B7280;cursor:pointer;border-radius:8px 8px 0 0;margin-right:4px;transition:all .15s;display:flex;align-items:center;gap:6px;}
+.tab-btn.active{background:#fff;color:#111827;border-color:#D1D5DB;border-bottom:1.5px solid #fff;z-index:2;position:relative;}
+.tab-btn:not(.active):hover{background:#F3F4F6;color:#374151;}
+.tab-badge{font-size:9px;padding:2px 7px;border-radius:10px;font-weight:700;}
+.badge-blue{background:#EFF6FF;color:#3B82F6;}
+.badge-red{background:#FEF2F2;color:#EF4444;}
+.badge-green{background:#D1FAE5;color:#065F46;}
+.badge-orange{background:#FEF3C7;color:#B45309;}
+.tab-panel{display:none;background:#fff;border:1.5px solid #D1D5DB;border-radius:0 8px 8px 8px;padding:40px 48px 48px;}
+.tab-panel.active{display:block;}
+
+/* ── PROCESS OVERVIEW ── */
+.header{text-align:center;margin-bottom:40px;}
+.header-label{display:inline-block;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#6B7280;margin-bottom:10px;}
+.header h1{font-size:26px;font-weight:800;color:#111827;letter-spacing:-.5px;margin-bottom:8px;}
+.header p{font-size:13.5px;color:#6B7280;}
+.header-divider{width:56px;height:3px;background:linear-gradient(90deg,#3B82F6,#8B5CF6);margin:14px auto 0;border-radius:2px;}
+.stage-row{display:flex;gap:0;position:relative;}
+.stage-card{flex:1;background:#fff;border:1.5px solid #E5E7EB;border-right:none;position:relative;overflow:visible;}
+.stage-card:last-child{border-right:1.5px solid #E5E7EB;}
+.stage-number{display:flex;align-items:center;gap:8px;padding:10px 14px 9px;border-bottom:1.5px solid #E5E7EB;}
+.stage-badge{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#fff;flex-shrink:0;}
+.stage-num-text{font-size:9.5px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;opacity:.65;line-height:1;margin-bottom:2px;}
+.stage-name{font-size:12.5px;font-weight:700;color:#111827;line-height:1.2;}
+.s0 .stage-badge{background:#6B7280;}.s0 .stage-num-text{color:#6B7280;}.s0 .stage-number{background:#F9FAFB;}
+.s1 .stage-badge{background:#3B82F6;}.s1 .stage-num-text{color:#3B82F6;}.s1 .stage-number{background:#EFF6FF;}
+.s2 .stage-badge{background:#8B5CF6;}.s2 .stage-num-text{color:#8B5CF6;}.s2 .stage-number{background:#F5F3FF;}
+.s3 .stage-badge{background:#F59E0B;}.s3 .stage-num-text{color:#F59E0B;}.s3 .stage-number{background:#FFFBEB;}
+.s4 .stage-badge{background:#10B981;}.s4 .stage-num-text{color:#10B981;}.s4 .stage-number{background:#ECFDF5;}
+.stage-body{padding:12px 14px 0;}
+.stage-desc{font-size:12px;color:#374151;line-height:1.5;padding-bottom:12px;border-bottom:1px dashed #E5E7EB;min-height:60px;}
+.kpi-section{padding:10px 14px 12px;border-bottom:1px dashed #E5E7EB;}
+.kpi-label{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#9CA3AF;margin-bottom:7px;}
+.kpi-item{display:flex;align-items:flex-start;gap:5px;margin-bottom:4px;}
+.kpi-dot{width:5px;height:5px;border-radius:50%;margin-top:4px;flex-shrink:0;}
+.s0 .kpi-dot{background:#6B7280;}.s1 .kpi-dot{background:#3B82F6;}.s2 .kpi-dot{background:#8B5CF6;}.s3 .kpi-dot{background:#F59E0B;}.s4 .kpi-dot{background:#10B981;}
+.kpi-text{font-size:11px;color:#374151;line-height:1.4;}
+.timeline-section{padding:8px 14px 10px;border-bottom:1px dashed #E5E7EB;}
+.timeline-chip{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:20px;font-size:10.5px;font-weight:600;}
+.s0 .timeline-chip{background:#F3F4F6;color:#4B5563;}.s1 .timeline-chip{background:#DBEAFE;color:#1D4ED8;}.s2 .timeline-chip{background:#EDE9FE;color:#6D28D9;}.s3 .timeline-chip{background:#FEF3C7;color:#B45309;}.s4 .timeline-chip{background:#D1FAE5;color:#065F46;}
+.notes-section{padding:9px 14px 12px;}
+.notes-label{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#9CA3AF;margin-bottom:6px;}
+.notes-text{font-size:10.5px;color:#6B7280;line-height:1.5;}
+.legend{display:flex;justify-content:center;gap:22px;margin-top:26px;padding-top:16px;border-top:1px solid #F3F4F6;flex-wrap:wrap;}
+.legend-item{display:flex;align-items:center;gap:6px;font-size:10.5px;color:#6B7280;font-weight:500;}
+.legend-dot{width:9px;height:9px;border-radius:50%;}
+.bottom-note{text-align:center;font-size:10.5px;color:#9CA3AF;margin-top:14px;font-style:italic;}
+
+/* ── MASTER PLAN (READ-ONLY) ── */
+.mp-header{margin-bottom:20px;}
+.mp-header h2{font-size:20px;font-weight:800;color:#111827;margin-bottom:4px;}
+.mp-header p{font-size:12px;color:#6B7280;}
+.mp-empty{text-align:center;padding:60px 40px;background:#F9FAFB;border:2px dashed #E5E7EB;border-radius:12px;}
+.mp-empty-icon{font-size:40px;margin-bottom:14px;}
+.mp-empty h3{font-size:16px;font-weight:700;color:#374151;margin-bottom:8px;}
+.mp-empty p{font-size:13px;color:#9CA3AF;margin-bottom:16px;}
+
+/* Brief banner */
+.brief-banner{background:linear-gradient(135deg,#EFF6FF,#F5F3FF);border:1.5px solid #BFDBFE;border-radius:10px;padding:14px 18px;margin-bottom:20px;}
+.brief-banner-title{font-size:10px;font-weight:700;letter-spacing:1.5px;color:#3B82F6;text-transform:uppercase;margin-bottom:10px;}
+.brief-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;}
+.brief-chip{background:#fff;border:1px solid #BFDBFE;border-radius:6px;padding:7px 11px;}
+.brief-chip-label{font-size:8.5px;font-weight:700;letter-spacing:1px;color:#93C5FD;text-transform:uppercase;margin-bottom:2px;}
+.brief-chip-value{font-size:12px;font-weight:700;color:#111827;line-height:1.3;}
+.brief-chip-sub{font-size:9.5px;color:#6B7280;margin-top:1px;}
+
+/* Gantt read-only */
+.gantt-wrap{overflow-x:auto;margin-bottom:20px;}
+table.gantt{width:100%;border-collapse:collapse;font-size:10px;}
+table.gantt th{background:#F9FAFB;border:1px solid #E5E7EB;padding:6px 3px;text-align:center;font-size:9px;font-weight:700;color:#6B7280;white-space:nowrap;}
+table.gantt th.label-th{text-align:left;min-width:190px;padding-left:10px;font-size:10px;}
+table.gantt td{border:1px solid #F0F0F0;padding:0;height:34px;}
+table.gantt td.label-td{padding:6px 10px;background:#FAFAFA;border:1px solid #E5E7EB;}
+table.gantt td.label-td .t-stage{font-size:8.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:2px;}
+table.gantt td.label-td .t-name{font-size:11.5px;font-weight:700;color:#111827;}
+table.gantt td.label-td .t-date{font-size:9px;color:#9CA3AF;margin-top:1px;}
+table.gantt td.label-td .t-kpi{font-size:9px;color:#6B7280;margin-top:1px;font-style:italic;}
+.g-bar{height:16px;margin:9px 2px;border-radius:4px;}
+.g-bar.sub{height:10px;margin:12px 2px;border-radius:3px;opacity:.7;}
+.today-line{background:#EF444422 !important;}
+
+/* Stage summary cards */
+.stage-summary{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:20px;}
+.ss-card{border-radius:8px;padding:12px 14px;border:1.5px solid;}
+.ss-card .ss-stage{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:5px;}
+.ss-card .ss-name{font-size:12px;font-weight:700;color:#111827;margin-bottom:4px;}
+.ss-card .ss-dates{font-size:11px;font-weight:600;margin-bottom:2px;}
+.ss-card .ss-weeks{font-size:10px;color:#9CA3AF;margin-bottom:6px;}
+.ss-card .ss-kpi{font-size:9.5px;border-top:1px dashed;padding-top:5px;}
+
+/* Product section */
+.products-section{margin-bottom:20px;}
+.products-section h3{font-size:12px;font-weight:700;color:#374151;margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+.product-tags{display:flex;flex-wrap:wrap;gap:6px;}
+.product-tag{display:inline-flex;align-items:center;gap:5px;padding:4px 12px;border-radius:20px;font-size:11.5px;font-weight:600;border:1.5px solid;}
+
+/* Export row */
+.mp-actions{display:flex;gap:8px;justify-content:flex-end;margin-bottom:16px;}
+.btn{padding:7px 14px;border-radius:6px;font-size:11.5px;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;border:1.5px solid transparent;transition:all .15s;display:inline-flex;align-items:center;gap:5px;}
+.btn-outline{background:#fff;color:#374151;border-color:#D1D5DB;}.btn-outline:hover{background:#F9FAFB;}
+.btn-purple{background:#8B5CF6;color:#fff;border-color:#8B5CF6;}.btn-purple:hover{background:#7C3AED;}
+.btn-danger{background:#fff;color:#EF4444;border-color:#FECACA;}
+.btn-success{background:#10B981;color:#fff;border-color:#10B981;}.btn-success:hover{background:#059669;}
+
+/* ── LOCK SCREEN ── */
+.lock-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:420px;padding:40px;}
+.lock-icon{font-size:48px;margin-bottom:16px;}
+.lock-screen h2{font-size:20px;font-weight:800;color:#111827;margin-bottom:8px;}
+.lock-screen p{font-size:13px;color:#6B7280;margin-bottom:24px;text-align:center;}
+.lock-form{width:320px;display:flex;flex-direction:column;gap:12px;}
+.lock-input{padding:11px 14px;border:1.5px solid #D1D5DB;border-radius:8px;font-size:14px;font-family:'Inter',sans-serif;color:#111827;text-align:center;letter-spacing:4px;transition:all .15s;}
+.lock-input:focus{outline:none;border-color:#3B82F6;box-shadow:0 0 0 3px rgba(59,130,246,.1);}
+.lock-input.error{border-color:#EF4444;animation:shake .35s ease;}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.lock-btn{padding:11px;background:#111827;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;font-family:'Inter',sans-serif;cursor:pointer;transition:all .15s;}
+.lock-btn:hover{background:#374151;}
+.lock-error{font-size:11.5px;color:#EF4444;text-align:center;font-weight:600;min-height:16px;}
+.lock-hint{font-size:10.5px;color:#D1D5DB;text-align:center;}
+
+/* ── DEMAND FORM ── */
+.form-page{max-width:780px;margin:0 auto;}
+.form-header{text-align:center;margin-bottom:28px;}
+.form-header .step-badge{display:inline-flex;align-items:center;gap:6px;background:#FEF3C7;color:#92400E;border:1px solid #FDE68A;border-radius:20px;padding:4px 14px;font-size:10.5px;font-weight:700;letter-spacing:.5px;margin-bottom:12px;}
+.form-header h2{font-size:21px;font-weight:800;color:#111827;margin-bottom:6px;}
+.form-header p{font-size:12.5px;color:#6B7280;}
+.form-section{background:#FAFAFA;border:1.5px solid #E5E7EB;border-radius:10px;padding:18px 22px;margin-bottom:14px;}
+.form-section-title{font-size:10.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#6B7280;margin-bottom:14px;display:flex;align-items:center;gap:7px;}
+.form-section-title span{background:#F3F4F6;border-radius:4px;padding:2px 7px;font-size:9.5px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.form-row.single{grid-template-columns:1fr;}
+.form-row.triple{grid-template-columns:1fr 1fr 1fr;}
+.form-group{}
+.form-label{display:block;font-size:10.5px;font-weight:600;color:#374151;margin-bottom:4px;}
+.req{color:#EF4444;margin-left:2px;}
+.form-input,.form-select,.form-textarea{width:100%;padding:8px 10px;border:1.5px solid #D1D5DB;border-radius:6px;font-size:12.5px;font-family:'Inter',sans-serif;color:#111827;background:#fff;transition:all .15s;}
+.form-input:focus,.form-select:focus,.form-textarea:focus{outline:none;border-color:#F59E0B;box-shadow:0 0 0 3px rgba(245,158,11,.1);}
+.form-input::placeholder,.form-textarea::placeholder{color:#9CA3AF;}
+.form-textarea{resize:vertical;min-height:68px;line-height:1.5;}
+.form-hint{font-size:9.5px;color:#9CA3AF;margin-top:3px;}
+
+/* Timeline preview */
+.tl-preview{background:#fff;border:1.5px solid #D1FAE5;border-radius:8px;padding:10px 14px;margin-top:8px;display:none;}
+.tl-preview.on{display:block;}
+.tl-preview-title{font-size:9px;font-weight:700;letter-spacing:1px;color:#10B981;text-transform:uppercase;margin-bottom:8px;}
+.tl-stages{display:flex;gap:0;border-radius:5px;overflow:hidden;border:1px solid #E5E7EB;}
+.tl-s{flex:1;padding:6px 4px;text-align:center;border-right:1px solid #E5E7EB;}
+.tl-s:last-child{border-right:none;}
+.tl-s-name{font-size:8.5px;font-weight:700;margin-bottom:1px;}
+.tl-s-date{font-size:10px;font-weight:700;color:#111827;}
+.tl-s-w{font-size:8px;color:#9CA3AF;}
+
+/* Product builder */
+.product-list{margin-bottom:8px;}
+.product-item{display:flex;align-items:center;gap:7px;margin-bottom:7px;background:#fff;border:1.5px solid #E5E7EB;border-radius:7px;padding:7px 10px;}
+.product-item input{flex:2;border:none;outline:none;font-size:12px;font-family:'Inter',sans-serif;color:#111827;background:transparent;}
+.product-item select{border:none;outline:none;font-size:11px;font-family:'Inter',sans-serif;color:#374151;background:transparent;cursor:pointer;flex:1;}
+.prod-num{font-size:9.5px;font-weight:700;padding:2px 7px;border-radius:10px;flex-shrink:0;}
+.prod-del{background:none;border:none;color:#D1D5DB;cursor:pointer;font-size:15px;line-height:1;padding:0 2px;transition:color .12s;flex-shrink:0;}
+.prod-del:hover{color:#EF4444;}
+.add-prod-btn{display:flex;align-items:center;gap:6px;padding:7px 12px;border:1.5px dashed #D1D5DB;border-radius:7px;background:transparent;font-size:12px;font-weight:600;color:#9CA3AF;cursor:pointer;width:100%;justify-content:center;transition:all .15s;}
+.add-prod-btn:hover{border-color:#3B82F6;color:#3B82F6;background:#EFF6FF;}
+
+/* Submit */
+.submit-zone{text-align:center;margin-top:22px;}
+.submit-btn{padding:12px 40px;background:linear-gradient(135deg,#F59E0B,#D97706);color:#fff;border:none;border-radius:8px;font-size:13.5px;font-weight:700;font-family:'Inter',sans-serif;cursor:pointer;box-shadow:0 4px 14px rgba(245,158,11,.35);transition:all .2s;}
+.submit-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(245,158,11,.4);}
+.submit-note{font-size:10.5px;color:#9CA3AF;margin-top:7px;}
+
+/* Success + Sourcing Dash */
+.success-box{background:linear-gradient(135deg,#ECFDF5,#D1FAE5);border:1.5px solid #6EE7B7;border-radius:10px;padding:18px 22px;margin-bottom:18px;text-align:center;}
+.success-box h3{font-size:15px;font-weight:800;color:#065F46;margin-bottom:3px;}
+.success-box p{font-size:12px;color:#047857;}
+.success-actions{display:flex;justify-content:center;gap:8px;margin-top:12px;}
+.dash-alert{background:#FFFBEB;border:1.5px solid #FDE68A;border-radius:8px;padding:10px 15px;margin-bottom:14px;font-size:12px;color:#92400E;display:flex;align-items:center;gap:7px;}
+.product-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;margin-bottom:18px;}
+.pc{border:1.5px solid #E5E7EB;border-radius:8px;padding:13px 15px;background:#fff;}
+.pc-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:7px;}
+.pc-name{font-size:12.5px;font-weight:700;color:#111827;}
+.pc-pillar{font-size:9px;font-weight:700;padding:2px 7px;border-radius:10px;}
+.pc-scope{font-size:11px;color:#6B7280;line-height:1.4;margin-bottom:8px;}
+.pc-footer{border-top:1px dashed #E5E7EB;padding-top:7px;display:flex;justify-content:space-between;align-items:center;}
+.pc-deadline{font-size:10px;font-weight:700;color:#B45309;}
+.pc-pending{font-size:9px;font-weight:700;background:#FEF3C7;color:#92400E;padding:2px 8px;border-radius:10px;}
+
+/* Timeline bar */
+.tl-bar-section{background:#F9FAFB;border:1.5px solid #E5E7EB;border-radius:8px;padding:14px 18px;}
+.tl-bar-title{font-size:10.5px;font-weight:700;color:#374151;margin-bottom:10px;}
+.tl-bar-row{display:flex;align-items:center;gap:10px;margin-bottom:7px;}
+.tl-bar-label{font-size:9.5px;font-weight:600;width:90px;flex-shrink:0;}
+.tl-bar-wrap{flex:1;background:#E5E7EB;border-radius:3px;height:8px;overflow:hidden;}
+.tl-bar-fill{height:8px;border-radius:3px;}
+.tl-bar-date{font-size:9.5px;font-weight:600;color:#374151;width:90px;text-align:right;flex-shrink:0;}
+
+/* Modal */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:100;align-items:center;justify-content:center;}
+.modal-overlay.open{display:flex;}
+.modal-box{background:#fff;border-radius:12px;padding:24px 28px;width:640px;max-width:95vw;max-height:85vh;display:flex;flex-direction:column;gap:12px;box-shadow:0 20px 60px rgba(0,0,0,.2);}
+.code-block{background:#0F172A;color:#E2E8F0;border-radius:8px;padding:14px;font-family:'Courier New',monospace;font-size:10px;line-height:1.6;overflow:auto;flex:1;max-height:280px;white-space:pre;}
+.modal-actions{display:flex;gap:7px;justify-content:flex-end;}
+
+/* Toast */
+.toast{position:fixed;bottom:24px;right:24px;background:#111827;color:#fff;padding:9px 16px;border-radius:8px;font-size:12px;font-weight:600;font-family:'Inter',sans-serif;z-index:999;opacity:0;transform:translateY(8px);transition:all .22s;pointer-events:none;}
+.toast.show{opacity:1;transform:translateY(0);}
+
+/* Admin badge */
+.admin-badge{display:inline-flex;align-items:center;gap:5px;background:#FEF2F2;color:#EF4444;border:1px solid #FECACA;border-radius:6px;padding:3px 10px;font-size:10px;font-weight:700;margin-left:auto;}
+.logout-btn{padding:4px 10px;border:1px solid #FECACA;border-radius:5px;background:#fff;color:#EF4444;font-size:10px;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;margin-left:8px;}
+.logout-btn:hover{background:#FEF2F2;}
+
+/* ── STAGE 1 TAB ── */
+.s1tab-header{margin-bottom:22px;}
+.s1tab-header h2{font-size:20px;font-weight:800;color:#111827;margin-bottom:3px;}
+.s1tab-header p{font-size:12px;color:#6B7280;}
+
+/* KPI Dashboard */
+.kpi-dash{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:22px;}
+.kd-card{border-radius:10px;padding:14px 16px;border:1.5px solid;}
+.kd-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+.kd-icon{font-size:18px;}
+.kd-status{font-size:9.5px;font-weight:700;padding:2px 8px;border-radius:10px;}
+.kd-label{font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:#6B7280;margin-bottom:4px;}
+.kd-value{font-size:26px;font-weight:800;line-height:1;}
+.kd-target{font-size:10px;margin-top:3px;}
+.kd-bar-wrap{background:#E5E7EB;border-radius:3px;height:5px;margin-top:8px;overflow:hidden;}
+.kd-bar-fill{height:5px;border-radius:3px;transition:width .4s;}
+
+/* Alert banner */
+.alert-banner{border-radius:8px;padding:10px 14px;margin-bottom:16px;font-size:12px;font-weight:600;display:flex;align-items:center;gap:8px;}
+.alert-ok{background:#D1FAE5;color:#065F46;border:1px solid #6EE7B7;}
+.alert-warn{background:#FEF3C7;color:#92400E;border:1px solid #FDE68A;}
+.alert-danger{background:#FEF2F2;color:#991B1B;border:1px solid #FECACA;}
+
+/* Single-column layout (Product List Upload removed) */
+.s1-cols{display:grid;grid-template-columns:1fr;gap:16px;margin-bottom:16px;}
+.s1-panel{background:#FAFAFA;border:1.5px solid #E5E7EB;border-radius:10px;padding:18px 20px;}
+.s1-panel-title{font-size:10.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#374151;margin-bottom:14px;display:flex;align-items:center;gap:7px;}
+.s1-panel-title .ptag{background:#EFF6FF;color:#3B82F6;font-size:9px;padding:2px 7px;border-radius:4px;}
+
+/* Manufacturer table */
+.mfr-table-wrap{max-height:340px;overflow-y:auto;border:1px solid #E5E7EB;border-radius:7px;background:#fff;}
+table.mfr-tbl{width:100%;border-collapse:collapse;font-size:11px;}
+table.mfr-tbl thead th{background:#F3F4F6;border-bottom:1.5px solid #E5E7EB;padding:7px 9px;text-align:left;font-size:10px;font-weight:700;color:#6B7280;letter-spacing:.5px;position:sticky;top:0;white-space:nowrap;}
+table.mfr-tbl tbody td{border-bottom:1px solid #F3F4F6;padding:6px 9px;vertical-align:middle;}
+table.mfr-tbl tbody tr:last-child td{border-bottom:none;}
+table.mfr-tbl tbody tr:hover td{background:#F8FAFF;}
+.tier-badge{display:inline-block;font-size:9.5px;font-weight:700;padding:1px 8px;border-radius:10px;}
+.tier-1{background:#EFF6FF;color:#1D4ED8;}
+.tier-2{background:#F5F3FF;color:#6D28D9;}
+.tier-3{background:#F9FAFB;color:#374151;}
+.del-row{background:none;border:none;color:#D1D5DB;cursor:pointer;font-size:13px;padding:0;transition:color .12s;}
+.del-row:hover{color:#EF4444;}
+
+/* Add row form */
+.add-row-form{background:#fff;border:1.5px solid #E5E7EB;border-radius:8px;padding:12px 14px;margin-bottom:10px;}
+.add-row-grid{display:grid;grid-template-columns:2fr 1.2fr 1.5fr 1fr auto;gap:6px;align-items:end;}
+.ar-group{}
+.ar-label{font-size:9.5px;font-weight:600;color:#374151;margin-bottom:3px;display:block;}
+.ar-input,.ar-select{width:100%;padding:6px 8px;border:1.5px solid #D1D5DB;border-radius:5px;font-size:11.5px;font-family:'Inter',sans-serif;color:#111827;background:#fff;transition:border .13s;}
+.ar-input:focus,.ar-select:focus{outline:none;border-color:#3B82F6;}
+.ar-add-btn{padding:7px 14px;background:#3B82F6;color:#fff;border:none;border-radius:5px;font-size:11.5px;font-weight:700;font-family:'Inter',sans-serif;cursor:pointer;white-space:nowrap;transition:background .13s;}
+.ar-add-btn:hover{background:#2563EB;}
+
+/* Upload zone */
+.upload-zone{border:2px dashed #D1D5DB;border-radius:8px;padding:20px;text-align:center;transition:all .15s;background:#fff;}
+.upload-zone.drag{border-color:#3B82F6;background:#EFF6FF;}
+.uz-icon{font-size:28px;margin-bottom:8px;}
+.uz-text{font-size:12.5px;font-weight:600;color:#374151;margin-bottom:4px;}
+.uz-sub{font-size:10.5px;color:#9CA3AF;margin-bottom:12px;}
+.uz-browse-btn{display:inline-block;padding:8px 20px;background:#3B82F6;color:#fff;border-radius:6px;font-size:12px;font-weight:700;font-family:"Inter",sans-serif;cursor:pointer;border:none;transition:background .13s;margin-top:2px;}
+.uz-browse-btn:hover{background:#2563EB;}
+#file-input-hidden{display:none;}
+.file-list{margin-top:10px;display:flex;flex-direction:column;gap:6px;}
+.file-item{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid #E5E7EB;border-radius:6px;padding:7px 10px;}
+.fi-icon{font-size:16px;flex-shrink:0;}
+.fi-name{font-size:11.5px;font-weight:600;color:#111827;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.fi-size{font-size:10px;color:#9CA3AF;flex-shrink:0;}
+.fi-status{font-size:9.5px;font-weight:700;padding:2px 7px;border-radius:10px;flex-shrink:0;}
+.fi-ok{background:#D1FAE5;color:#065F46;}
+.fi-pending{background:#FEF3C7;color:#92400E;}
+.fi-del{background:none;border:none;color:#D1D5DB;cursor:pointer;font-size:13px;flex-shrink:0;}
+.fi-del:hover{color:#EF4444;}
+
+/* Drive note */
+.drive-note{background:#EFF6FF;border:1px solid #BFDBFE;border-radius:7px;padding:10px 13px;font-size:11px;color:#1D4ED8;margin-top:10px;display:flex;align-items:flex-start;gap:7px;}
+
+/* Action bar */
+.s1-action-bar{display:flex;gap:8px;justify-content:flex-end;margin-bottom:16px;flex-wrap:wrap;}
+
+/* Channel tracker */
+.channel-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;}
+.ch-item{display:flex;align-items:center;gap:8px;background:#fff;border:1.5px solid #E5E7EB;border-radius:7px;padding:8px 11px;cursor:pointer;transition:all .13s;}
+.ch-item.checked{border-color:#3B82F6;background:#EFF6FF;}
+.ch-check{width:16px;height:16px;border-radius:4px;border:1.5px solid #D1D5DB;display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;transition:all .13s;}
+.ch-item.checked .ch-check{background:#3B82F6;border-color:#3B82F6;color:#fff;}
+.ch-label{font-size:11.5px;font-weight:600;color:#374151;}
+.ch-item.checked .ch-label{color:#1D4ED8;}
+
+
+
+/* ── Manufacturer form completeness ── */
+.add-row-form .ar-label { font-size:10px; font-weight:700; color:#6B7280; text-transform:uppercase; letter-spacing:.5px; margin-bottom:4px; display:block; }
+.add-row-form .ar-input, .add-row-form .ar-select {
+  width:100%; padding:7px 10px; font-size:12px; font-family:'Inter',sans-serif;
+  border:1.5px solid #E5E7EB; border-radius:7px; background:#fff; color:#111827;
+  box-sizing:border-box; transition:border .15s;
+}
+.add-row-form .ar-input:focus, .add-row-form .ar-select:focus {
+  outline:none; border-color:#3B82F6;
+}
+.add-row-form .ar-input.field-ok { border-color:#10B981; }
+/* Wider table scroll */
+.mfr-table-wrap { overflow-x:auto; max-height:280px; overflow-y:auto; }
+.mfr-tbl th, .mfr-tbl td { white-space:nowrap; }
+
+/* ══════════════════════════════════════
+   RBAC — Role-Based Access Control
+══════════════════════════════════════ */
+#rbac-overlay {
+  position:fixed; inset:0; z-index:9999;
+  background:rgba(241,245,249,0.72);
+  backdrop-filter:blur(18px) saturate(180%);
+  -webkit-backdrop-filter:blur(18px) saturate(180%);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Inter',sans-serif;
+}
+.rbac-card {
+  width:420px; background:rgba(255,255,255,0.92);
+  border:1px solid rgba(209,213,219,0.7); border-radius:18px;
+  padding:36px 40px; box-shadow:0 8px 40px rgba(0,0,0,.10), 0 1.5px 6px rgba(0,0,0,.06);
+}
+.rbac-logo {
+  text-align:center; margin-bottom:28px;
+}
+.rbac-logo-badge {
+  display:inline-flex; align-items:center; gap:8px;
+  background:#EFF6FF; border:1px solid #BFDBFE;
+  border-radius:10px; padding:8px 16px; margin-bottom:14px;
+}
+.rbac-logo-dot {
+  width:8px; height:8px; border-radius:50%; background:#3B82F6;
+  box-shadow:0 0 6px rgba(59,130,246,.4);
+}
+.rbac-logo h1 {
+  font-size:18px; font-weight:800; color:#111827;
+  margin-bottom:4px; letter-spacing:-.3px;
+}
+.rbac-logo p { font-size:11.5px; color:#6B7280; }
+
+.rbac-label {
+  font-size:10px; font-weight:700; letter-spacing:1.5px;
+  text-transform:uppercase; color:#9CA3AF; margin-bottom:10px;
+}
+.rbac-roles { display:flex; flex-direction:column; gap:8px; margin-bottom:20px; }
+.rbac-role-btn {
+  display:flex; align-items:center; gap:14px;
+  padding:13px 16px; border-radius:10px;
+  border:1.5px solid #E5E7EB; background:#F9FAFB;
+  cursor:pointer; transition:all .15s; text-align:left; width:100%;
+  font-family:'Inter',sans-serif;
+}
+.rbac-role-btn:hover { border-color:#3B82F6; background:#EFF6FF; transform:translateX(2px); }
+.rbac-role-btn.selected { border-color:#3B82F6; background:#EFF6FF; }
+.rbac-role-icon {
+  width:36px; height:36px; border-radius:9px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:16px; flex-shrink:0;
+}
+.rbac-role-body { flex:1; }
+.rbac-role-name { font-size:13px; font-weight:700; color:#111827; margin-bottom:2px; }
+.rbac-role-desc { font-size:10.5px; color:#6B7280; line-height:1.4; }
+.rbac-role-arrow { color:#D1D5DB; font-size:14px; }
+.rbac-role-btn:hover .rbac-role-arrow { color:#3B82F6; }
+
+/* Role colors */
+.role-business .rbac-role-icon { background:#EFF6FF; }
+.role-sourcing .rbac-role-icon { background:#ECFDF5; }
+.role-other .rbac-role-icon { background:#F3F4F6; }
+
+.rbac-pwd-area { display:none; margin-bottom:16px; }
+.rbac-pwd-area.show { display:block; }
+.rbac-pwd-label { font-size:10px; font-weight:700; color:#6B7280; letter-spacing:1px; text-transform:uppercase; margin-bottom:7px; }
+.rbac-pwd-input {
+  width:100%; padding:10px 14px; background:#fff;
+  border:1.5px solid #D1D5DB; border-radius:8px;
+  font-size:13px; font-family:'Inter',sans-serif; color:#111827;
+  letter-spacing:3px; transition:border .15s;
+}
+.rbac-pwd-input:focus { outline:none; border-color:#3B82F6; box-shadow:0 0 0 3px rgba(59,130,246,.1); }
+.rbac-pwd-input.err { border-color:#EF4444; }
+.rbac-pwd-err { font-size:10.5px; color:#EF4444; margin-top:5px; font-weight:600; min-height:16px; }
+
+.rbac-enter-btn {
+  width:100%; padding:12px; border-radius:9px;
+  background:linear-gradient(135deg,#3B82F6,#2563EB);
+  color:#fff; border:none; font-size:13px; font-weight:700;
+  font-family:'Inter',sans-serif; cursor:pointer;
+  box-shadow:0 4px 14px rgba(59,130,246,.3);
+  transition:all .15s;
+}
+.rbac-enter-btn:hover { transform:translateY(-1px); box-shadow:0 6px 20px rgba(59,130,246,.4); }
+
+/* Role badge in app header */
+#rbac-role-badge {
+  display:none; align-items:center; gap:6px;
+  padding:4px 12px; border-radius:20px;
+  font-size:10.5px; font-weight:700;
+  border:1.5px solid; cursor:default;
+}
+#rbac-role-badge.show { display:inline-flex; }
+
+/* Role-specific tab visibility is handled by JS */
+
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════
+     RBAC — Role Selector Overlay
+════════════════════════════════════════════ -->
+<div id="rbac-overlay">
+  <div class="rbac-card">
+    <div class="rbac-logo">
+      <div class="rbac-logo-badge">
+        <div class="rbac-logo-dot"></div>
+        <span style="font-size:11px;font-weight:700;color:#374151;letter-spacing:1px;">TCS</span>
+      </div>
+      <h1>Vendor Sourcing Portal</h1>
+      <p>เลือก Role ของคุณเพื่อเข้าใช้งาน</p>
+    </div>
+
+    <div class="rbac-label">Select your role</div>
+    <div class="rbac-roles">
+      <button class="rbac-role-btn role-business" onclick="selectRole('business')">
+        <div class="rbac-role-icon">📊</div>
+        <div class="rbac-role-body">
+          <div class="rbac-role-name">Business</div>
+          <div class="rbac-role-desc">Keys in demand · เห็น Status ภาพรวม หลัง Assign</div>
+        </div>
+        <span class="rbac-role-arrow">›</span>
+      </button>
+      <button class="rbac-role-btn role-sourcing" onclick="selectRole('sourcing')">
+        <div class="rbac-role-icon">🔍</div>
+        <div class="rbac-role-body">
+          <div class="rbac-role-name">Sourcing</div>
+          <div class="rbac-role-desc">เห็น Master Plan · Key-in & Upload Stage 1 data</div>
+        </div>
+        <span class="rbac-role-arrow">›</span>
+      </button>
+      <button class="rbac-role-btn role-other" onclick="selectRole('other')">
+        <div class="rbac-role-icon">👁</div>
+        <div class="rbac-role-body">
+          <div class="rbac-role-name">Other / View Only</div>
+          <div class="rbac-role-desc">เห็นภาพรวม Process Overview & Status เท่านั้น</div>
+        </div>
+        <span class="rbac-role-arrow">›</span>
+      </button>
+    </div>
+
+    <div class="rbac-pwd-area" id="rbac-pwd-area">
+      <div class="rbac-pwd-label" id="rbac-pwd-label">Password</div>
+      <input type="password" class="rbac-pwd-input" id="rbac-pwd-input"
+        placeholder="Enter password" onkeydown="if(event.key==='Enter')rbacLogin()">
+      <div class="rbac-pwd-err" id="rbac-pwd-err"></div>
+      <div id="rbac-pwd-hint" style="font-size:10px;color:#475569;margin-top:5px;display:none;"></div>
+    </div>
+
+    <button class="rbac-enter-btn" onclick="rbacLogin()" id="rbac-enter-btn">
+      Enter Portal
+    </button>
+
+    <div style="text-align:center;margin-top:14px;font-size:10px;color:#9CA3AF;">
+      TCS Vendor Management Framework · Secure Role Access
+    </div>
+  </div>
+</div>
+
+<div class="app-wrapper">
+
+<!-- Tab Bar -->
+<div class="tab-bar" id="main-tab-bar">
+  <button class="tab-btn active" id="btn-t1" onclick="showTab('process',this)" style="display:none;">
+    📋 Process Overview
+  </button>
+  <button class="tab-btn" id="btn-t2" onclick="showTab('masterplan',this)" style="display:none;">
+    📅 Master Plan
+    <span class="tab-badge badge-blue" id="mp-badge">AUTO</span>
+  </button>
+  <button class="tab-btn" id="btn-t3" onclick="showTab('stage0',this)" style="display:none;">
+    ✏️ Stage 0
+    <span class="tab-badge badge-orange">BUSINESS</span>
+  </button>
+  <button class="tab-btn" id="btn-biz-dash" onclick="showTab('biz-dashboard',this)" style="display:none;">
+    📊 Executive Dashboard
+    <span class="tab-badge badge-orange">ON TRACK?</span>
+  </button>
+  <button class="tab-btn" id="btn-t4" onclick="showTab('stage1',this)" style="display:none;">
+    🔍 Stage 1 — Global Discovery
+    <span class="tab-badge badge-blue">SOURCING</span>
+  </button>
+  <button class="tab-btn" id="btn-lock" onclick="showTab('lock',this)" style="display:none;">
+    🔐 Admin
+  </button>
+  <!-- Spacer pushes logout to far right -->
+  <div style="flex:1;"></div>
+  <!-- Role badge -->
+  <span id="rbac-role-badge" style="align-self:center;margin-right:8px;"></span>
+  <!-- Logout button — far right, always visible after login -->
+  <button id="rbac-logout-btn"
+    style="display:none;align-self:center;padding:6px 14px;
+           border:1.5px solid #FECACA;border-radius:6px;background:#fff;
+           color:#EF4444;font-size:11px;font-weight:700;font-family:'Inter',sans-serif;
+           cursor:pointer;white-space:nowrap;transition:all .15s;margin-bottom:0;"
+    onmouseover="this.style.background='#FEF2F2'"
+    onmouseout="this.style.background='#fff'"
+    onclick="rbacLogout()">↩ Logout</button>
+</div>
+
+<!-- ════════════ TAB 1: PROCESS OVERVIEW ════════════ -->
+<div class="tab-panel" id="tab-process">
+  <div class="header">
+    <div class="header-label">Vendor Management Framework</div>
+    <h1>Vendor Sourcing &amp; Qualification Process</h1>
+    <p>End-to-end pipeline — 5 Stages · 12 Weeks · TCS</p>
+    <div class="header-divider"></div>
+  </div>
+  <div style="display:flex;align-items:center;margin-bottom:22px;">
+    <div style="width:9px;height:9px;border-radius:50%;background:#6B7280;flex-shrink:0;"></div>
+    <div style="flex:1;height:2px;background:linear-gradient(90deg,#6B7280,#3B82F6);"></div>
+    <div style="width:0;height:0;border-top:4px solid transparent;border-bottom:4px solid transparent;border-left:7px solid #3B82F6;flex-shrink:0;"></div>
+    <div style="flex:1;height:2px;background:linear-gradient(90deg,#3B82F6,#8B5CF6);"></div>
+    <div style="width:0;height:0;border-top:4px solid transparent;border-bottom:4px solid transparent;border-left:7px solid #8B5CF6;flex-shrink:0;"></div>
+    <div style="flex:1;height:2px;background:linear-gradient(90deg,#8B5CF6,#F59E0B);"></div>
+    <div style="width:0;height:0;border-top:4px solid transparent;border-bottom:4px solid transparent;border-left:7px solid #F59E0B;flex-shrink:0;"></div>
+    <div style="flex:1;height:2px;background:linear-gradient(90deg,#F59E0B,#10B981);"></div>
+    <div style="width:0;height:0;border-top:4px solid transparent;border-bottom:4px solid transparent;border-left:7px solid #10B981;flex-shrink:0;"></div>
+    <div style="width:9px;height:9px;border-radius:50%;background:#10B981;flex-shrink:0;"></div>
+  </div>
+  <div class="stage-row">
+    <div class="stage-card s0" style="position:relative;">
+      <div class="stage-number"><div class="stage-badge">0</div><div><div class="stage-num-text">Stage 0</div><div class="stage-name">Demand<br>Mapping</div></div></div>
+      <div class="stage-body">
+        <div class="stage-desc">Business กำหนด Core Product และ Required Scope ที่ต้องการ เป็นจุดเริ่มต้นของกระบวนการ</div>
+        <div class="kpi-section"><div class="kpi-label">KPI</div><div class="kpi-item"><div class="kpi-dot"></div><div class="kpi-text" style="color:#9CA3AF;font-style:italic;">N/A</div></div></div>
+        <div class="timeline-section"><div class="timeline-chip">⏱ Week 1</div></div>
+        <div class="notes-section"><div class="notes-label">Note</div><div class="notes-text" style="color:#9CA3AF;font-style:italic;">N/A</div></div>
+      </div>
+      <div style="position:absolute;right:-13px;top:36px;z-index:10;"><svg width="26" height="26" viewBox="0 0 26 26" fill="none"><circle cx="13" cy="13" r="12" fill="white" stroke="#E5E7EB" stroke-width="1.5"/><path d="M9 13H17M17 13L14 10M17 13L14 16" stroke="#3B82F6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    </div>
+    <div class="stage-card s1" style="position:relative;">
+      <div class="stage-number"><div class="stage-badge">1</div><div><div class="stage-num-text">Stage 1</div><div class="stage-name">Global<br>Discovery</div></div></div>
+      <div class="stage-body">
+        <div class="stage-desc">Sourcing เปิดโลกค้นหา Manufacturer เพื่อสร้าง Raw Data รายชื่อเบื้องต้น</div>
+        <div class="kpi-section"><div class="kpi-label">KPI</div>
+          <div class="kpi-item"><div class="kpi-dot"></div><div class="kpi-text">Manufacture lists <strong>≥ 20</strong> raw</div></div>
+          <div class="kpi-item"><div class="kpi-dot"></div><div class="kpi-text">Coverage Multi-channels <strong>≥ 3</strong></div></div>
+          <div class="kpi-item"><div class="kpi-dot"></div><div class="kpi-text">Raw data recommend = <strong>100%</strong></div></div>
+        </div>
+        <div class="timeline-section"><div class="timeline-chip">⏱ Week 4</div></div>
+        <div class="notes-section"><div class="notes-label">Note</div>
+          <div style="margin-bottom:6px;"><div class="notes-text" style="font-weight:600;color:#374151;margin-bottom:2px;">Channel Type :</div>
+          <div class="notes-text">Exhibition Directory, Platform B2B, สมาคม (Associations) &amp; พันธมิตรทางธุรกิจ (Alliances), Community วิชาชีพ</div></div>
+          <div><div class="notes-text" style="font-weight:600;color:#374151;margin-bottom:2px;">Raw data recommend :</div>
+          <div class="notes-text">Manufacture Name, Country, Product list, Website &amp; specific Tier</div></div>
+        </div>
+      </div>
+      <div style="position:absolute;right:-13px;top:36px;z-index:10;"><svg width="26" height="26" viewBox="0 0 26 26" fill="none"><circle cx="13" cy="13" r="12" fill="white" stroke="#E5E7EB" stroke-width="1.5"/><path d="M9 13H17M17 13L14 10M17 13L14 16" stroke="#8B5CF6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    </div>
+    <div class="stage-card s2" style="position:relative;">
+      <div class="stage-number"><div class="stage-badge">2</div><div><div class="stage-num-text">Stage 2</div><div class="stage-name">Preliminary<br>Screening</div></div></div>
+      <div class="stage-body">
+        <div class="stage-desc">กรองเบื้องต้นด้วยเกณฑ์เพื่อคัด Manufacturer ที่ผ่านเกณฑ์ลงสู่ Preliminary List</div>
+        <div class="kpi-section"><div class="kpi-label">KPI</div>
+          <div class="kpi-item"><div class="kpi-dot"></div><div class="kpi-text">Preliminary lists <strong>≥ 10</strong></div></div>
+          <div class="kpi-item"><div class="kpi-dot"></div><div class="kpi-text"><strong>100%</strong> Passed Preliminary</div></div>
+        </div>
+        <div class="timeline-section"><div class="timeline-chip">⏱ Week 5</div></div>
+        <div class="notes-section"><div class="notes-label">Note</div>
+          <div><div class="notes-text" style="font-weight:600;color:#374151;margin-bottom:2px;">Manufacture qualification Preliminary :</div>
+          <div class="notes-text">Product scope, Manufacture Process standard, Eligibility of manufacture</div></div>
+        </div>
+      </div>
+      <div style="position:absolute;right:-13px;top:36px;z-index:10;"><svg width="26" height="26" viewBox="0 0 26 26" fill="none"><circle cx="13" cy="13" r="12" fill="white" stroke="#E5E7EB" stroke-width="1.5"/><path d="M9 13H17M17 13L14 10M17 13L14 16" stroke="#F59E0B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    </div>
+    <div class="stage-card s3" style="position:relative;">
+      <div class="stage-number"><div class="stage-badge">3</div><div><div class="stage-num-text">Stage 3</div><div class="stage-name">QCDS<br>Qualification</div></div></div>
+      <div class="stage-body">
+        <div class="stage-desc">ประเมินเชิงลึกด้วย Quality, Cost, Delivery, Service (QCDS)</div>
+        <div class="kpi-section"><div class="kpi-label">KPI</div>
+          <div class="kpi-item"><div class="kpi-dot"></div><div class="kpi-text">Vendor/Partner <strong>≥ 5</strong> ผ่าน QCDS</div></div>
+          <div class="kpi-item"><div class="kpi-dot"></div><div class="kpi-text"><strong>100%</strong> Passed Qualification</div></div>
+        </div>
+        <div class="timeline-section"><div class="timeline-chip">⏱ Week 11</div></div>
+        <div class="notes-section"><div class="notes-label">Note</div>
+          <div><div class="notes-text" style="font-weight:600;color:#374151;margin-bottom:2px;">Manufacture qualification Selection :</div>
+          <div class="notes-text">Quality, Cost, Delivery, and Service (QCDS)</div></div>
+        </div>
+      </div>
+      <div style="position:absolute;right:-13px;top:36px;z-index:10;"><svg width="26" height="26" viewBox="0 0 26 26" fill="none"><circle cx="13" cy="13" r="12" fill="white" stroke="#E5E7EB" stroke-width="1.5"/><path d="M9 13H17M17 13L14 10M17 13L14 16" stroke="#10B981" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    </div>
+    <div class="stage-card s4">
+      <div class="stage-number"><div class="stage-badge">4</div><div><div class="stage-num-text">Stage 4</div><div class="stage-name">Vendor<br>Registration</div></div></div>
+      <div class="stage-body">
+        <div class="stage-desc">บันทึก Qualified Vendor เข้า Database อย่างเป็นระบบ พร้อมใช้งานจริง</div>
+        <div class="kpi-section"><div class="kpi-label">KPI</div><div class="kpi-item"><div class="kpi-dot"></div><div class="kpi-text">Vendor DB <strong>≥ 3</strong>/Core Product</div></div></div>
+        <div class="timeline-section"><div class="timeline-chip">⏱ Week 12</div></div>
+        <div class="notes-section"><div class="notes-label">Note</div><div class="notes-text" style="color:#9CA3AF;font-style:italic;">N/A</div></div>
+      </div>
+    </div>
+  </div>
+  <div style="display:flex;margin-top:16px;border:1.5px solid #E5E7EB;border-radius:4px;overflow:hidden;">
+    <div style="flex:1;background:#F9FAFB;padding:7px;text-align:center;border-right:1px solid #E5E7EB;"><div style="font-size:9px;font-weight:700;color:#9CA3AF;text-transform:uppercase;">S0</div><div style="font-size:11px;font-weight:700;color:#6B7280;">W1</div></div>
+    <div style="flex:1;background:#EFF6FF;padding:7px;text-align:center;border-right:1px solid #E5E7EB;"><div style="font-size:9px;font-weight:700;color:#3B82F6;text-transform:uppercase;">S1</div><div style="font-size:11px;font-weight:700;color:#1D4ED8;">W2–4</div></div>
+    <div style="flex:1;background:#F5F3FF;padding:7px;text-align:center;border-right:1px solid #E5E7EB;"><div style="font-size:9px;font-weight:700;color:#8B5CF6;text-transform:uppercase;">S2</div><div style="font-size:11px;font-weight:700;color:#6D28D9;">W5</div></div>
+    <div style="flex:1;background:#FFFBEB;padding:7px;text-align:center;border-right:1px solid #E5E7EB;"><div style="font-size:9px;font-weight:700;color:#F59E0B;text-transform:uppercase;">S3</div><div style="font-size:11px;font-weight:700;color:#B45309;">W6–11</div></div>
+    <div style="flex:1;background:#ECFDF5;padding:7px;text-align:center;"><div style="font-size:9px;font-weight:700;color:#10B981;text-transform:uppercase;">S4</div><div style="font-size:11px;font-weight:700;color:#065F46;">W12</div></div>
+  </div>
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:#6B7280;"></div>S0: Demand Mapping</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#3B82F6;"></div>S1: Global Discovery</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#8B5CF6;"></div>S2: Preliminary Screening</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#F59E0B;"></div>S3: QCDS Qualification</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#10B981;"></div>S4: Vendor Registration</div>
+  </div>
+  <div class="bottom-note">TCS — Vendor Management Framework · 12 Weeks · Output: Qualified Vendor DB ≥ 3/Core Product</div>
+</div>
+
+<!-- ════════════ TAB 2: MASTER PLAN (READ-ONLY AUTO) ════════════ -->
+<div class="tab-panel" id="tab-masterplan">
+  <!-- Empty state -->
+  <div id="mp-empty">
+    <div class="mp-empty">
+      <div class="mp-empty-icon">📅</div>
+      <h3>Master Plan will appear here</h3>
+      <p id="mp-empty-desc">Business Unit ต้อง Submit Demand ใน Stage 0 ก่อน<br>จากนั้น Master Plan จะ Generate อัตโนมัติ ครบทุก Stage 0–4</p>
+      <!-- Business: show link to Stage 0 -->
+      <button id="mp-empty-biz-btn" class="btn btn-outline"
+        onclick="showTab('stage0', document.getElementById('btn-t3'))"
+        style="margin-top:8px;display:none;">
+        ✏️ Go to Stage 0 — Key in Demand
+      </button>
+    </div>
+  </div>
+  <!-- Generated content -->
+  <div id="mp-content" style="display:none;">
+    <!-- Role mode banner -->
+    <div id="mp-role-banner" style="margin-bottom:16px;display:none;"></div>
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
+      <div>
+        <h2 style="font-size:20px;font-weight:800;color:#111827;margin-bottom:3px;" id="mp-title">Master Plan</h2>
+        <p style="font-size:12px;color:#6B7280;" id="mp-subtitle">Auto-generated from Stage 0 input</p>
+      </div>
+      <div class="mp-actions" style="margin-bottom:0;" id="mp-action-bar">
+        <!-- Business only: edit + PDF -->
+        <span id="mp-edit-controls" style="display:none;gap:6px;align-items:center;">
+          <button class="btn btn-success" onclick="exportMasterPlanPDF()">📄 Export PDF</button>
+          <button class="btn" style="background:#F59E0B;color:#fff;border-color:#F59E0B;"
+            onclick="showTab('stage0', document.getElementById('btn-t3'))">
+            ✏️ Edit Demand →
+          </button>
+        </span>
+        <!-- Sourcing only: PDF (view) -->
+        <span id="mp-view-controls" style="display:none;gap:6px;align-items:center;">
+          <button class="btn btn-success" onclick="exportMasterPlanPDF()">📄 Export PDF</button>
+          <span style="font-size:10px;font-weight:600;color:#9CA3AF;padding:4px 10px;
+            background:#F3F4F6;border-radius:6px;border:1px solid #E5E7EB;">
+            👁 View Only
+          </span>
+        </span>
+      </div>
+    </div>
+    <!-- Brief banner -->
+    <div class="brief-banner" id="mp-brief"></div>
+    <!-- Products -->
+    <div class="products-section">
+      <h3>📦 Core Products in Scope</h3>
+      <div class="product-tags" id="mp-product-tags"></div>
+    </div>
+    <!-- Stage Summary -->
+    <div class="stage-summary" id="mp-stage-summary"></div>
+    <!-- Gantt -->
+    <div style="font-size:12px;font-weight:700;color:#374151;margin-bottom:10px;">📊 Gantt Chart — Full Process (Stage 0–4)</div>
+    <div class="gantt-wrap" id="mp-gantt"></div>
+    <div class="bottom-note" id="mp-footer"></div>
+  </div>
+</div>
+
+<!-- ════════════ TAB: LOCK SCREEN ════════════ -->
+<div class="tab-panel" id="tab-lock">
+  <div class="lock-screen">
+    <div class="lock-icon">🔐</div>
+    <h2>Admin Access Required</h2>
+    <p>Tab นี้สำหรับ Admin เท่านั้น<br>กรุณาใส่ Password เพื่อเข้าถึง Stage 0 — Demand Input</p>
+    <div class="lock-form">
+      <input type="password" class="lock-input" id="pwd-input" placeholder="Enter password" onkeydown="if(event.key==='Enter')checkPwd()">
+      <button class="lock-btn" onclick="checkPwd()">🔓 Unlock Admin Access</button>
+      <div class="lock-error" id="pwd-error"></div>
+      <div class="lock-hint">hint: TCS + current year</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════ TAB 3: STAGE 0 DEMAND FORM (ADMIN) ════════════ -->
+<div class="tab-panel" id="tab-stage0">
+  <div id="form-view">
+    <div class="form-page">
+      <div class="form-header">
+        <div class="step-badge">⚡ STAGE 0 — DEMAND MAPPING</div>
+        <h2>กำหนด Core Product &amp; Required Scope</h2>
+        <p>Business Unit กรอกข้อมูล Demand เพื่อเริ่ม Vendor Sourcing Process<br>ข้อมูลจะถูกส่งไปยัง Sourcing Team และสร้าง Master Plan อัตโนมัติ</p>
+      </div>
+      <!-- Info flow indicator -->
+      <div style="display:flex;align-items:center;justify-content:center;gap:0;background:#F9FAFB;border:1px solid #E5E7EB;border-radius:10px;padding:12px 20px;margin-bottom:22px;">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;">
+          <div style="width:32px;height:32px;border-radius:50%;background:#F59E0B;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff;">✏</div>
+          <div style="font-size:9px;font-weight:600;color:#6B7280;text-align:center;">Admin<br>Keys In</div>
+        </div>
+        <div style="flex:1;height:2px;background:linear-gradient(90deg,#F59E0B,#3B82F6);margin:0 6px;margin-bottom:12px;"></div>
+        <div style="width:0;height:0;border-top:4px solid transparent;border-bottom:4px solid transparent;border-left:7px solid #3B82F6;margin-bottom:12px;"></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;">
+          <div style="width:32px;height:32px;border-radius:50%;background:#3B82F6;display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;">👥</div>
+          <div style="font-size:9px;font-weight:600;color:#6B7280;text-align:center;">Sourcing<br>Receives</div>
+        </div>
+        <div style="flex:1;height:2px;background:linear-gradient(90deg,#3B82F6,#10B981);margin:0 6px;margin-bottom:12px;"></div>
+        <div style="width:0;height:0;border-top:4px solid transparent;border-bottom:4px solid transparent;border-left:7px solid #10B981;margin-bottom:12px;"></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;">
+          <div style="width:32px;height:32px;border-radius:50%;background:#10B981;display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;">📅</div>
+          <div style="font-size:9px;font-weight:600;color:#6B7280;text-align:center;">Master Plan<br>Auto-generated</div>
+        </div>
+      </div>
+
+      <!-- Section 1 -->
+      <div class="form-section">
+        <div class="form-section-title">📌 Project Information <span>Required</span></div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Project / Initiative Name <span class="req">*</span></label>
+            <input type="text" class="form-input" id="f-name" placeholder="เช่น TCS Power Distribution Vendor Build 2026">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Requested By (Business Unit) <span class="req">*</span></label>
+            <input type="text" class="form-input" id="f-bu" placeholder="เช่น Power Distribution BU">
+          </div>
+        </div>
+        <div class="form-row triple">
+          <div class="form-group">
+            <label class="form-label">Request Date</label>
+            <input type="date" class="form-input" id="f-reqdate">
+          </div>
+          <div class="form-group">
+            <label class="form-label">🚀 Process Start Date <span class="req">*</span></label>
+            <input type="date" class="form-input" id="f-startdate" onchange="previewTimeline()">
+            <div class="form-hint">วันเริ่ม Stage 0 — End Date คำนวณอัตโนมัติ (+12 weeks)</div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Priority Level</label>
+            <select class="form-select" id="f-priority">
+              <option value="Normal">🟢 Normal</option>
+              <option value="High">🟡 High</option>
+              <option value="Critical">🔴 Critical</option>
+            </select>
+          </div>
+        </div>
+        <div class="tl-preview" id="tl-preview">
+          <div class="tl-preview-title">⚡ Auto-calculated Timeline (+12 weeks from Start Date)</div>
+          <div class="tl-stages" id="tl-stages"></div>
+        </div>
+      </div>
+
+      <!-- Section 2 -->
+      <div class="form-section">
+        <div class="form-section-title">📦 Core Products <span>Required ≥ 1</span></div>
+        <div class="product-list" id="prod-list"></div>
+        <button class="add-prod-btn" onclick="addProduct()">＋ Add Core Product</button>
+        <div class="form-hint" style="margin-top:7px;">แต่ละ Product จะถูกแสดงใน Sourcing Dashboard และ Master Plan</div>
+      </div>
+
+      <!-- Section 3 -->
+      <div class="form-section">
+        <div class="form-section-title">🎯 Required Scope &amp; Constraints</div>
+        <div class="form-row single">
+          <div class="form-group">
+            <label class="form-label">Required Scope / Specification</label>
+            <textarea class="form-textarea" id="f-scope" placeholder="Scope ที่ต้องการ เช่น ประเทศต้นทาง, ขนาดบริษัท, มาตรฐาน, Tier..."></textarea>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Target Countries / Regions</label>
+            <input type="text" class="form-input" id="f-countries" placeholder="เช่น Thailand, China, Germany, Japan">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Preferred Certification / Standard</label>
+            <input type="text" class="form-input" id="f-cert" placeholder="เช่น ISO 9001, IEC 60947, CE, UL">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Min. Vendor Count per Product</label>
+            <select class="form-select" id="f-minv">
+              <option value="3">≥ 3 (Standard)</option>
+              <option value="5" selected>≥ 5 (Recommended)</option>
+              <option value="10">≥ 10 (Broad)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Additional Notes to Sourcing Team</label>
+            <input type="text" class="form-input" id="f-notes" placeholder="ข้อความพิเศษถึงทีม Sourcing...">
+          </div>
+        </div>
+      </div>
+
+      <div class="submit-zone">
+        <button class="submit-btn" onclick="submitDemand()">✅ Submit — Generate Master Plan &amp; Notify Sourcing Team</button>
+        <div class="submit-note">เมื่อ Submit: Master Plan จะ Generate อัตโนมัติใน Tab 2 ครบ Stage 0–4 · End Date = Start Date + 12 Weeks</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dashboard after submit -->
+  <div id="dash-view" style="display:none;">
+    <div class="success-box">
+      <h3>✅ Demand Submitted Successfully!</h3>
+      <p>Master Plan (Stage 0–4) ถูก Generate อัตโนมัติแล้ว · Sourcing Team ได้รับ Assignment</p>
+      <div class="success-actions">
+        <button class="btn btn-outline" onclick="resetForm()">📝 New Request</button>
+        <button class="btn" style="background:#F59E0B;color:#fff;border-color:#F59E0B;"
+          onclick="showTab('biz-dashboard', document.getElementById('btn-biz-dash'))">
+          📊 View Executive Dashboard →
+        </button>
+        <button class="btn" style="background:#3B82F6;color:#fff;border-color:#3B82F6;"
+          onclick="showTab('masterplan', document.getElementById('btn-t2'))"
+          id="btn-view-masterplan">
+          📅 View Master Plan →
+        </button>
+      </div>
+    </div>
+    <div class="dash-alert" id="d-alert"></div>
+    <div style="font-size:12px;font-weight:700;color:#374151;margin-bottom:10px;">📦 Products Queued for Sourcing</div>
+    <div class="product-cards" id="d-cards"></div>
+    <div class="tl-bar-section">
+      <div class="tl-bar-title">📅 Timeline at a Glance</div>
+      <div id="d-bars"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ════════ CONFIG ════════
+const ADMIN_PASSWORD = 'TCS2026';
+
+// Stage config — fixed 12-week process
+const STAGES = [
+  {id:'S0', name:'Demand Mapping',       wStart:1,  wEnd:1,  hex:'#6B7280', light:'#F9FAFB', bar:'linear-gradient(90deg,#9CA3AF,#6B7280)',
+   kpi:'N/A', milestone:'Core Product & Scope Defined'},
+  {id:'S1a',name:'Global Discovery',     wStart:2,  wEnd:4,  hex:'#3B82F6', light:'#EFF6FF', bar:'linear-gradient(90deg,#60A5FA,#3B82F6)',
+   kpi:'≥ 20 Manufacturer Raw List · ≥ 3 Channels · 100% Recommended', milestone:'Raw Manufacturer List Complete', parent:'S1'},
+  {id:'S1b',name:'  ↳ Channel Research', wStart:2,  wEnd:3,  hex:'#3B82F6', light:'#EFF6FF', bar:'linear-gradient(90deg,#93C5FD,#60A5FA)',
+   kpi:'Exhibition, B2B, Associations, Community', milestone:'', sub:true, parent:'S1'},
+  {id:'S1c',name:'  ↳ Raw Data Compile', wStart:4,  wEnd:4,  hex:'#3B82F6', light:'#EFF6FF', bar:'linear-gradient(90deg,#93C5FD,#60A5FA)',
+   kpi:'Manufacture Name, Country, Product list, Website & Tier', milestone:'', sub:true, parent:'S1'},
+  {id:'S2', name:'Preliminary Screening',wStart:5,  wEnd:5,  hex:'#8B5CF6', light:'#F5F3FF', bar:'linear-gradient(90deg,#A78BFA,#8B5CF6)',
+   kpi:'≥ 10 Preliminary Lists · 100% Passed Preliminary', milestone:'≥ 10 Preliminary Qualified'},
+  {id:'S3a',name:'QCDS Qualification',   wStart:6,  wEnd:11, hex:'#F59E0B', light:'#FFFBEB', bar:'linear-gradient(90deg,#FCD34D,#F59E0B)',
+   kpi:'≥ 5 Vendors pass QCDS · 100% Passed', milestone:'≥ 5 QCDS Passed', parent:'S3'},
+  {id:'S3b',name:'  ↳ Quality & Cost Eval',wStart:6,wEnd:8,  hex:'#F59E0B', light:'#FFFBEB', bar:'linear-gradient(90deg,#FDE68A,#FCD34D)',
+   kpi:'Document Review, Factory Audit', milestone:'', sub:true, parent:'S3'},
+  {id:'S3c',name:'  ↳ Delivery & Service Eval',wStart:9,wEnd:11,hex:'#F59E0B',light:'#FFFBEB',bar:'linear-gradient(90deg,#FDE68A,#FCD34D)',
+   kpi:'Lead Time Test, Support Assessment', milestone:'', sub:true, parent:'S3'},
+  {id:'S4', name:'Vendor Registration',  wStart:12, wEnd:12, hex:'#10B981', light:'#ECFDF5', bar:'linear-gradient(90deg,#34D399,#10B981)',
+   kpi:'Vendor/Partner DB ≥ 3 per Core Product', milestone:'Vendor DB Complete ✅'},
+];
+
+const PILLAR_COLORS = {
+  'Power Distribution':'#3B82F6','High Quality Power':'#8B5CF6',
+  'Energy Conservation':'#10B981','Renewable Energy':'#F59E0B','Power Quality':'#EF4444','Other':'#6B7280'
+};
+
+let masterPlanData = null;
+let products = [{id:1, name:'', pillar:'Power Distribution', scope:''}];
+let nextPid = 2;
+
+// ════════ HELPERS ════════
+function fmt(d){return d.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});}
+function fmtS(d){return d.toLocaleDateString('en-GB',{day:'2-digit',month:'short'});}
+function addDays(d,n){const r=new Date(d);r.setDate(r.getDate()+n);return r;}
+function weekStart(base,w){return addDays(base,(w-1)*7);}
+function weekEnd(base,w){return addDays(base,(w-1)*7+6);}
+
+// ════════ TABS ════════
+function showTab(name, btn) {
+  // Hide all panels, deactivate all tab buttons
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  const panel = document.getElementById('tab-' + name);
+  if (panel) panel.classList.add('active');
+  if (btn) btn.classList.add('active');
+  // Re-sync completeness bar whenever stage1 tab becomes visible
+  if (name === 'stage1') {
+    renderSourcingDemandContext();
+    setTimeout(updateArComplete, 50);
+  }
+  // Side effects per tab
+  if (name === 'biz-dashboard') setTimeout(refreshBizDashboard, 50);
+  if (name === 'masterplan' && currentRole) applyMasterPlanMode(currentRole);
+
+}
+
+// ════════ PASSWORD ════════
+function checkPwd(){
+  const v=document.getElementById('pwd-input').value;
+  const inp=document.getElementById('pwd-input');
+  const err=document.getElementById('pwd-error');
+  if(v===ADMIN_PASSWORD){
+    // unlock
+    document.getElementById('btn-t3').style.display='flex';
+    document.getElementById('btn-lock').style.display='none';
+    err.textContent='';
+    inp.value='';
+    showTab('stage0', document.getElementById('btn-t3'));
+    showToast('✅ Admin access granted');
+  } else {
+    inp.classList.add('error');
+    err.textContent='❌ รหัสผ่านไม่ถูกต้อง';
+    setTimeout(()=>inp.classList.remove('error'),400);
+    inp.value='';
+  }
+}
+
+function logout(e){
+  e.stopPropagation();
+  document.getElementById('btn-t3').style.display='none';
+  document.getElementById('btn-lock').style.display='flex';
+  document.getElementById('pwd-input').value='';
+  document.getElementById('pwd-error').textContent='';
+  showTab('process', document.getElementById('btn-t1'));
+  showToast('🔐 Logged out');
+}
+
+// ════════ TIMELINE PREVIEW ════════
+function previewTimeline(){
+  const v=document.getElementById('f-startdate').value;
+  if(!v){document.getElementById('tl-preview').classList.remove('on');return;}
+  const base=new Date(v+'T00:00:00');
+  const pts=[{l:'S0 W1',w:1,c:'#6B7280'},{l:'S1 W2–4',w:4,c:'#3B82F6'},{l:'S2 W5',w:5,c:'#8B5CF6'},{l:'S3 W6–11',w:11,c:'#F59E0B'},{l:'S4 W12',w:12,c:'#10B981'}];
+  document.getElementById('tl-stages').innerHTML=pts.map(p=>`
+    <div class="tl-s" style="background:${p.c}11;">
+      <div class="tl-s-name" style="color:${p.c};">${p.l}</div>
+      <div class="tl-s-date">${fmtS(weekStart(base,p.w))}</div>
+      <div class="tl-s-w">→ ${fmtS(weekEnd(base,p.w))}</div>
+    </div>`).join('');
+  document.getElementById('tl-preview').classList.add('on');
+}
+
+// ════════ PRODUCT LIST ════════
+function renderProducts(){
+  document.getElementById('prod-list').innerHTML=products.map((p,i)=>{
+    const col=PILLAR_COLORS[p.pillar]||'#6B7280';
+    return `<div class="product-item">
+      <span class="prod-num" style="background:${col}22;color:${col};">#${i+1}</span>
+      <input value="${p.name}" placeholder="Product name เช่น MV Switchgear, Solar Inverter..." oninput="products[${i}].name=this.value" style="flex:2;">
+      <select onchange="products[${i}].pillar=this.value;renderProducts()" style="flex:1;border:none;outline:none;font-size:11px;font-family:'Inter',sans-serif;color:${col};font-weight:600;background:transparent;cursor:pointer;">
+        ${Object.keys(PILLAR_COLORS).map(pl=>`<option value="${pl}"${pl===p.pillar?' selected':''}>${pl}</option>`).join('')}
+      </select>
+      <input value="${p.scope||''}" placeholder="Scope (optional)" oninput="products[${i}].scope=this.value" style="flex:2;font-size:11px;color:#6B7280;">
+      ${products.length>1?`<button class="prod-del" onclick="removeProduct(${p.id})">✕</button>`:''}
+    </div>`;
+  }).join('');
+}
+function addProduct(){products.push({id:nextPid++,name:'',pillar:'Power Distribution',scope:''});renderProducts();}
+function removeProduct(id){if(products.length<=1)return;products=products.filter(p=>p.id!==id);renderProducts();}
+
+// ════════ SUBMIT ════════
+function submitDemand(){
+  const name=document.getElementById('f-name').value.trim();
+  const bu=document.getElementById('f-bu').value.trim();
+  const startdate=document.getElementById('f-startdate').value;
+  const filled=products.filter(p=>p.name.trim());
+  if(!name){showToast('⚠ กรุณากรอก Project Name');return;}
+  if(!bu){showToast('⚠ กรุณากรอก Business Unit');return;}
+  if(!startdate){showToast('⚠ กรุณาเลือก Process Start Date');return;}
+  if(!filled.length){showToast('⚠ กรุณาเพิ่ม Core Product อย่างน้อย 1');return;}
+
+  const baseDate=new Date(startdate+'T00:00:00');
+  const endDate=addDays(baseDate,11*7+6); // W12 last day
+
+  const priority=document.getElementById('f-priority').value;
+  const scope=document.getElementById('f-scope').value;
+  const countries=document.getElementById('f-countries').value;
+  const cert=document.getElementById('f-cert').value;
+  const minv=document.getElementById('f-minv').value;
+  const notes=document.getElementById('f-notes').value;
+
+  masterPlanData={
+    projectName:name, bu, startDate:startdate, endDate:endDate.toISOString().slice(0,10),
+    priority, scope, countries, cert, minv, notes,
+    products:filled, baseDate:startdate, submittedAt:new Date().toISOString()
+  };
+  try { localStorage.setItem(MP_KEY, JSON.stringify(masterPlanData)); } catch(e){}
+
+  generateMasterPlan();
+  buildDashboard(endDate, baseDate, filled, name, bu, priority);
+
+  document.getElementById('form-view').style.display='none';
+  document.getElementById('dash-view').style.display='block';
+  // Show/hide master plan button based on role access
+  const mpBtn = document.getElementById('btn-view-masterplan');
+  if (mpBtn) {
+    const hasMPTab = document.getElementById('btn-t2') &&
+                     document.getElementById('btn-t2').style.display !== 'none';
+    mpBtn.style.display = hasMPTab ? 'inline-flex' : 'none';
+  }
+  showToast('✅ Master Plan Generated — Sourcing Team Assigned!');
+}
+
+// ════════ GENERATE MASTER PLAN ════════
+function generateMasterPlan(){
+  const D=masterPlanData;
+  const base=new Date(D.baseDate+'T00:00:00');
+  const endDate=new Date(D.endDate+'T00:00:00');
+  const TW=12;
+
+  // Show content, hide empty
+  document.getElementById('mp-empty').style.display='none';
+  document.getElementById('mp-content').style.display='block';
+  document.getElementById('mp-title').textContent=`Master Plan — ${D.projectName}`;
+  document.getElementById('mp-subtitle').textContent=`Auto-generated from Stage 0 · BU: ${D.bu} · Priority: ${D.priority} · Submitted: ${fmt(new Date(D.submittedAt))}`;
+
+  // Brief banner
+  document.getElementById('mp-brief').innerHTML=`
+    <div class="brief-banner-title">📥 Stage 0 Input — ${D.projectName}</div>
+    <div class="brief-grid">
+      <div class="brief-chip"><div class="brief-chip-label">Business Unit</div><div class="brief-chip-value">${D.bu}</div></div>
+      <div class="brief-chip"><div class="brief-chip-label">Start Date (W1)</div><div class="brief-chip-value">${fmt(base)}</div><div class="brief-chip-sub">S0 Demand Mapping begins</div></div>
+      <div class="brief-chip"><div class="brief-chip-label">End Date (W12)</div><div class="brief-chip-value">${fmt(endDate)}</div><div class="brief-chip-sub">Vendor DB complete</div></div>
+      <div class="brief-chip"><div class="brief-chip-label">Total Duration</div><div class="brief-chip-value">12 Weeks</div><div class="brief-chip-sub">Fixed process</div></div>
+      <div class="brief-chip"><div class="brief-chip-label">Priority</div><div class="brief-chip-value">${D.priority}</div></div>
+      <div class="brief-chip"><div class="brief-chip-label">Core Products</div><div class="brief-chip-value">${D.products.length} Products</div><div class="brief-chip-sub">${D.products.map(p=>p.name).join(', ')}</div></div>
+      ${D.countries?`<div class="brief-chip"><div class="brief-chip-label">Target Countries</div><div class="brief-chip-value">${D.countries}</div></div>`:''}
+      ${D.cert?`<div class="brief-chip"><div class="brief-chip-label">Certification</div><div class="brief-chip-value">${D.cert}</div></div>`:''}
+      ${D.scope?`<div class="brief-chip" style="grid-column:1/-1;"><div class="brief-chip-label">Required Scope</div><div class="brief-chip-value" style="font-size:11px;font-weight:400;color:#374151;">${D.scope}</div></div>`:''}
+    </div>`;
+
+  // Product tags
+  document.getElementById('mp-product-tags').innerHTML=D.products.map(p=>{
+    const c=PILLAR_COLORS[p.pillar]||'#6B7280';
+    return `<div class="product-tag" style="background:${c}18;color:${c};border-color:${c}44;">
+      <span style="font-size:10px;">●</span>${p.name} <span style="font-size:9.5px;opacity:.7;">[${p.pillar}]</span>
+    </div>`;
+  }).join('');
+
+  // Stage summary cards — S0,S1,S2,S3,S4 only (main stages)
+  const mainStages=[
+    {id:'S0',name:'Demand Mapping',    wS:1,  wE:1,  hex:'#6B7280',border:'#D1D5DB',light:'#F9FAFB',kpi:'N/A',ms:'Scope & Product Defined'},
+    {id:'S1',name:'Global Discovery',  wS:2,  wE:4,  hex:'#3B82F6',border:'#BFDBFE',light:'#EFF6FF',kpi:'≥ 20 Manufacturer Raw List',ms:'Raw List Complete'},
+    {id:'S2',name:'Preliminary Screening',wS:5,wE:5, hex:'#8B5CF6',border:'#DDD6FE',light:'#F5F3FF',kpi:'≥ 10 Preliminary Qualified',ms:'Prelim List Ready'},
+    {id:'S3',name:'QCDS Qualification',wS:6,  wE:11, hex:'#F59E0B',border:'#FDE68A',light:'#FFFBEB',kpi:'≥ 5 QCDS Passed',ms:'Vendors Qualified'},
+    {id:'S4',name:'Vendor Registration',wS:12,wE:12, hex:'#10B981',border:'#6EE7B7',light:'#ECFDF5',kpi:'DB ≥ 3/Core Product',ms:'DB Complete ✅'},
+  ];
+  document.getElementById('mp-stage-summary').innerHTML=mainStages.map(s=>`
+    <div class="ss-card" style="background:${s.light};border-color:${s.border};">
+      <div class="ss-stage" style="color:${s.hex};">${s.id}</div>
+      <div class="ss-name">${s.name}</div>
+      <div class="ss-dates" style="color:${s.hex};">${fmtS(weekStart(base,s.wS))} – ${fmtS(weekEnd(base,s.wE))}</div>
+      <div class="ss-weeks">W${s.wS}${s.wS!==s.wE?'–'+s.wE:''} · ${s.wE-s.wS+1}w</div>
+      <div class="ss-kpi" style="color:${s.hex};border-color:${s.border};">📌 ${s.kpi}</div>
+    </div>`).join('');
+
+  // Gantt — full 12 weeks, all rows
+  let hdr='<th class="label-th">Stage / Task</th>';
+  for(let w=1;w<=TW;w++){
+    hdr+=`<th>W${w}<br><span style="font-weight:400;font-size:7.5px;">${fmtS(weekStart(base,w))}</span></th>`;
+  }
+
+  // Build product sub-rows for S1
+  const prodRows=D.products.length>1?D.products.map((p,i)=>{
+    const c=PILLAR_COLORS[p.pillar]||'#6B7280';
+    let cells='';
+    for(let w=1;w<=TW;w++){
+      if(w>=2&&w<=4){
+        const br=w===2&&w===4?'4px':w===2?'4px 0 0 4px':w===4?'0 4px 4px 0':'0';
+        cells+=`<td style="background:#EFF6FF;"><div class="g-bar sub" style="background:${c};border-radius:${br};opacity:.6;"></div></td>`;
+      }else cells+=`<td></td>`;
+    }
+    return `<tr>
+      <td class="label-td" style="padding-left:22px;">
+        <div class="t-stage" style="color:${c};">↳ S1 Product #${i+1}</div>
+        <div class="t-name" style="font-size:10.5px;color:#374151;">${p.name}</div>
+        <div class="t-kpi">${p.scope||p.pillar}</div>
+      </td>${cells}</tr>`;
+  }).join(''):'';
+
+  let rows='';
+  STAGES.forEach(s=>{
+    let cells='';
+    for(let w=1;w<=TW;w++){
+      if(w>=s.wStart&&w<=s.wEnd){
+        const br=w===s.wStart&&w===s.wEnd?'4px':w===s.wStart?'4px 0 0 4px':w===s.wEnd?'0 4px 4px 0':'0';
+        cells+=`<td style="background:${s.light};"><div class="${s.sub?'g-bar sub':'g-bar'}" style="background:${s.bar};border-radius:${br};"></div></td>`;
+      }else cells+=`<td></td>`;
+    }
+    const stageLabel=s.id.replace(/[abc]/,'');
+    rows+=`<tr>
+      <td class="label-td" ${s.sub?'style="padding-left:20px;"':''}>
+        <div class="t-stage" style="color:${s.hex};">${s.sub?'':stageLabel+' — '}${s.id}</div>
+        <div class="t-name" ${s.sub?'style="font-size:10.5px;"':''}>${s.name}</div>
+        <div class="t-date">${fmtS(weekStart(base,s.wStart))} – ${fmtS(weekEnd(base,s.wEnd))}</div>
+        ${s.kpi&&!s.sub?`<div class="t-kpi">${s.kpi}</div>`:''}
+      </td>${cells}</tr>`;
+    // inject product sub-rows after S1a
+    if(s.id==='S1a'&&D.products.length>1) rows+=prodRows;
+  });
+
+  document.getElementById('mp-gantt').innerHTML=`<table class="gantt"><thead><tr>${hdr}</tr></thead><tbody>${rows}</tbody></table>`;
+  document.getElementById('mp-footer').textContent=`TCS — ${D.projectName} · Start: ${fmt(base)} · End: ${fmt(endDate)} · 12 Weeks · Generated: ${fmt(new Date())}`;
+  document.getElementById('mp-badge').textContent='GENERATED';
+  document.getElementById('mp-badge').className='tab-badge badge-green';
+}
+
+// ════════ SOURCING DASHBOARD ════════
+function buildDashboard(target, base, prods, name, bu, priority){
+  document.getElementById('d-alert').innerHTML=`⚠ New demand from <strong>${bu}</strong> — <strong>${prods.length} product(s)</strong> — Start: <strong>${fmt(base)}</strong> → End: <strong>${fmt(target)}</strong> — Priority: <strong>${priority}</strong>`;
+  document.getElementById('d-cards').innerHTML=prods.map(p=>{
+    const c=PILLAR_COLORS[p.pillar]||'#6B7280';
+    return `<div class="pc">
+      <div class="pc-header"><div class="pc-name">${p.name}</div><div class="pc-pillar" style="background:${c}22;color:${c};">${p.pillar}</div></div>
+      <div class="pc-scope">${p.scope||'No scope specified'}</div>
+      <div class="pc-footer"><div class="pc-deadline">✅ Due: ${fmt(target)}</div><div class="pc-pending">Pending S1</div></div>
+    </div>`;
+  }).join('');
+
+  const bars=[
+    {l:'S0 Demand',w:1,pct:8,c:'#6B7280'},{l:'S1 Discovery',w:4,pct:25,c:'#3B82F6'},
+    {l:'S2 Screening',w:5,pct:8,c:'#8B5CF6'},{l:'S3 QCDS',w:11,pct:50,c:'#F59E0B'},
+    {l:'S4 Register',w:12,pct:9,c:'#10B981'}
+  ];
+  document.getElementById('d-bars').innerHTML=bars.map(b=>`
+    <div class="tl-bar-row">
+      <div class="tl-bar-label" style="color:${b.c};">${b.l}</div>
+      <div class="tl-bar-wrap"><div class="tl-bar-fill" style="width:${b.pct}%;background:${b.c};"></div></div>
+      <div class="tl-bar-date">${fmtS(weekStart(base,b.w))}</div>
+    </div>`).join('');
+}
+
+// ════════ RESET FORM ════════
+function resetForm(){
+  document.getElementById('form-view').style.display='block';
+  document.getElementById('dash-view').style.display='none';
+  ['f-name','f-bu','f-scope','f-countries','f-cert','f-notes'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('f-startdate').value='';
+  document.getElementById('tl-preview').classList.remove('on');
+  products=[{id:1,name:'',pillar:'Power Distribution',scope:''}];
+  nextPid=2;
+  renderProducts();
+}
+
+// ════════ EXPORT ════════
+// ─── Export Master Plan as PDF (print-to-PDF, offline-safe) ───
+function exportMasterPlanPDF(){
+  if(!masterPlanData){ showToast('⚠ ยังไม่มี Master Plan'); return; }
+  const content = document.getElementById('mp-content');
+  if(!content){ showToast('⚠ ไม่พบเนื้อหา Master Plan'); return; }
+
+  // Clone master plan content, strip action buttons (Export/Edit) from the print copy
+  const clone = content.cloneNode(true);
+  ['mp-action-bar','mp-role-banner'].forEach(id=>{
+    const el = clone.querySelector('#'+id); if(el) el.remove();
+  });
+
+  const proj = masterPlanData.projectName || 'Master Plan';
+  const dateStr = new Date().toLocaleDateString('en-GB');
+  const win = window.open('', '_blank');
+  if(!win){ showToast('⚠ Popup ถูกบล็อก — อนุญาต popup เพื่อ Export PDF'); return; }
+
+  win.document.write(`<!DOCTYPE html><html><head><meta charset="utf-8">
+    <title>Master Plan — ${proj}</title>
+    <style>
+      *{box-sizing:border-box;}
+      body{font-family:'Segoe UI',Arial,sans-serif;color:#111827;margin:28px;}
+      .pdf-head{border-bottom:2px solid #1D4ED8;padding-bottom:10px;margin-bottom:18px;}
+      .pdf-head h1{font-size:20px;margin:0 0 4px;color:#111827;}
+      .pdf-head .meta{font-size:11px;color:#6B7280;}
+      table{border-collapse:collapse;width:100%;font-size:11px;margin:8px 0 16px;}
+      th,td{border:1px solid #D1D5DB;padding:6px 8px;text-align:left;vertical-align:top;}
+      th{background:#F3F4F6;font-weight:700;}
+      h2,h3{color:#1D4ED8;}
+      .gantt td,.gantt th{font-size:9px;text-align:center;padding:3px;}
+      img{max-width:100%;}
+      @media print{ @page{margin:14mm;} body{margin:0;} }
+    </style></head><body>
+    <div class="pdf-head">
+      <h1>📋 Master Plan — ${proj}</h1>
+      <div class="meta">BU: ${masterPlanData.bu||'—'} · Priority: ${masterPlanData.priority||'—'} · Exported: ${dateStr}</div>
+    </div>
+    ${clone.innerHTML}
+    <script>window.onload=function(){setTimeout(function(){window.print();},300);};<\/script>
+  </body></html>`);
+  win.document.close();
+  showToast('📄 เปิดหน้าต่าง PDF — เลือก "Save as PDF" ในกล่อง Print');
+}
+
+// ════════ TOAST ════════
+function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2600);}
+
+
+
+// ═══════════════════════════════════════════
+// RBAC — Role-Based Access Control System
+// ═══════════════════════════════════════════
+// Role passwords — Business & Sourcing require a password; Viewer is open.
+const RBAC_PASSWORDS = {
+  business: 'BIZ2026',
+  sourcing: 'SRC2026',
+};
+
+// Roles that need a password
+const RBAC_NEEDS_PWD = ['business', 'sourcing'];
+
+// What each role can see (tab IDs)
+const RBAC_TABS = {
+  // Business: Exec Dashboard (default) + Stage 0 (key-in) + Master Plan (view & edit)
+  business: ['btn-biz-dash', 'btn-t3', 'btn-t2'],
+  // Sourcing: Process Overview + Master Plan (view only) + Stage 1 (key-in & upload)
+  sourcing: ['btn-t1', 'btn-t2', 'btn-t4'],
+  // Other: Process Overview + Executive Dashboard (read-only)
+  other:    ['btn-t1', 'btn-biz-dash'],
+};
+
+// What each role sees in Stage 0 after admin unlock
+// business: sees full Stage 0 form (keys in demand) + status dashboard
+// sourcing: sees Stage 0 READ-ONLY (master plan preview from Admin) — handled via tab-masterplan
+
+let currentRole = null;
+let selectedRoleTemp = null;
+
+function selectRole(role) {
+  selectedRoleTemp = role;
+  // Highlight selected
+  document.querySelectorAll('.rbac-role-btn').forEach(b => b.classList.remove('selected'));
+  const map = {business:'role-business', sourcing:'role-sourcing', other:'role-other'};
+  document.querySelector('.'+map[role]).classList.add('selected');
+
+  const pwdArea = document.getElementById('rbac-pwd-area');
+  const pwdLabel = document.getElementById('rbac-pwd-label');
+  const hintEl = document.getElementById('rbac-pwd-hint');
+  const errEl = document.getElementById('rbac-pwd-err');
+  const inp = document.getElementById('rbac-pwd-input');
+  if (errEl) errEl.textContent = '';
+  if (inp) { inp.classList.remove('err'); inp.value = ''; }
+
+  if (RBAC_NEEDS_PWD.includes(role)) {
+    if (pwdArea) pwdArea.classList.add('show');
+    if (pwdLabel) pwdLabel.textContent = role === 'business' ? 'Business Password' : 'Sourcing Password';
+    if (inp) inp.focus();
+    document.getElementById('rbac-enter-btn').textContent = 'Enter Portal →';
+    if (hintEl) {
+      const hints = { business: 'รหัสสำหรับ Business Access', sourcing: 'รหัสสำหรับ Sourcing Access' };
+      hintEl.textContent = hints[role] || '';
+      hintEl.style.display = 'block';
+    }
+  } else {
+    if (pwdArea) pwdArea.classList.remove('show');
+    if (hintEl) hintEl.style.display = 'none';
+    document.getElementById('rbac-enter-btn').textContent = 'Enter as Viewer →';
+  }
+}
+
+function rbacLogin() {
+  if (!selectedRoleTemp) {
+    // Flash all buttons
+    document.querySelectorAll('.rbac-role-btn').forEach(b => {
+      b.style.borderColor = '#EF4444';
+      setTimeout(() => b.style.borderColor = '', 600);
+    });
+    return;
+  }
+  if (RBAC_NEEDS_PWD.includes(selectedRoleTemp)) {
+    const pwd = document.getElementById('rbac-pwd-input').value;
+    if (pwd !== RBAC_PASSWORDS[selectedRoleTemp]) {
+      const inp = document.getElementById('rbac-pwd-input');
+      inp.classList.add('err');
+      document.getElementById('rbac-pwd-err').textContent = '❌ รหัสผ่านไม่ถูกต้อง';
+      inp.value = '';
+      setTimeout(() => { inp.classList.remove('err'); }, 500);
+      return;
+    }
+  }
+  applyRole(selectedRoleTemp);
+}
+
+function applyRole(role) {
+  currentRole = role;
+  // Hide overlay
+  document.getElementById('rbac-overlay').style.display = 'none';
+
+  // Clear any active tab panels first (prevent stale active state)
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+
+  // Show only tabs allowed for this role, hide all others
+  const allTabBtns = ['btn-t1','btn-t2','btn-t3','btn-t4','btn-lock','btn-biz-dash'];
+  allTabBtns.forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.style.display = RBAC_TABS[role].includes(id) ? 'flex' : 'none';
+  });
+
+  // Show role badge
+  const badge = document.getElementById('rbac-role-badge');
+  badge.classList.add('show');
+  const config = {
+    business: { label:'📊 Business', bg:'#EFF6FF', color:'#1D4ED8', border:'#BFDBFE' },
+    sourcing: { label:'🔍 Sourcing', bg:'#ECFDF5', color:'#065F46', border:'#6EE7B7' },
+    other:    { label:'👁 Viewer',   bg:'#F3F4F6', color:'#374151', border:'#D1D5DB' },
+  };
+  const c = config[role];
+  badge.textContent = c.label;
+  badge.style.background = c.bg;
+  badge.style.color = c.color;
+  badge.style.borderColor = c.border;
+  document.getElementById('rbac-logout-btn').style.display = 'inline-flex';
+
+  // Navigate to default tab based on role
+  if (role === 'business') {
+    bizAutoUnlockAdmin(); // make Stage 0 form functional (no second password)
+    applyMasterPlanMode('business'); // Master Plan: View + Edit mode
+    showTab('biz-dashboard', document.getElementById('btn-biz-dash'));
+    setTimeout(refreshBizDashboard, 80);
+  } else if (role === 'sourcing') {
+    applyMasterPlanMode('sourcing'); // Master Plan: View only
+    showTab('process', document.getElementById('btn-t1'));
+    applyS1SourcingView();
+  } else {
+    showTab('process', document.getElementById('btn-t1'));
+  }
+}
+
+function applyS1SourcingView() {
+  // Sourcing can fully use Stage 1 — ensure all controls visible
+  // Add a sourcing welcome banner if not already there
+  const s1header = document.querySelector('.s1tab-header');
+  if (s1header && !document.getElementById('sourcing-welcome-banner')) {
+    const banner = document.createElement('div');
+    banner.id = 'sourcing-welcome-banner';
+    banner.style.cssText = 'background:linear-gradient(135deg,#ECFDF5,#D1FAE5);border:1.5px solid #6EE7B7;border-radius:10px;padding:12px 18px;margin-bottom:18px;display:flex;align-items:center;gap:10px;';
+    banner.innerHTML = '<span style="font-size:18px;">🔍</span><div><div style="font-size:10px;font-weight:700;color:#10B981;letter-spacing:1px;text-transform:uppercase;margin-bottom:2px;">Sourcing Access</div><div style="font-size:12.5px;color:#065F46;font-weight:600;">คุณมีสิทธิ์ Key-in Manufacturer · อัปโหลด Product Lists · ดู Master Plan ได้ครบ</div></div>';
+    s1header.parentNode.insertBefore(banner, s1header);
+  }
+}
+
+function injectStatusBannerForOther() {
+  const processPanel = document.getElementById('tab-process');
+  if (processPanel && !document.getElementById('other-status-banner')) {
+    const banner = document.createElement('div');
+    banner.id = 'other-status-banner';
+    banner.style.cssText = 'background:#F9FAFB;border:1.5px solid #E5E7EB;border-radius:10px;padding:14px 18px;margin-bottom:22px;display:flex;align-items:center;gap:12px;';
+    banner.innerHTML = `<span style="font-size:22px;">👁</span>
+    <div style="flex:1;">
+      <div style="font-size:10px;font-weight:700;color:#9CA3AF;letter-spacing:1px;text-transform:uppercase;margin-bottom:5px;">View Only Access — Process Status</div>
+      <div style="display:flex;gap:16px;flex-wrap:wrap;">
+        <div style="font-size:12px;color:#374151;"><span style="font-weight:700;">Stage:</span> <span id="status-current-stage" style="color:#3B82F6;font-weight:700;">Waiting for Demand</span></div>
+        <div style="font-size:12px;color:#374151;"><span style="font-weight:700;">Project:</span> <span id="status-project-name" style="color:#374151;">—</span></div>
+        <div style="font-size:12px;color:#374151;"><span style="font-weight:700;">Progress:</span> <span id="status-progress" style="color:#10B981;font-weight:700;">—</span></div>
+      </div>
+    </div>`;
+    // Insert at top of process panel content
+    const header = processPanel.querySelector('.header');
+    if (header) processPanel.insertBefore(banner, header);
+    else processPanel.prepend(banner);
+    // Populate with real data if available
+    refreshOtherStatusBanner();
+  }
+}
+
+function refreshOtherStatusBanner() {
+  const el = document.getElementById('status-current-stage');
+  const pn = document.getElementById('status-project-name');
+  const pr = document.getElementById('status-progress');
+  if (!masterPlanData) {
+    if (el) el.textContent = 'Waiting for Demand';
+    if (pn) pn.textContent = '—';
+    if (pr) pr.textContent = '—';
+    return;
+  }
+  if (el) el.textContent = 'Stage 1 — Global Discovery (Active)';
+  if (pn) pn.textContent = masterPlanData.projectName || '—';
+  const mCount = manufacturers.length;
+  if (pr) pr.textContent = mCount + '/20 Manufacturers · ' + (new Set(manufacturers.map(m=>m.source).filter(Boolean)).size) + ' Channels';
+}
+
+// Show what Business requested, at the top of the Sourcing tab (information flow: Business → Sourcing)
+function renderSourcingDemandContext() {
+  const box = document.getElementById('s1-demand-context');
+  if (!box) return;
+  if (!masterPlanData) {
+    box.style.display = 'none';
+    return;
+  }
+  const D = masterPlanData;
+  const prods = (D.products||[]).map(p =>
+    `<span style="display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:14px;font-size:10.5px;font-weight:600;background:#fff;color:#1D4ED8;border:1px solid #BFDBFE;">${p.name||'—'}<span style="font-size:8.5px;opacity:.65;">${p.pillar||''}</span></span>`
+  ).join(' ') || '<span style="font-size:11px;color:#9CA3AF;">—</span>';
+  const dueLabel = D.endDate ? new Date(D.endDate+'T00:00:00').toLocaleDateString('en-GB') : '—';
+  const cell = (label,val) => `<div><div style="font-size:8.5px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:#6B7280;margin-bottom:2px;">${label}</div><div style="font-size:11.5px;color:#111827;font-weight:600;">${val||'—'}</div></div>`;
+  box.style.display = 'block';
+  box.innerHTML = `
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+      <span style="font-size:16px;">📥</span>
+      <div style="font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#1D4ED8;">Demand from Business · Stage 0 Input</div>
+      <span style="margin-left:auto;font-size:9.5px;color:#6B7280;">Due: <strong style="color:#1D4ED8;">${dueLabel}</strong></span>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px 16px;margin-bottom:10px;">
+      ${cell('Project', D.projectName)}
+      ${cell('BU', D.bu)}
+      ${cell('Priority', D.priority)}
+      ${cell('Target Countries', D.countries)}
+      ${cell('Scope', D.scope)}
+      ${cell('Certification', D.cert)}
+      ${cell('Min Volume', D.minv)}
+      ${cell('Core Products', (D.products||[]).length + ' รายการ')}
+    </div>
+    <div style="border-top:1px dashed #BFDBFE;padding-top:9px;">
+      <div style="font-size:8.5px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:#6B7280;margin-bottom:5px;">Core Products to Source</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;">${prods}</div>
+    </div>`;
+}
+
+function rbacLogout() {
+  currentRole = null;
+  selectedRoleTemp = null;
+
+  // Hide all tabs first
+  ['btn-t1','btn-t2','btn-t3','btn-t4','btn-lock','btn-biz-dash'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = 'none';
+  });
+
+  // Reset overlay UI
+  document.querySelectorAll('.rbac-role-btn').forEach(b => {
+    b.classList.remove('selected');
+    b.style.borderColor = '';
+  });
+  const pwdArea = document.getElementById('rbac-pwd-area');
+  if (pwdArea) pwdArea.classList.remove('show');
+  const pwdInput = document.getElementById('rbac-pwd-input');
+  if (pwdInput) { pwdInput.value = ''; pwdInput.classList.remove('err'); }
+  const pwdErr = document.getElementById('rbac-pwd-err');
+  if (pwdErr) pwdErr.textContent = '';
+  const hintEl = document.getElementById('rbac-pwd-hint');
+  if (hintEl) hintEl.style.display = 'none';
+  const enterBtn = document.getElementById('rbac-enter-btn');
+  if (enterBtn) enterBtn.textContent = 'Enter Portal';
+
+  // Hide badge & logout
+  const badge = document.getElementById('rbac-role-badge');
+  if (badge) badge.classList.remove('show');
+  const logoutBtn = document.getElementById('rbac-logout-btn');
+  if (logoutBtn) logoutBtn.style.display = 'none';
+
+  // Show overlay — user returns to login screen automatically
+  document.getElementById('rbac-overlay').style.display = 'flex';
+}
+
+
+// ════════ INIT moved to end of script (after all declarations) ════════
+
+
+
+// ════════════════════════════════════════════
+// STAGE 1 — GLOBAL DISCOVERY (ACCUMULATE MODE)
+// ════════════════════════════════════════════
+const S1_KEY = 'tcs_s1_manufacturers';
+const S1_FILES_KEY = 'tcs_s1_files';
+const S1_CH_KEY = 'tcs_s1_channels';
+const S1_SESSIONS_KEY = 'tcs_s1_sessions';
+const MP_KEY = 'tcs_masterplan';   // persists Business demand → survives reload
+// Bump this string on each production deploy to force a one-time clean start (wipes old/test data).
+const DATA_VERSION = 'prod-2026-06-14-r1';
+
+let manufacturers = [];
+let uploadedFiles = [];
+let checkedChannels = new Set();
+let mfrIdCounter = 1;
+let s1Sessions = []; // [{date, added, sessionId}]
+let currentSessionId = '';
+let currentSessionAdded = 0;
+
+const TIER_CLASS = {'Tier 1':'tier-1','Tier 2':'tier-2','Tier 3':'tier-3'};
+const COUNTRY_FLAG = {'Thailand':'🇹🇭','China':'🇨🇳','Japan':'🇯🇵','Germany':'🇩🇪','USA':'🇺🇸','France':'🇫🇷','UK':'🇬🇧','Korea':'🇰🇷','Taiwan':'🇹🇼','India':'🇮🇳','Italy':'🇮🇹','Sweden':'🇸🇪'};
+
+function countryFlag(c){ return COUNTRY_FLAG[c]||'🌍'; }
+
+// Safe day key for a manufacturer (guards legacy/malformed records without addedAt)
+function mfrDay(m){
+  if (m && m.session) return String(m.session).slice(0,10);
+  if (m && m.addedAt) return String(m.addedAt).slice(0,10);
+  return new Date().toISOString().slice(0,10);
+}
+
+// ─── Persistent save/load ───
+function s1Save(){
+  try{
+    localStorage.setItem(S1_KEY, JSON.stringify(manufacturers));
+    localStorage.setItem(S1_FILES_KEY, JSON.stringify(uploadedFiles.map(u=>({name:u.name,size:u.size,ext:u.ext,status:u.status,uploadedAt:u.uploadedAt}))));
+    localStorage.setItem(S1_CH_KEY, JSON.stringify([...checkedChannels]));
+    localStorage.setItem(S1_SESSIONS_KEY, JSON.stringify(s1Sessions));
+    mfrIdCounter = manufacturers.length ? Math.max(...manufacturers.map(m=>m.id))+1 : 1;
+  }catch(e){}
+}
+
+function s1Load(){
+  try{
+    const m = localStorage.getItem(S1_KEY);
+    if(m){ manufacturers = JSON.parse(m); mfrIdCounter = manufacturers.length ? Math.max(...manufacturers.map(x=>x.id))+1 : 1; }
+    const fi = localStorage.getItem(S1_FILES_KEY);
+    if(fi){ uploadedFiles = JSON.parse(fi); }
+    const ch = localStorage.getItem(S1_CH_KEY);
+    if(ch){ checkedChannels = new Set(JSON.parse(ch)); }
+    const se = localStorage.getItem(S1_SESSIONS_KEY);
+    if(se){ s1Sessions = JSON.parse(se); }
+  }catch(e){}
+}
+
+function initSession(){
+  const today = new Date().toISOString().slice(0,10);
+  currentSessionId = today;
+  const existing = s1Sessions.find(s=>s.date===today);
+  if(!existing){ s1Sessions.push({date:today, added:0, files:0}); s1Save(); }
+  updateSessionLabel();
+}
+
+function updateSessionLabel(){
+  const today = new Date().toISOString().slice(0,10);
+  const sess = s1Sessions.find(s=>s.date===today);
+  const addedToday = sess ? sess.added : 0;
+  document.getElementById('s1-session-label').textContent =
+    today + ' · Added today: ' + addedToday + ' · Total: ' + manufacturers.length;
+}
+
+function recordSessionAdd(count=1, files=0){
+  const today = new Date().toISOString().slice(0,10);
+  let sess = s1Sessions.find(s=>s.date===today);
+  if(!sess){ sess={date:today,added:0,files:0}; s1Sessions.push(sess); }
+  sess.added += count;
+  sess.files += files;
+  s1Save();
+  updateSessionLabel();
+}
+
+// ─── Toggle channel ───
+function toggleChannel(el, name){
+  el.classList.toggle('checked');
+  if(el.classList.contains('checked')) checkedChannels.add(name);
+  else checkedChannels.delete(name);
+  s1Save();
+  updateKPIs();
+}
+
+// ─── Raw data completeness checker ───
+const AR_REQUIRED = ['ar-name','ar-country','ar-web','ar-contact','ar-category','ar-tier','ar-source'];
+const AR_LABELS = {
+  'ar-name':'Manufacture Name','ar-country':'Country','ar-web':'Website',
+  'ar-contact':'Contact / Email','ar-category':'Product Category',
+  'ar-tier':'Tier','ar-source':'Discovery Source'
+};
+
+function updateArComplete() {
+  const filled = AR_REQUIRED.filter(id => {
+    const el = document.getElementById(id);
+    return el && el.value.trim() !== '';
+  });
+  const pct = Math.round(filled.length / AR_REQUIRED.length * 100);
+  const ready = (pct === 100);
+
+  const bar   = document.getElementById('ar-complete-bar');
+  const pctEl = document.getElementById('ar-complete-pct');
+  const btn   = document.getElementById('ar-submit-btn');
+  const msg   = document.getElementById('ar-validation-msg');
+
+  if (bar) {
+    bar.style.width      = pct + '%';
+    bar.style.background = ready ? '#10B981' : pct >= 60 ? '#F59E0B' : '#EF4444';
+  }
+  if (pctEl) {
+    pctEl.textContent  = pct + '%';
+    pctEl.style.color  = ready ? '#10B981' : pct >= 60 ? '#F59E0B' : '#EF4444';
+  }
+
+  if (btn) {
+    if (ready) {
+      btn.disabled              = false;
+      btn.style.background      = '#10B981';
+      btn.style.color           = '#fff';
+      btn.style.borderColor     = '#10B981';
+      btn.style.cursor          = 'pointer';
+      btn.style.opacity         = '1';
+      btn.style.pointerEvents   = 'auto';
+      btn.textContent           = '✅ Submit Entry';
+    } else {
+      btn.disabled              = true;
+      btn.style.background      = '#F3F4F6';
+      btn.style.color           = '#9CA3AF';
+      btn.style.borderColor     = '#E5E7EB';
+      btn.style.cursor          = 'not-allowed';
+      btn.style.opacity         = '0.5';
+      btn.style.pointerEvents   = 'none';
+      btn.textContent           = '📋 Submit Entry';
+    }
+  }
+
+  if (msg) {
+    if (!ready) {
+      const missing = AR_REQUIRED
+        .filter(id => { const el = document.getElementById(id); return !el || el.value.trim() === ''; })
+        .map(id => AR_LABELS[id]);
+      msg.textContent = missing.length ? '⚠ Missing: ' + missing.join(' · ') : '';
+    } else {
+      msg.textContent = '';
+    }
+  }
+}
+
+// Attach listeners — called from unified init at end of script
+function attachArListeners() {
+  AR_REQUIRED.forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.addEventListener('input',  updateArComplete);
+    el.addEventListener('change', updateArComplete);
+  });
+  // Initial state
+  updateArComplete();
+}
+
+// ─── Submit manufacturer entry ───
+function submitManufacturer(){
+  const btn = document.getElementById('ar-submit-btn');
+  // Guard: must be enabled (all 7 fields filled)
+  if (btn && btn.disabled) {
+    showToast('⚠ กรุณากรอกข้อมูลให้ครบก่อน Submit');
+    return;
+  }
+  const allFilled = AR_REQUIRED.every(id => {
+    const el = document.getElementById(id);
+    return el && el.value.trim() !== '';
+  });
+  if (!allFilled) { showToast('⚠ กรุณากรอกให้ครบ 100%'); return; }
+
+  const name     = document.getElementById('ar-name').value.trim();
+  const country  = document.getElementById('ar-country').value.trim();
+  const web      = document.getElementById('ar-web').value.trim();
+  const contact  = document.getElementById('ar-contact').value.trim();
+  const category = document.getElementById('ar-category').value.trim();
+  const tier     = document.getElementById('ar-tier').value;
+  const source   = document.getElementById('ar-source').value;
+  const note     = document.getElementById('ar-note').value.trim();
+  const today    = new Date().toISOString().slice(0,10);
+
+  const products = collectProdRows();
+
+  manufacturers.push({
+    id: mfrIdCounter++, name, country, website: web,
+    contact, category, tier, source, note,
+    products,
+    addedAt: new Date().toISOString(), session: today
+  });
+
+  // Clear form
+  AR_REQUIRED.forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
+  document.getElementById('ar-note').value = '';
+  clearProdRows();
+  document.getElementById('ar-name').focus();
+
+  // Reset completeness UI
+  updateArComplete();
+  recordSessionAdd(1, 0);
+  renderMfrTable();
+  updateKPIs();
+  refreshOtherStatusBanner();  // push progress to Business status view
+  showToast('✅ บันทึก: ' + name + ' · วันนี้เพิ่ม ' + getTodayCount() + ' ราย');
+}
+
+function getTodayCount(){
+  const today = new Date().toISOString().slice(0,10);
+  return manufacturers.filter(m=>m.session===today).length;
+}
+
+// Keep addManufacturer as alias for Enter key handler compatibility
+function addManufacturer(){ submitManufacturer(); }
+
+// ─── Daily log selected day ───
+let selectedLogDay = null;
+
+function renderDayTabs(){
+  const bar = document.getElementById('day-tab-bar');
+  if (!bar) return;
+  const days = [...new Set(manufacturers.map(m => mfrDay(m)))].sort().reverse();
+  if (!days.length) { bar.innerHTML = ''; return; }
+  // Auto-select today or latest
+  const today = new Date().toISOString().slice(0,10);
+  if (!selectedLogDay || !days.includes(selectedLogDay)) {
+    selectedLogDay = days.includes(today) ? today : days[0];
+  }
+  bar.innerHTML = days.map(d => {
+    const cnt = manufacturers.filter(m=>mfrDay(m)===d).length;
+    const isToday = d === today;
+    const isSelected = d === selectedLogDay;
+    return `<button type="button"
+      onclick="event.stopPropagation();selectLogDay('${d}')"
+      style="padding:4px 10px;border-radius:6px;font-size:10.5px;font-weight:700;
+        font-family:'Inter',sans-serif;cursor:pointer;transition:all .15s;
+        border:1.5px solid ${isSelected?'#3B82F6':'#E5E7EB'};
+        background:${isSelected?'#EFF6FF':'#fff'};
+        color:${isSelected?'#1D4ED8':'#6B7280'};">
+      ${isToday?'📍 ':''}${d} <span style="background:${isSelected?'#3B82F6':'#E5E7EB'};color:${isSelected?'#fff':'#374151'};border-radius:10px;padding:1px 6px;font-size:9.5px;">${cnt}</span>
+    </button>`;
+  }).join('');
+}
+
+function selectLogDay(day){
+  selectedLogDay = day;
+  renderMfrTable();
+}
+
+// ─── Render manufacturer table (daily log view) ───
+function renderMfrTable(){
+  renderDayTabs();
+  const tbody = document.getElementById('mfr-tbody');
+  const countEl = document.getElementById('mfr-count-label');
+  if (!tbody) return;
+
+  const pct = Math.min(100, Math.round(manufacturers.length/20*100));
+  if (countEl) countEl.textContent = manufacturers.length + ' total entries · Target ≥ 20 (' + pct + '%)';
+
+  if (!manufacturers.length){
+    tbody.innerHTML = '<tr><td colspan="12" style="text-align:center;padding:24px;color:#9CA3AF;font-size:11px;">ยังไม่มีข้อมูล — กรอก Raw Data ด้านบนแล้วกด Submit</td></tr>';
+    return;
+  }
+
+  // Show entries for selected day (or all if no day selected)
+  const dayMfrs = selectedLogDay
+    ? manufacturers.filter(m=>mfrDay(m)===selectedLogDay)
+    : manufacturers;
+
+  if (!dayMfrs.length){
+    tbody.innerHTML = '<tr><td colspan="12" style="text-align:center;padding:20px;color:#9CA3AF;font-size:11px;">ไม่มีข้อมูลในวันนี้</td></tr>';
+    return;
+  }
+
+  // Global index for # column
+  tbody.innerHTML = dayMfrs.map((m, i) => {
+    const globalIdx = manufacturers.indexOf(m) + 1;
+    return `<tr style="transition:background .1s;" onmouseover="this.style.background='#F9FAFB'" onmouseout="this.style.background=''">
+      <td style="color:#9CA3AF;font-size:10px;text-align:center;font-weight:700;">${globalIdx}</td>
+      <td style="font-weight:700;color:#111827;white-space:nowrap;">${countryFlag(m.country)} ${m.name}</td>
+      <td style="color:#374151;font-size:11px;">${m.country}</td>
+      <td style="font-size:10px;">${m.website
+        ? '<a href="https://'+m.website.replace(/^https?:\/\//,'')+'" target="_blank" style="color:#3B82F6;text-decoration:none;">'+m.website+'</a>'
+        : '<span style="color:#D1D5DB;">—</span>'}</td>
+      <td style="font-size:10px;color:#374151;">${m.contact||'<span style="color:#D1D5DB;">—</span>'}</td>
+      <td style="font-size:10px;color:#374151;">${m.category||'<span style="color:#D1D5DB;">—</span>'}</td>
+      <td><span class="tier-badge ${TIER_CLASS[m.tier]||'tier-3'}">${m.tier}</span></td>
+      <td style="font-size:9.5px;color:#6B7280;">${m.source||'—'}</td>
+      <td style="text-align:center;font-size:10px;">${
+        (m.products && m.products.length)
+          ? '<span style="display:inline-block;min-width:20px;padding:1px 7px;background:#EFF6FF;color:#1D4ED8;border-radius:10px;font-weight:700;" title="'+m.products.map(p=>p.name+(p.qty?' ('+p.qty+(p.unit?' '+p.unit:'')+')':'')).join(', ').replace(/"/g,'&quot;')+'">'+m.products.length+'</span>'
+          : '<span style="color:#D1D5DB;">—</span>'
+      }</td>
+      <td style="font-size:9.5px;color:#9CA3AF;max-width:100px;overflow:hidden;text-overflow:ellipsis;" title="${m.note||''}">${m.note||'—'}</td>
+      <td style="font-size:9.5px;color:#9CA3AF;white-space:nowrap;">${mfrDay(m)}</td>
+      <td style="text-align:center;"><button class="del-row" type="button" onclick="event.stopPropagation();deleteMfr(${m.id})" title="Delete">✕</button></td>
+    </tr>`;
+  }).join('');
+  updateSummary();
+}
+
+function deleteMfr(id){
+  manufacturers=manufacturers.filter(m=>m.id!==id);
+  s1Save();
+  renderMfrTable();updateKPIs();
+}
+
+// ─── Product / Equipment key-in rows (per manufacturer entry) ───
+let arProdRows = [];          // [{name, model, note}]
+let arProdSeq  = 0;
+
+function addProdRow(data) {
+  arProdRows.push({
+    _id:  ++arProdSeq,
+    name:  data && data.name  || '',
+    model: data && data.model || '',
+    note:  data && data.note  || ''
+  });
+  renderProdRows();
+}
+function removeProdRow(id) {
+  arProdRows = arProdRows.filter(r => r._id !== id);
+  renderProdRows();
+}
+function updateProdRow(id, field, value) {
+  const r = arProdRows.find(x => x._id === id);
+  if (r) r[field] = value;
+  // update count only (avoid re-render so input focus is preserved)
+  refreshProdCount();
+}
+function refreshProdCount() {
+  const named = arProdRows.filter(r => r.name.trim() !== '').length;
+  const cEl = document.getElementById('ar-prod-count');
+  if (cEl) cEl.textContent = named ? '✅ ' + named + ' รายการ' : '';
+}
+function renderProdRows() {
+  const tb = document.getElementById('ar-prod-tbody');
+  const empty = document.getElementById('ar-prod-empty');
+  if (!tb) return;
+  if (!arProdRows.length) {
+    tb.innerHTML = '';
+    if (empty) empty.style.display = 'block';
+    refreshProdCount();
+    return;
+  }
+  if (empty) empty.style.display = 'none';
+  const esc = s => String(s).replace(/"/g, '&quot;');
+  const cell = 'padding:4px 6px;border-bottom:1px solid #F3F4F6;';
+  const inp  = "width:100%;border:1px solid #E5E7EB;border-radius:5px;padding:5px 7px;font-size:11px;font-family:'Inter',sans-serif;box-sizing:border-box;";
+  tb.innerHTML = arProdRows.map(r => `
+    <tr>
+      <td style="${cell}"><input type="text" value="${esc(r.name)}"  placeholder="เช่น Transformer"
+            oninput="updateProdRow(${r._id},'name',this.value)"  style="${inp}"></td>
+      <td style="${cell}"><input type="text" value="${esc(r.model)}" placeholder="เช่น 22kV 1000kVA"
+            oninput="updateProdRow(${r._id},'model',this.value)" style="${inp}"></td>
+      <td style="${cell}"><input type="text" value="${esc(r.note)}"  placeholder="-"
+            oninput="updateProdRow(${r._id},'note',this.value)"  style="${inp}"></td>
+      <td style="${cell}text-align:center;">
+        <button type="button" onclick="removeProdRow(${r._id})"
+          style="padding:3px 7px;background:#FEF2F2;border:1px solid #FECACA;border-radius:5px;font-size:10px;color:#EF4444;cursor:pointer;">✕</button>
+      </td>
+    </tr>`).join('');
+  refreshProdCount();
+}
+// Return only rows that have at least an equipment name (clean for storage)
+function collectProdRows() {
+  return arProdRows
+    .filter(r => r.name.trim() !== '')
+    .map(r => ({
+      name:  r.name.trim(),
+      model: r.model.trim(),
+      note:  r.note.trim()
+    }));
+}
+function clearProdRows() {
+  arProdRows = [];
+  renderProdRows();
+}
+
+// ─── File upload handler ───
+function triggerFileInput(e) {
+  // Prevent double-fire from child element clicks
+  if (e) e.stopPropagation();
+  const inp = document.getElementById('file-input-hidden');
+  if (inp) {
+    inp.value = ''; // reset so same file can be re-selected
+    inp.click();
+  }
+}
+function handleFileInput(e) {
+  const files = Array.from(e.target.files);
+  if (!files.length) return;
+  processFiles(files);
+  // Reset value so same file(s) can be selected again next time
+  e.target.value = '';
+}
+function handleDrop(e){
+  e.preventDefault();
+  document.getElementById('upload-zone').classList.remove('drag');
+  processFiles(Array.from(e.dataTransfer.files));
+}
+function processFiles(files){
+  files.forEach(f=>{
+    if(f.size>10*1024*1024){showToast('⚠ '+f.name+' — ไฟล์ใหญ่เกิน 10MB');return;}
+    if(uploadedFiles.find(u=>u.name===f.name)){showToast('ℹ '+f.name+' — มีอยู่แล้ว');return;}
+    const ext=f.name.split('.').pop().toLowerCase();
+    uploadedFiles.push({file:f, name:f.name, size:f.size, ext, status:'Queued', uploadedAt:new Date().toISOString()});
+    recordSessionAdd(0,1);
+  });
+  renderFileList();updateKPIs();
+}
+function removeFile(name){uploadedFiles=uploadedFiles.filter(u=>u.name!==name);s1Save();renderFileList();updateKPIs();}
+
+const EXT_ICON={'pdf':'📄','xlsx':'📊','xls':'📊','csv':'📋','docx':'📝','doc':'📝','txt':'📃'};
+function renderFileList(){
+  const el=document.getElementById('file-list');
+  if(!el) return; // file-list panel was removed; nothing to render
+  if(!uploadedFiles.length){el.innerHTML='';return;}
+  el.innerHTML=uploadedFiles.map(u=>`
+    <div class="file-item">
+      <span class="fi-icon">${EXT_ICON[u.ext]||'📎'}</span>
+      <span class="fi-name" title="${u.name}">${u.name}</span>
+      <span class="fi-size">${(u.size/1024).toFixed(0)} KB</span>
+      <span class="fi-status ${u.status==='Queued'?'fi-pending':'fi-ok'}">${u.status==='Queued'?'Ready to Save':'✓ Logged'}</span>
+      <button class="fi-del" onclick="removeFile('${u.name}')">✕</button>
+    </div>`).join('');
+}
+
+// ─── Update KPIs ───
+function updateKPIs(){
+  const mCount=manufacturers.length;
+  // KPI 2 redefined: coverage = distinct Discovery Sources actually used across entered manufacturers
+  const usedSources = new Set(manufacturers.map(m=>m.source).filter(Boolean));
+  const chCount=usedSources.size;
+  const fCount=uploadedFiles.length;
+
+  // KPI 1: Manufacturer count
+  const p1=Math.min(100,Math.round(mCount/20*100));
+  document.getElementById('kd1-val').textContent=mCount;
+  document.getElementById('kd1-bar').style.width=p1+'%';
+  const ok1=mCount>=20;
+  setKPIStatus('kd1-status',ok1,'✅ Met','⚠ In Progress',mCount>0);
+
+  // KPI 2: Discovery channel coverage (distinct sources among entries, target ≥ 3)
+  const p2=Math.min(100,Math.round(chCount/3*100));
+  document.getElementById('kd2-val').textContent=chCount;
+  document.getElementById('kd2-bar').style.width=p2+'%';
+  const ok2=chCount>=3;
+  setKPIStatus('kd2-status',ok2,'✅ Met','⚠ In Progress',chCount>0);
+
+  // KPI 3: Files
+  const totalProds=masterPlanData?masterPlanData.products.length:1;
+  const p3=Math.min(100,Math.round(fCount/totalProds*100));
+  document.getElementById('kd3-val').textContent=fCount;
+  document.getElementById('kd3-bar').style.width=p3+'%';
+  const ok3=fCount>=totalProds;
+  setKPIStatus('kd3-status',ok3,'✅ Met','⚠ Pending',fCount>0);
+
+  // Overall alert
+  const banner=document.getElementById('s1-alert-banner');
+  if(ok1&&ok2&&ok3){
+    banner.className='alert-banner alert-ok';
+    banner.innerHTML='✅ KPI ทุกข้อ Met แล้ว! พร้อม Submit ไปยัง Stage 2 — Preliminary Screening';
+    banner.style.display='flex';
+  } else {
+    const missing=[];
+    if(!ok1) missing.push(`Manufacturer ${mCount}/20`);
+    if(!ok2) missing.push(`Channels ${chCount}/3`);
+    if(!ok3) missing.push(`Product Lists ${fCount}/${totalProds}`);
+    if(missing.length){
+      banner.className='alert-banner alert-warn';
+      banner.innerHTML='⚠ ยังไม่ครบ KPI: '+missing.join(' · ');
+      banner.style.display='flex';
+    }
+  }
+  s1Save();
+  updateAccumulateBar();
+  updateSessionLabel();
+}
+
+// ─── Accumulate Bar ───
+function updateAccumulateBar(){
+  const el = document.getElementById('s1-accumulate-bar');
+  if(!el) return;
+  if(!s1Sessions.length && !manufacturers.length){
+    el.innerHTML='<span style="color:#9CA3AF;font-style:italic;">ยังไม่มีการ Key-in</span>';
+    return;
+  }
+  const totalDays = [...new Set(manufacturers.map(m=>mfrDay(m)))].length;
+  const firstDate = manufacturers.length ? mfrDay(manufacturers[0]) : '—';
+  const lastDate = manufacturers.length ? mfrDay(manufacturers[manufacturers.length-1]) : '—';
+  const pct = Math.min(100,Math.round(manufacturers.length/20*100));
+
+  let html = `<div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-bottom:12px;">
+    <div><div style="font-size:9px;font-weight:700;color:#9CA3AF;text-transform:uppercase;letter-spacing:1px;margin-bottom:2px;">Total Accumulated</div>
+    <div style="font-size:20px;font-weight:800;color:#3B82F6;">${manufacturers.length} <span style="font-size:11px;font-weight:400;color:#6B7280;">/ 20 target</span></div></div>
+    <div><div style="font-size:9px;font-weight:700;color:#9CA3AF;text-transform:uppercase;letter-spacing:1px;margin-bottom:2px;">Active Days</div>
+    <div style="font-size:20px;font-weight:800;color:#8B5CF6;">${totalDays} <span style="font-size:11px;font-weight:400;color:#6B7280;">days</span></div></div>
+    <div><div style="font-size:9px;font-weight:700;color:#9CA3AF;text-transform:uppercase;letter-spacing:1px;margin-bottom:2px;">First Entry</div>
+    <div style="font-size:13px;font-weight:700;color:#374151;">${firstDate}</div></div>
+    <div><div style="font-size:9px;font-weight:700;color:#9CA3AF;text-transform:uppercase;letter-spacing:1px;margin-bottom:2px;">Latest Entry</div>
+    <div style="font-size:13px;font-weight:700;color:#374151;">${lastDate}</div></div>
+    <div style="flex:1;min-width:160px;">
+      <div style="font-size:9px;font-weight:700;color:#9CA3AF;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Progress to Target (20)</div>
+      <div style="background:#E5E7EB;border-radius:4px;height:10px;overflow:hidden;">
+        <div style="height:10px;border-radius:4px;background:${pct>=100?'#10B981':'#3B82F6'};width:${pct}%;transition:width .4s;"></div>
+      </div>
+      <div style="font-size:10px;color:#374151;margin-top:3px;font-weight:600;">${pct}% complete</div>
+    </div>
+  </div>`;
+
+  // Session timeline
+  if(s1Sessions.filter(s=>s.added>0||s.files>0).length){
+    html += `<div style="font-size:9.5px;font-weight:700;color:#9CA3AF;text-transform:uppercase;letter-spacing:1px;margin-bottom:7px;">Session Log</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;">`;
+    s1Sessions.slice().reverse().forEach(s=>{
+      const isToday = s.date===new Date().toISOString().slice(0,10);
+      html += `<div style="background:${isToday?'#EFF6FF':'#F9FAFB'};border:1.5px solid ${isToday?'#BFDBFE':'#E5E7EB'};border-radius:6px;padding:5px 10px;min-width:90px;">
+        <div style="font-size:9px;font-weight:700;color:${isToday?'#3B82F6':'#9CA3AF'};">${s.date}${isToday?' (today)':''}</div>
+        <div style="font-size:12px;font-weight:800;color:#111827;">+${s.added} mfr</div>
+        ${s.files?`<div style="font-size:9.5px;color:#10B981;">+${s.files} files</div>`:''}
+      </div>`;
+    });
+    html += '</div>';
+  }
+  el.innerHTML = html;
+}
+
+// ─── History modal ───
+function showS1History(){
+  const el = document.getElementById('s1-history-content');
+  if(!s1Sessions.length && !manufacturers.length){
+    el.innerHTML='<p style="color:#9CA3AF;font-style:italic;padding:16px 0;">ยังไม่มีประวัติ</p>';
+  } else {
+    let html = `<table style="width:100%;border-collapse:collapse;font-size:11.5px;">
+      <thead><tr style="background:#F3F4F6;">
+        <th style="padding:7px 10px;text-align:left;font-size:10px;font-weight:700;color:#6B7280;border-bottom:1.5px solid #E5E7EB;">Date</th>
+        <th style="padding:7px 10px;text-align:center;font-size:10px;font-weight:700;color:#6B7280;border-bottom:1.5px solid #E5E7EB;">Added</th>
+        <th style="padding:7px 10px;text-align:center;font-size:10px;font-weight:700;color:#6B7280;border-bottom:1.5px solid #E5E7EB;">Files</th>
+        <th style="padding:7px 10px;text-align:left;font-size:10px;font-weight:700;color:#6B7280;border-bottom:1.5px solid #E5E7EB;">Manufacturers added</th>
+      </tr></thead><tbody>`;
+    const allDates = [...new Set([
+      ...s1Sessions.map(s=>s.date),
+      ...manufacturers.map(m=>mfrDay(m))
+    ])].sort().reverse();
+    allDates.forEach(date=>{
+      const sess = s1Sessions.find(s=>s.date===date)||{added:0,files:0};
+      const dayMfrs = manufacturers.filter(m=>mfrDay(m)===date);
+      const isToday = date===new Date().toISOString().slice(0,10);
+      html += `<tr style="background:${isToday?'#EFF6FF':'#fff'};">
+        <td style="padding:7px 10px;border-bottom:1px solid #F3F4F6;font-weight:${isToday?'700':'400'};color:${isToday?'#1D4ED8':'#374151'};">${date}${isToday?' 📍':''}</td>
+        <td style="padding:7px 10px;border-bottom:1px solid #F3F4F6;text-align:center;font-weight:700;color:#3B82F6;">${dayMfrs.length||sess.added}</td>
+        <td style="padding:7px 10px;border-bottom:1px solid #F3F4F6;text-align:center;color:#10B981;">${sess.files||0}</td>
+        <td style="padding:7px 10px;border-bottom:1px solid #F3F4F6;font-size:10.5px;color:#6B7280;">${dayMfrs.map(m=>m.name).join(', ')||'—'}</td>
+      </tr>`;
+    });
+    html += '</tbody></table>';
+    html += `<div style="margin-top:12px;padding:10px 14px;background:#F9FAFB;border-radius:7px;font-size:11.5px;color:#374151;">
+      <strong>Total accumulated:</strong> ${manufacturers.length} manufacturers · ${uploadedFiles.length} files · ${checkedChannels.size} channels
+    </div>`;
+    el.innerHTML = html;
+  }
+  document.getElementById('s1-history-modal').style.display='flex';
+}
+function closeS1History(){ document.getElementById('s1-history-modal').style.display='none'; }
+
+// ─── Archive (soft reset — keep data, mark archived) ───
+function archiveS1(){
+  if(!manufacturers.length){ showToast('⚠ ไม่มีข้อมูลสำหรับ Archive'); return; }
+  if(!confirm('Archive ข้อมูล Stage 1 ปัจจุบัน?\nข้อมูลจะยังคงอยู่ใน Session History')) return;
+  exportExcel(); // auto-download before archive
+  const archKey = 'tcs_s1_archive_'+new Date().toISOString().slice(0,16).replace(/:/g,'-');
+  try{ localStorage.setItem(archKey, JSON.stringify({manufacturers,uploadedFiles:uploadedFiles.map(u=>({name:u.name,size:u.size,ext:u.ext,status:u.status,uploadedAt:u.uploadedAt})),channels:[...checkedChannels],sessions:s1Sessions})); }catch(e){}
+  showToast('📦 Archived & Excel downloaded');
+}
+
+// ─── Reset All (destructive) ───
+function resetAllS1(){
+  if(!confirm('⚠ RESET ALL — ลบข้อมูลทั้งหมด (Manufacturers, Sessions, Master Plan, Archives)?\nการกระทำนี้ย้อนกลับไม่ได้ — ใช้เพื่อเริ่มใช้งานจริง')) return;
+  // In-memory state
+  manufacturers=[]; uploadedFiles=[]; checkedChannels=new Set(); s1Sessions=[];
+  masterPlanData=null; mfrIdCounter=1; currentSessionAdded=0;
+  // Reset UI (do this BEFORE wiping storage so any internal save writes empties, then we wipe)
+  document.querySelectorAll('.ch-item').forEach(el=>el.classList.remove('checked'));
+  renderMfrTable(); renderFileList(); updateKPIs();
+  const sc=document.getElementById('s1-summary-content');
+  if(sc) sc.innerHTML='ยังไม่มีข้อมูล — เริ่ม Key-in Manufacturer เพื่อดู Summary';
+  const dc=document.getElementById('s1-demand-context'); if(dc) dc.style.display='none';
+  if(typeof refreshOtherStatusBanner==='function') refreshOtherStatusBanner();
+  closeS1History();
+
+  // Reset all dependent VIEWS so nothing stale stays on screen
+  // Master Plan tab → back to empty
+  const mpC=document.getElementById('mp-content'); if(mpC) mpC.style.display='none';
+  const mpE=document.getElementById('mp-empty');   if(mpE) mpE.style.display='block';
+  // Stage 0 → back to form (clear the generated dashboard)
+  const fv=document.getElementById('form-view');   if(fv) fv.style.display='block';
+  const dv=document.getElementById('dash-view');   if(dv) dv.style.display='none';
+  // Executive Dashboard → recompute to empty/waiting state
+  if(typeof refreshBizDashboard==='function') refreshBizDashboard();
+
+  // Wipe ALL app keys LAST (including dated archive snapshots & master plan) so nothing re-creates them
+  try{
+    const keys=[];
+    for(let i=0;i<localStorage.length;i++){ const k=localStorage.key(i); if(k && k.indexOf('tcs_')===0) keys.push(k); }
+    keys.forEach(k=>localStorage.removeItem(k));
+  }catch(e){}
+  showToast('🗑 ล้างข้อมูลทั้งหมดเรียบร้อย — พร้อมใช้งานจริง');
+}
+
+function setKPIStatus(id,met,okText,warnText,hasData){
+  const el=document.getElementById(id);
+  if(met){el.style.background='#D1FAE5';el.style.color='#065F46';el.textContent=okText;}
+  else if(hasData){el.style.background='#FEF3C7';el.style.color='#92400E';el.textContent=warnText;}
+  else{el.style.background='#F3F4F6';el.style.color='#9CA3AF';el.textContent='Not Started';}
+}
+
+// ─── Summary panel ───
+function updateSummary(){
+  if(!manufacturers.length) return;
+  const byCountry={};
+  const byTier={};
+  manufacturers.forEach(m=>{
+    byCountry[m.country]=(byCountry[m.country]||0)+1;
+    byTier[m.tier]=(byTier[m.tier]||0)+1;
+  });
+  const topCountries=Object.entries(byCountry).sort((a,b)=>b[1]-a[1]).slice(0,5);
+  const tierSummary=Object.entries(byTier).map(([t,n])=>`<span class="tier-badge ${TIER_CLASS[t]||'tier-3'}" style="margin-right:4px;">${t}: ${n}</span>`).join('');
+
+  document.getElementById('s1-summary-content').innerHTML=`
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;">
+      <div>
+        <div style="font-size:9.5px;font-weight:700;color:#9CA3AF;text-transform:uppercase;letter-spacing:1px;margin-bottom:7px;">Top Countries</div>
+        ${topCountries.map(([c,n])=>`
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px;">
+            <span style="font-size:13px;">${countryFlag(c)}</span>
+            <span style="font-size:11.5px;color:#374151;flex:1;">${c}</span>
+            <span style="font-size:11.5px;font-weight:700;color:#111827;">${n}</span>
+            <div style="width:50px;background:#E5E7EB;border-radius:2px;height:4px;overflow:hidden;"><div style="width:${Math.round(n/manufacturers.length*100)}%;height:4px;background:#3B82F6;border-radius:2px;"></div></div>
+          </div>`).join('')}
+      </div>
+      <div>
+        <div style="font-size:9.5px;font-weight:700;color:#9CA3AF;text-transform:uppercase;letter-spacing:1px;margin-bottom:7px;">Tier Breakdown</div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px;">${tierSummary}</div>
+        <div style="margin-top:10px;font-size:10.5px;color:#6B7280;">Total: <strong>${manufacturers.length}</strong> manufacturers across <strong>${Object.keys(byCountry).length}</strong> countries</div>
+      </div>
+      <div>
+        <div style="font-size:9.5px;font-weight:700;color:#9CA3AF;text-transform:uppercase;letter-spacing:1px;margin-bottom:7px;">Discovery Channels</div>
+        ${[...checkedChannels].map(c=>`<div style="font-size:11px;color:#3B82F6;margin-bottom:4px;">✓ ${c}</div>`).join('')||'<div style="font-size:11px;color:#9CA3AF;font-style:italic;">ยังไม่ได้ tick channel</div>'}
+        <div style="margin-top:8px;font-size:10.5px;color:#6B7280;">Files: <strong>${uploadedFiles.length}</strong> uploaded</div>
+      </div>
+    </div>`;
+}
+
+// ─── Export Excel (single file: Stage1-RawData-{project}-{date}.xlsx) ───
+const MFR_HEADERS = ['#','Manufacture Name','Country','Website','Contact','Category','Specific Tier','Discovery Source','# Products','Added Date'];
+
+function buildMfrRows(){
+  return manufacturers.map((m,i)=>[
+    i+1, m.name, m.country, m.website||'', m.contact||'', m.category||'', m.tier,
+    m.source||'',
+    (m.products?m.products.length:0),
+    mfrDay(m)
+  ]);
+}
+
+function exportExcel(){
+  if(!manufacturers.length){showToast('⚠ ไม่มีข้อมูล Manufacturer');return;}
+  const proj=masterPlanData?masterPlanData.projectName.replace(/[^a-zA-Z0-9ก-๙]/g,'-'):'Stage1';
+  const headers=MFR_HEADERS;
+  const rows=buildMfrRows();
+  // Produce ONE Excel file only. If the XLSX library cannot load (offline), fall back to a single CSV.
+  exportAsXLSX(headers, rows, proj);
+}
+
+// Flatten all equipment rows across every manufacturer
+function buildProductList(){
+  const out=[];
+  manufacturers.forEach((m,mi)=>{
+    (m.products||[]).forEach((p)=>{
+      out.push([ mi+1, m.name, m.country||'', m.tier||'', m.source||'', p.name, p.model||'', p.note||'' ]);
+    });
+  });
+  return out;
+}
+
+function exportAsXLSX(headers, rows, proj){
+  try{
+    if(typeof XLSX==='undefined'){
+      const sc=document.createElement('script');
+      sc.src='https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js';
+      sc.onload=()=>_doXLSX(headers,rows,proj);
+      sc.onerror=()=>_fallbackCSV(headers,rows,proj); // offline → single CSV
+      document.head.appendChild(sc);
+    } else { _doXLSX(headers,rows,proj); }
+  }catch(e){ _fallbackCSV(headers,rows,proj); }
+}
+
+// Single-file CSV fallback (only used if XLSX library fails to load)
+function _fallbackCSV(headers,rows,proj){
+  const csv=[headers,...rows].map(r=>r.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\n');
+  const blob=new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download=`Stage1-RawData-${proj}-${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+  showToast('⬇ Exported (CSV — โหมด offline)');
+}
+
+function _doXLSX(headers, rows, proj){
+  const wb=XLSX.utils.book_new();
+
+  // Sheet 1: Manufacturers (matches reference layout exactly)
+  const ws=XLSX.utils.aoa_to_sheet([headers,...rows]);
+  ws['!cols']=[{wch:4},{wch:28},{wch:16},{wch:30},{wch:22},{wch:18},{wch:12},{wch:22},{wch:10},{wch:14}];
+  XLSX.utils.book_append_sheet(wb,ws,'Manufacturers');
+
+  // Sheet 2: Product / Equipment list (detail of keyed-in products)
+  const prodHeaders=['Mfr #','Manufacturer','Country','Tier','Discovery Source','Equipment / Product','Spec / Model','Note'];
+  const prodRows=buildProductList();
+  const ws3=XLSX.utils.aoa_to_sheet([prodHeaders,...(prodRows.length?prodRows:[['—','(ยังไม่มีรายการอุปกรณ์)','','','','','','']])]);
+  ws3['!cols']=[{wch:6},{wch:26},{wch:14},{wch:10},{wch:20},{wch:30},{wch:24},{wch:30}];
+  XLSX.utils.book_append_sheet(wb,ws3,'Product List');
+
+  XLSX.writeFile(wb,`Stage1-RawData-${proj}-${new Date().toISOString().slice(0,10)}.xlsx`);
+  showToast('⬇ Exported: Stage1-RawData-'+proj+'.xlsx');
+}
+
+// ─── Save to SharePoint ───
+const SHAREPOINT_FOLDER_URL = 'https://preciseth-my.sharepoint.com/:f:/g/personal/pattarida_k_precise_co_th/IgDqjkEjab5CQoZZ_kzMipj9AVkT5O2nfsdc2haDN1IwEPM?e=6SG3Va';
+
+function exportAndOpenSharePoint(){
+  // Step 1: Export Excel (triggers download)
+  if (manufacturers.length) {
+    exportExcel();
+  }
+  // Step 2: Also download README with manifest
+  exportDrivePackage();
+  // Step 3: Open SharePoint folder
+  setTimeout(() => {
+    window.open(SHAREPOINT_FOLDER_URL, '_blank', 'noopener');
+    showToast('📂 Excel downloaded · SharePoint กำลังเปิด...');
+  }, 800);
+}
+
+// ─── Prep Drive Package (README manifest) ───
+function exportDrivePackage(){
+  if(!manufacturers.length && !uploadedFiles.length){showToast('⚠ ไม่มีข้อมูลสำหรับ Package');return;}
+  const proj=masterPlanData?masterPlanData.projectName:'Stage1-Project';
+  const date=new Date().toISOString().slice(0,10);
+
+  // Generate README content for the drive package
+  const readmeLines=[
+    '# Stage 1 — Global Discovery Package',
+    '**Project:** '+proj,
+    '**Exported:** '+new Date().toLocaleString('en-GB'),
+    '',
+    '## 📁 SharePoint Upload Path',
+    '**Folder:** Global Sourcing → ' + (masterPlanData ? masterPlanData.projectName : 'Stage1'),
+    '**URL:** https://preciseth-my.sharepoint.com/:f:/g/personal/pattarida_k_precise_co_th/IgDqjkEjab5CQoZZ_kzMipj9AVkT5O2nfsdc2haDN1IwEPM?e=6SG3Va',
+    '',
+    '```',
+    'Global Sourcing/',
+    '└── ' + (masterPlanData ? masterPlanData.projectName.replace(/[^a-zA-Z0-9ก-๙ ]/g,'-') : 'Project') + '/',
+    '    ├── README-Stage1-'+date+'.md     ← this file',
+    '    ├── Stage1-RawData-'+date+'.xlsx ← manufacturer data',
+    '    └── product-lists/',
+    ...uploadedFiles.map(f=>'        └── '+f.name),
+    '```',
+    '',
+    '## 📊 KPI Status',
+    '| KPI | Current | Target | Status |',
+    '|-----|---------|--------|--------|',
+    '| Manufacturer Count | '+manufacturers.length+' | ≥ 20 | '+(manufacturers.length>=20?'✅ Met':'⚠ In Progress')+' |',
+    '| Discovery Channels Coverage | '+(new Set(manufacturers.map(m=>m.source).filter(Boolean)).size)+' | ≥ 3 | '+((new Set(manufacturers.map(m=>m.source).filter(Boolean)).size)>=3?'✅ Met':'⚠ In Progress')+' |',
+    '| Files Uploaded | '+uploadedFiles.length+' | 100% | '+(uploadedFiles.length>0?'✅ Has Files':'⚠ Pending')+' |',
+    '',
+    '## 🏭 Manufacturers ('+manufacturers.length+')',
+    '| # | Name | Country | Website | Tier |',
+    '|---|------|---------|---------|------|',
+    ...manufacturers.map((m,i)=>`| ${i+1} | ${m.name} | ${m.country} | ${m.website||'—'} | ${m.tier} |`),
+  ];
+  const blob=new Blob([readmeLines.join('\n')],{type:'text/markdown'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='README-Stage1-'+date+'.md';
+  a.click();
+  showToast('📋 README.md downloaded — upload พร้อม Excel ขึ้น SharePoint');
+
+  // Mark files as "logged"
+  uploadedFiles.forEach(u=>u.status='Logged');
+  renderFileList();
+}
+
+// clearAllS1 replaced by resetAllS1
+
+// Enter key on manufacturer form
+document.addEventListener('keydown',function(e){
+  if(document.activeElement&&['ar-name','ar-country','ar-web'].includes(document.activeElement.id)&&e.key==='Enter'){
+    addManufacturer();
+  }
+});
+
+
+
+// ══════════════════════════════════════════
+// EXECUTIVE DASHBOARD — Business Role
+// ══════════════════════════════════════════
+
+function bizAutoUnlockAdmin() {
+  // Silently unlock Stage 0 for Business role (no second password needed)
+  document.getElementById('btn-t3').style.display = 'flex';
+}
+
+function applyMasterPlanMode(role) {
+  // ── Action bar controls
+  const editCtrl  = document.getElementById('mp-edit-controls');
+  const viewCtrl  = document.getElementById('mp-view-controls');
+  if (editCtrl) editCtrl.style.display = role === 'business' ? 'flex' : 'none';
+  if (viewCtrl) viewCtrl.style.display = role === 'sourcing' ? 'flex' : 'none';
+
+  // ── Role mode banner in Master Plan content area
+  const banner = document.getElementById('mp-role-banner');
+  if (banner) {
+    if (role === 'business') {
+      banner.style.display = 'flex';
+      banner.style.cssText += 'align-items:center;gap:10px;background:linear-gradient(135deg,#FFF7ED,#FEF3C7);border:1.5px solid #FDE68A;border-radius:10px;padding:10px 16px;margin-bottom:16px;';
+      banner.innerHTML = `
+        <span style="font-size:18px;">✏️</span>
+        <div style="flex:1;">
+          <div style="font-size:9.5px;font-weight:700;color:#B45309;letter-spacing:1px;text-transform:uppercase;">Business — View & Edit Mode</div>
+          <div style="font-size:11.5px;color:#92400E;margin-top:1px;">คุณสามารถแก้ไข Demand ได้ · กด "Edit Demand →" เพื่อกลับไป Stage 0</div>
+        </div>`;
+    } else if (role === 'sourcing') {
+      banner.style.display = 'flex';
+      banner.style.cssText += 'align-items:center;gap:10px;background:linear-gradient(135deg,#ECFDF5,#D1FAE5);border:1.5px solid #6EE7B7;border-radius:10px;padding:10px 16px;margin-bottom:16px;';
+      banner.innerHTML = `
+        <span style="font-size:18px;">👁</span>
+        <div style="flex:1;">
+          <div style="font-size:9.5px;font-weight:700;color:#065F46;letter-spacing:1px;text-transform:uppercase;">Sourcing — View Only Mode</div>
+          <div style="font-size:11.5px;color:#047857;margin-top:1px;">Master Plan ที่ Business สร้างไว้ · ดูได้อย่างเดียว ไม่สามารถแก้ไขได้</div>
+        </div>`;
+    } else {
+      banner.style.display = 'none';
+    }
+  }
+
+  // ── Empty state button (Business only)
+  const emptyBtn = document.getElementById('mp-empty-biz-btn');
+  if (emptyBtn) emptyBtn.style.display = role === 'business' ? 'inline-flex' : 'none';
+
+  // ── Empty state description
+  const emptyDesc = document.getElementById('mp-empty-desc');
+  if (emptyDesc) {
+    if (role === 'sourcing') {
+      emptyDesc.innerHTML = 'รอ Business Submit Demand ก่อน<br>Master Plan จะปรากฏที่นี่โดยอัตโนมัติ';
+    } else {
+      emptyDesc.innerHTML = 'Business Unit ต้อง Submit Demand ใน Stage 0 ก่อน<br>จากนั้น Master Plan จะ Generate อัตโนมัติ ครบทุก Stage 0–4';
+    }
+  }
+}
+
+function refreshBizDashboard() {
+  const mCount = manufacturers.length;
+  const chCount = new Set(manufacturers.map(m=>m.source).filter(Boolean)).size;
+  const prodCount = manufacturers.reduce((s,m)=>s+((m.products||[]).length),0);
+  const hasPlan = !!masterPlanData;
+
+  // ── Subtitle
+  const sub = document.getElementById('biz-project-subtitle');
+  if (sub) sub.textContent = hasPlan
+    ? '📌 Project: ' + masterPlanData.projectName + ' · BU: ' + (masterPlanData.bu || '—') + ' · Priority: ' + (masterPlanData.priority || '—')
+    : 'กำลังรอข้อมูล — Submit Demand ใน Stage 0 ก่อน';
+
+  const banner = document.getElementById('biz-ontrack-banner');
+  const icon = document.getElementById('biz-ontrack-icon');
+  const title = document.getElementById('biz-ontrack-title');
+  const sub2 = document.getElementById('biz-ontrack-sub');
+  const pct = document.getElementById('biz-ontrack-pct');
+  const label = document.getElementById('biz-ontrack-label');
+  const fc = document.getElementById('biz-forecast');
+
+  if (!hasPlan) {
+    banner.style.background = '#F9FAFB'; banner.style.borderColor = '#E5E7EB';
+    icon.textContent = '⏳'; title.style.color='#374151'; title.textContent = 'Waiting for Demand Input';
+    sub2.style.color='#9CA3AF'; sub2.textContent = 'Submit demand ใน Stage 0 เพื่อเริ่ม tracking';
+    pct.textContent = '—'; pct.style.color = '#D1D5DB';
+    if (fc) fc.style.display = 'none';
+    // Reset the 4 KPI cards to zero/neutral
+    const z=(valId,barId,val)=>{ const v=document.getElementById(valId); if(v){v.textContent=val;v.style.color='#111827';} const b=document.getElementById(barId); if(b){b.style.width='0%';b.style.background='#E5E7EB';} };
+    z('biz-kpi-weeks','biz-kpi-weeks-bar','—');
+    z('biz-kpi-mfr','biz-kpi-mfr-bar',mCount);
+    z('biz-kpi-ch','biz-kpi-ch-bar',chCount);
+    z('biz-kpi-files','biz-kpi-files-bar',prodCount);
+    renderBizTimeline(0, []);
+    renderBizStageKPIs(mCount, chCount, prodCount, false);
+    renderBizStages(0, mCount, chCount, prodCount, false);
+    renderBizRisks(false, 0, mCount, chCount, prodCount);
+    renderBizProducts();
+    return;
+  }
+
+  // ── Progress (S1 is the only stage with live data input)
+  const mPct = Math.min(100, Math.round(mCount / 20 * 100));
+  const chPct = Math.min(100, Math.round(chCount / 3 * 100));
+  const s1Pct = Math.round((mPct + chPct) / 2);          // Stage 1 completion
+  const overall = s1Pct;                                  // overall driven by S1 for now
+
+  // ── Weeks elapsed
+  let weeksElapsed = 0;
+  if (masterPlanData.startDate) {
+    const start = new Date(masterPlanData.startDate + 'T00:00:00');
+    weeksElapsed = Math.max(0, Math.floor((new Date() - start) / (7*24*60*60*1000)));
+  }
+  const curWeek = weeksElapsed + 1; // human-friendly "we are in week N"
+
+  // ── FORECAST: project Stage 1 finish vs plan (S1 due end of W4), then whole project (W12)
+  // S1 effectively works from W2; weeks actually spent on S1 so far:
+  const s1WeeksSpent = Math.max(0, Math.min(weeksElapsed, 4) - 1); // W2..W4 window
+  let verdict='ontrack', projS1Week=4, projEndWeek=12, slip=0;
+
+  if (s1Pct >= 100) {
+    verdict = 'done';
+    projS1Week = Math.min(curWeek, 4);
+    projEndWeek = 12;
+  } else if (weeksElapsed < 1) {
+    verdict = 'early'; // still in Stage 0 week
+  } else {
+    const pace = s1WeeksSpent > 0 ? (s1Pct / s1WeeksSpent) : s1Pct; // %/week
+    const weeksToFinish = pace > 0 ? (100 - s1Pct) / pace : 99;
+    projS1Week = Math.round((weeksElapsed + Math.max(weeksToFinish, 0)) + 1);
+    slip = projS1Week - 4;                 // vs S1 plan (W4)
+    projEndWeek = Math.max(12, projS1Week + 8); // downstream S2-4 needs ~8 weeks
+    if (projEndWeek <= 12 && slip <= 0) verdict='ontrack';
+    else if (projEndWeek <= 13) verdict='atrisk';
+    else verdict='behind';
+  }
+
+  pct.textContent = overall + '%';
+  label.textContent = 'TARGET STATUS';
+
+  // Banner + forecast message
+  if (fc) fc.style.display = 'block';
+  const fcIcon = document.getElementById('biz-forecast-icon');
+  const fcMsg  = document.getElementById('biz-forecast-msg');
+  const fcDet  = document.getElementById('biz-forecast-detail');
+
+  const setBanner=(bg,bd,ic,tc,tt,sc,st,pc)=>{banner.style.background=bg;banner.style.borderColor=bd;icon.textContent=ic;title.style.color=tc;title.textContent=tt;sub2.style.color=sc;sub2.textContent=st;pct.style.color=pc;label.style.color=pc;};
+  const setFC=(bg,bd,ic,msg,det)=>{fc.style.background=bg;fc.style.borderColor=bd;fcIcon.textContent=ic;fcMsg.textContent=msg;fcDet.textContent=det;};
+
+  if (verdict==='done') {
+    setBanner('linear-gradient(135deg,#ECFDF5,#D1FAE5)','#6EE7B7','✅','#065F46','On Track — Stage 1 KPI ครบแล้ว','#047857','พร้อมส่งต่อ Stage 2 — Preliminary Screening','#10B981');
+    setFC('#ECFDF5','#6EE7B7','✅','ดำเนินตามแผน — คาดส่งมอบ W12 ตามกำหนด','Stage 1 เสร็จภายในกรอบเวลา · downstream (S2–S4) ยังมีเวลาเพียงพอ');
+  } else if (verdict==='early') {
+    setBanner('linear-gradient(135deg,#EFF6FF,#DBEAFE)','#BFDBFE','🚀','#1E40AF','Kickoff — เพิ่งเริ่มกระบวนการ','#1D4ED8','อยู่ในช่วง Stage 0–1 เริ่มต้น','#3B82F6');
+    setFC('#EFF6FF','#BFDBFE','🚀','เพิ่งเริ่มโครงการ — ยังประเมินแนวโน้มไม่ได้','เริ่ม Key-in Manufacturer ใน Stage 1 เพื่อให้ระบบคำนวณ forecast');
+  } else if (verdict==='ontrack') {
+    setBanner('linear-gradient(135deg,#ECFDF5,#D1FAE5)','#6EE7B7','✅','#065F46','On Track — ดำเนินได้ตามแผน','#047857','Overall '+overall+'% · Stage 1 ทันกำหนด','#10B981');
+    setFC('#ECFDF5','#6EE7B7','✅','ตามอัตราปัจจุบัน คาดเสร็จทันกำหนด W12','Stage 1 คาดเสร็จ ~W'+projS1Week+' (ภายในแผน W4)');
+  } else if (verdict==='atrisk') {
+    setBanner('linear-gradient(135deg,#FFFBEB,#FEF3C7)','#FDE68A','⚠️','#92400E','Attention — เริ่มช้ากว่าแผน','#B45309','Stage 1 ล่าช้า อาจกระทบ downstream','#F59E0B');
+    setFC('#FFFBEB','#FDE68A','⚠️','ตามอัตราปัจจุบัน Stage 1 จะเสร็จ ~W'+projS1Week+' (ช้ากว่าแผน '+slip+' สัปดาห์) เสี่ยงเลื่อนส่งมอบ','เร่ง Key-in Manufacturer ให้ถึง 20 ราย · ขณะนี้ '+mCount+'/20 · '+chCount+'/3 channels');
+  } else { // behind
+    setBanner('linear-gradient(135deg,#FEF2F2,#FEE2E2)','#FECACA','🔴','#991B1B','Behind Schedule — ต้องเร่งด่วน','#DC2626','Progress '+overall+'% ที่ W'+curWeek+' ต่ำกว่าที่ควรเป็น','#EF4444');
+    setFC('#FEF2F2','#FECACA','🔴','ช้ากว่าแผนมาก — คาดทั้งโปรเจกต์เสร็จ ~W'+projEndWeek+' เกินกำหนด '+(projEndWeek-12)+' สัปดาห์','ต้องเร่ง Stage 1 ทันที · ขาดอีก '+Math.max(0,20-mCount)+' ราย, '+Math.max(0,3-chCount)+' channels เพื่อปลดล็อก Stage 2');
+  }
+
+  // ── KPI bars
+  const setBar=(valId,barId,val,p,okColor,baseColor,ok)=>{
+    document.getElementById(valId).textContent=val;
+    document.getElementById(valId).style.color = ok ? '#10B981' : '#111827';
+    document.getElementById(barId).style.width = p+'%';
+    document.getElementById(barId).style.background = ok ? okColor : baseColor;
+  };
+  setBar('biz-kpi-mfr','biz-kpi-mfr-bar',mCount,mPct,'#10B981','#3B82F6',mCount>=20);
+  setBar('biz-kpi-ch','biz-kpi-ch-bar',chCount,chPct,'#10B981','#8B5CF6',chCount>=3);
+  const fPct = Math.min(100, prodCount>0?100:0);
+  setBar('biz-kpi-files','biz-kpi-files-bar',prodCount,fPct,'#10B981','#10B981',prodCount>0);
+
+  const wPct = Math.min(100, Math.round(weeksElapsed / 12 * 100));
+  document.getElementById('biz-kpi-weeks').textContent = curWeek + ' / 12';
+  document.getElementById('biz-kpi-weeks-bar').style.width = wPct + '%';
+  document.getElementById('biz-kpi-weeks-bar').style.background = weeksElapsed > 10 ? '#EF4444' : weeksElapsed > 7 ? '#F59E0B' : '#3B82F6';
+
+  // ── Timeline + Stages + Risks + Products
+  renderBizTimeline(curWeek, [mCount,chCount,prodCount]);
+  renderBizStageKPIs(mCount, chCount, prodCount, true);
+  renderBizStages(curWeek, mCount, chCount, prodCount, true);
+  renderBizRisks(true, weeksElapsed, mCount, chCount, prodCount);
+  renderBizProducts();
+}
+
+// ── Stage schedule (weeks) for timeline + tracker
+const BIZ_STAGES = [
+  {id:'S0', name:'Demand Mapping',        w:[1,1],   hex:'#6B7280'},
+  {id:'S1', name:'Global Discovery',      w:[2,4],   hex:'#3B82F6'},
+  {id:'S2', name:'Preliminary Screening', w:[5,5],   hex:'#8B5CF6'},
+  {id:'S3', name:'QCDS Qualification',    w:[6,11],  hex:'#F59E0B'},
+  {id:'S4', name:'Vendor Registration',   w:[12,12], hex:'#10B981'},
+];
+
+function bizStageStatus(stageId, mCount, chCount, prodCount, hasPlan){
+  // Returns {state:'done'|'active'|'pending', pctText}
+  if (stageId==='S0') return { state: hasPlan?'done':'pending', detail: hasPlan?'Scope & Core Products defined':'รอ Submit Demand' };
+  if (stageId==='S1') {
+    const done = mCount>=20 && chCount>=3;
+    const active = (mCount>0||chCount>0) && !done;
+    return { state: done?'done':active?'active':'pending',
+             detail: 'Mfr '+mCount+'/20 · Ch '+chCount+'/3 · Prod '+prodCount };
+  }
+  // S2-S4: gated behind S1; no live input yet
+  const s1Done = mCount>=20 && chCount>=3;
+  return { state: s1Done?'pending':'pending', detail: s1Done?'พร้อมเริ่มเมื่อ S1 ส่งต่อ':'รอ Stage 1 ผ่าน KPI' };
+}
+
+function renderBizTimeline(curWeek, _data){
+  const host = document.getElementById('biz-timeline');
+  const todayEl = document.getElementById('biz-timeline-today');
+  if (!host) return;
+  if (todayEl) todayEl.textContent = curWeek>0 ? ('● Now: Week '+Math.min(curWeek,12)) : '';
+  const TW=12;
+  // Week axis header
+  let axis='<div style="display:grid;grid-template-columns:120px repeat('+TW+',1fr);gap:0;align-items:center;margin-bottom:6px;">';
+  axis+='<div></div>';
+  for(let w=1;w<=TW;w++){
+    const isNow = (w===Math.min(curWeek,TW) && curWeek>0);
+    axis+='<div style="text-align:center;font-size:8.5px;font-weight:700;color:'+(isNow?'#3B82F6':'#9CA3AF')+';">W'+w+'</div>';
+  }
+  axis+='</div>';
+
+  const rows = BIZ_STAGES.map(s=>{
+    let bars='';
+    for(let w=1;w<=TW;w++){
+      const inStage = w>=s.w[0] && w<=s.w[1];
+      const isNow = (w===Math.min(curWeek,TW) && curWeek>0);
+      let bg = inStage ? s.hex : 'transparent';
+      let style='height:16px;border-right:1px solid #F3F4F6;position:relative;';
+      if(inStage){ style+='background:'+s.hex+';'; if(w===s.w[0])style+='border-radius:5px 0 0 5px;'; if(w===s.w[1])style+='border-radius:0 5px 5px 0;'; }
+      if(isNow){ style+='box-shadow: inset 2px 0 0 #EF4444, inset -2px 0 0 #EF4444;'; }
+      bars+='<div style="'+style+'"></div>';
+    }
+    return '<div style="display:grid;grid-template-columns:120px repeat('+TW+',1fr);gap:0;align-items:center;margin-bottom:5px;">'+
+      '<div style="font-size:10px;font-weight:700;color:#374151;padding-right:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:'+s.hex+';margin-right:5px;"></span>'+s.id+' '+s.name+'</div>'+
+      bars+'</div>';
+  }).join('');
+
+  host.innerHTML = axis + rows +
+    '<div style="margin-top:8px;font-size:9px;color:#9CA3AF;display:flex;gap:14px;flex-wrap:wrap;">'+
+    '<span><span style="display:inline-block;width:18px;height:3px;background:#EF4444;vertical-align:middle;"></span> เส้นแดง = สัปดาห์ปัจจุบัน</span>'+
+    '<span>แถบสี = ช่วงเวลาแต่ละ Stage ตามแผน 12 สัปดาห์</span></div>';
+}
+
+function renderBizStages(curWeek, mCount, chCount, prodCount, hasPlan){
+  const tracker = document.getElementById('biz-stage-tracker');
+  if (!tracker) return;
+  tracker.innerHTML = BIZ_STAGES.map(s=>{
+    const st = bizStageStatus(s.id, mCount, chCount, prodCount, hasPlan);
+    const statusLabel = st.state==='done'?'✅ Complete':st.state==='active'?'▶ In Progress':'○ Pending';
+    const statusColor = st.state==='done'?'#10B981':st.state==='active'?s.hex:'#D1D5DB';
+    return `<div style="display:flex;align-items:center;gap:12px;padding:9px 0;border-bottom:1px dashed #F3F4F6;">
+      <div style="width:28px;height:28px;border-radius:50%;background:${st.state==='done'?s.hex:st.state==='active'?s.hex+'22':'#F3F4F6'};border:2px solid ${st.state==='done'?s.hex:st.state==='active'?s.hex:'#E5E7EB'};display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:${st.state==='done'?'#fff':st.state==='active'?s.hex:'#9CA3AF'};flex-shrink:0;">${s.id}</div>
+      <div style="flex:1;min-width:0;">
+        <div style="font-size:12px;font-weight:700;color:#111827;">${s.name}</div>
+        <div style="font-size:9.5px;color:#9CA3AF;">W${s.w[0]}${s.w[0]!==s.w[1]?'–'+s.w[1]:''} · ${st.detail}</div>
+      </div>
+      <div style="font-size:10.5px;font-weight:700;color:${statusColor};white-space:nowrap;">${statusLabel}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderBizRisks(hasPlan, weeksElapsed, mCount, chCount, prodCount){
+  const risks=[];
+  if (hasPlan && weeksElapsed>=3 && mCount<15) risks.push({level:'HIGH',msg:'Manufacturer ต่ำกว่าเป้า ('+mCount+'/20) — S1 อาจไม่ผ่าน KPI ทันเวลา',color:'#EF4444',bg:'#FEF2F2',border:'#FECACA'});
+  if (hasPlan && weeksElapsed>=2 && chCount<2) risks.push({level:'MED',msg:'Discovery channels น้อย ('+chCount+') — กระจาย source เพิ่ม',color:'#F59E0B',bg:'#FFFBEB',border:'#FDE68A'});
+  if (hasPlan && weeksElapsed>=4 && prodCount===0) risks.push({level:'MED',msg:'ยังไม่มี Product/Equipment ที่ key-in — sourcing ยังไม่ได้ระบุอุปกรณ์',color:'#F59E0B',bg:'#FFFBEB',border:'#FDE68A'});
+  if (!hasPlan) risks.push({level:'INFO',msg:'รอ Business Submit Demand — กระบวนการยังไม่เริ่ม',color:'#6B7280',bg:'#F9FAFB',border:'#E5E7EB'});
+  if (risks.length===0) risks.push({level:'OK',msg:'ไม่พบ Risk Signal — กระบวนการดำเนินไปตามแผน',color:'#10B981',bg:'#ECFDF5',border:'#6EE7B7'});
+  const riskPanel=document.getElementById('biz-risk-panel');
+  if (riskPanel) riskPanel.innerHTML = risks.map(r=>`
+    <div style="background:${r.bg};border:1px solid ${r.border};border-radius:8px;padding:10px 13px;margin-bottom:8px;display:flex;align-items:flex-start;gap:8px;">
+      <div style="font-size:9px;font-weight:800;padding:2px 7px;border-radius:10px;background:${r.border};color:${r.color};flex-shrink:0;margin-top:1px;">${r.level}</div>
+      <div style="font-size:11.5px;color:#374151;line-height:1.5;">${r.msg}</div>
+    </div>`).join('');
+}
+
+// Per-stage KPI cards (Stage 0-4) — shows target + current + status
+function renderBizStageKPIs(mCount, chCount, prodCount, hasPlan){
+  const host = document.getElementById('biz-stage-kpi');
+  if (!host) return;
+  const nProds = (masterPlanData && masterPlanData.products) ? masterPlanData.products.length : 0;
+  const s1Done = mCount>=20 && chCount>=3;
+
+  const cards = [
+    { id:'S0', name:'Demand Mapping', hex:'#6B7280',
+      kpi:'Core Product & Scope', cur: hasPlan ? (nProds+' products defined') : '—',
+      pctNum: hasPlan?100:0, state: hasPlan?'done':'pending' },
+    { id:'S1', name:'Global Discovery', hex:'#3B82F6',
+      kpi:'≥20 Mfr · ≥3 Channels', cur: mCount+'/20 · '+chCount+'/3 ch',
+      pctNum: Math.round(((Math.min(mCount/20,1))+(Math.min(chCount/3,1)))/2*100),
+      state: s1Done?'done':(mCount>0||chCount>0)?'active':'pending' },
+    { id:'S2', name:'Preliminary Screening', hex:'#8B5CF6',
+      kpi:'≥10 Preliminary Qualified', cur: s1Done?'พร้อมเริ่ม':'รอ S1',
+      pctNum:0, state:'pending' },
+    { id:'S3', name:'QCDS Qualification', hex:'#F59E0B',
+      kpi:'≥5 Vendors pass QCDS', cur:'รอ S2', pctNum:0, state:'pending' },
+    { id:'S4', name:'Vendor Registration', hex:'#10B981',
+      kpi:'Vendor DB ≥3 / Core Product', cur:'รอ S3', pctNum:0, state:'pending' },
+  ];
+
+  host.innerHTML = cards.map(c=>{
+    const badge = c.state==='done'?'✅':c.state==='active'?'▶':'○';
+    const badgeColor = c.state==='done'?'#10B981':c.state==='active'?c.hex:'#9CA3AF';
+    const barColor = c.state==='done'?'#10B981':c.hex;
+    return `<div style="border:1.5px solid ${c.state==='active'?c.hex+'55':'#E5E7EB'};border-radius:10px;padding:12px 12px 14px;background:${c.state==='active'?c.hex+'08':'#fff'};">
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:7px;">
+        <span style="width:20px;height:20px;border-radius:50%;background:${c.hex}22;color:${c.hex};font-size:8px;font-weight:800;display:flex;align-items:center;justify-content:center;">${c.id}</span>
+        <span style="font-size:10px;font-weight:700;color:#111827;line-height:1.1;">${c.name}</span>
+        <span style="margin-left:auto;font-size:11px;color:${badgeColor};">${badge}</span>
+      </div>
+      <div style="font-size:9px;color:#9CA3AF;text-transform:uppercase;letter-spacing:.3px;font-weight:700;margin-bottom:3px;">Target KPI</div>
+      <div style="font-size:10px;color:#374151;font-weight:600;line-height:1.35;min-height:28px;">${c.kpi}</div>
+      <div style="font-size:11px;color:${barColor};font-weight:700;margin-top:6px;">${c.cur}</div>
+      <div style="background:#E5E7EB;border-radius:3px;height:4px;margin-top:7px;overflow:hidden;">
+        <div style="height:4px;border-radius:3px;background:${barColor};width:${c.pctNum}%;transition:width .5s;"></div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderBizProducts(){
+  if (masterPlanData && masterPlanData.products && masterPlanData.products.length) {
+    const sec = document.getElementById('biz-products-section');
+    if (sec) sec.style.display = 'block';
+    const tags = document.getElementById('biz-product-tags');
+    const PC = {'Power Distribution':'#3B82F6','High Quality Power':'#8B5CF6','Energy Conservation':'#10B981','Renewable Energy':'#F59E0B','Power Quality':'#EF4444','Other':'#6B7280'};
+    if (tags) tags.innerHTML = masterPlanData.products.map(p=>{
+      const c = PC[p.pillar] || '#6B7280';
+      return `<span style="display:inline-flex;align-items:center;gap:6px;padding:5px 13px;border-radius:20px;font-size:11.5px;font-weight:600;background:${c}15;color:${c};border:1.5px solid ${c}33;">${p.name} <span style="font-size:9px;opacity:.7;">${p.pillar}</span></span>`;
+    }).join('');
+  }
+}
+
+// showTab handles biz-dashboard refresh inline (see TABS section)
+
+// ════════ UNIFIED INIT (runs after all declarations) ════════
+function __initApp(){
+  try {
+    // ── Fresh-start guard: when the deployed build version changes, clear any
+    //    old/test data ONCE so the app starts at 0. (Normal reloads keep data.)
+    try {
+      if (localStorage.getItem('tcs_data_version') !== DATA_VERSION) {
+        const old=[];
+        for(let i=0;i<localStorage.length;i++){ const k=localStorage.key(i); if(k && k.indexOf('tcs_')===0) old.push(k); }
+        old.forEach(k=>localStorage.removeItem(k));
+        localStorage.setItem('tcs_data_version', DATA_VERSION);
+        // ensure in-memory state is clean too
+        manufacturers=[]; uploadedFiles=[]; checkedChannels=new Set(); s1Sessions=[]; masterPlanData=null; mfrIdCounter=1;
+      }
+    } catch(e){}
+
+    const reqDate = document.getElementById('f-reqdate');
+    if (reqDate) reqDate.value = new Date().toISOString().slice(0,10);
+    // Restore persisted Business demand (Master Plan) so sourcing + dashboard keep context after reload
+    try {
+      const mp = localStorage.getItem(MP_KEY);
+      if (mp) {
+        masterPlanData = JSON.parse(mp);
+        if (masterPlanData && masterPlanData.baseDate) { generateMasterPlan(); }
+      }
+    } catch(e){ console.warn('MP restore failed', e); }
+    renderProducts();
+    // Stage 1 init
+    s1Load();
+    initSession();
+    renderMfrTable();
+    renderFileList();
+    updateKPIs();
+    // Restore channel checkboxes
+    checkedChannels.forEach(name=>{
+      document.querySelectorAll('.ch-item').forEach(el=>{
+        if(el.querySelector('.ch-label') && el.querySelector('.ch-label').textContent===name){
+          el.classList.add('checked');
+        }
+      });
+    });
+    // Manufacturer Raw Data form — attach listeners + set initial completeness
+    attachArListeners();
+    renderProdRows();
+    renderSourcingDemandContext();
+    refreshOtherStatusBanner();
+  } catch(e) {
+    console.error('Init error:', e);
+  }
+}
+
+// Run init whether or not DOM is already parsed
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', __initApp);
+} else {
+  __initApp();
+}
+
+
+
+</script>
+
+<!-- ════════════ TAB 4: STAGE 1 GLOBAL DISCOVERY ════════════ -->
+<div class="tab-panel" id="tab-stage1">
+
+  <div class="s1tab-header">
+    <h2>🔍 Stage 1 — Global Discovery</h2>
+    <p>Key-in Manufacturer data · Track KPI Progress · Export to Excel</p>
+  </div>
+
+  <!-- Demand Context from Business (Stage 0 → Sourcing information flow) -->
+  <div id="s1-demand-context" style="display:none;background:linear-gradient(135deg,#EFF6FF,#F5F3FF);border:1.5px solid #BFDBFE;border-radius:10px;padding:14px 18px;margin-bottom:16px;">
+    <!-- populated by renderSourcingDemandContext() -->
+  </div>
+
+  <!-- KPI Dashboard -->
+  <div id="s1-alert-banner" class="alert-banner alert-warn" style="display:none;"></div>
+  <div class="kpi-dash">
+    <div class="kd-card" style="background:#EFF6FF;border-color:#BFDBFE;">
+      <div class="kd-top"><span class="kd-icon">🏭</span><span class="kd-status" id="kd1-status" style="background:#FEF3C7;color:#92400E;">In Progress</span></div>
+      <div class="kd-label">Manufacturer Count</div>
+      <div class="kd-value" id="kd1-val" style="color:#1D4ED8;">0</div>
+      <div class="kd-target" style="color:#6B7280;">Target: <strong>≥ 20</strong> raw entries</div>
+      <div class="kd-bar-wrap"><div class="kd-bar-fill" id="kd1-bar" style="background:#3B82F6;width:0%;"></div></div>
+    </div>
+    <div class="kd-card" style="background:#F5F3FF;border-color:#DDD6FE;">
+      <div class="kd-top"><span class="kd-icon">📡</span><span class="kd-status" id="kd2-status" style="background:#FEF3C7;color:#92400E;">In Progress</span></div>
+      <div class="kd-label">Discovery Channels Used</div>
+      <div class="kd-value" id="kd2-val" style="color:#6D28D9;">0</div>
+      <div class="kd-target" style="color:#6B7280;">Coverage: <strong>≥ 3</strong> channels จาก ≥ 20 ราย</div>
+      <div class="kd-bar-wrap"><div class="kd-bar-fill" id="kd2-bar" style="background:#8B5CF6;width:0%;"></div></div>
+    </div>
+    <div class="kd-card" style="background:#ECFDF5;border-color:#6EE7B7;">
+      <div class="kd-top"><span class="kd-icon">📁</span><span class="kd-status" id="kd3-status" style="background:#FEF3C7;color:#92400E;">Pending</span></div>
+      <div class="kd-label">Product Lists Uploaded</div>
+      <div class="kd-value" id="kd3-val" style="color:#065F46;">0</div>
+      <div class="kd-target" style="color:#6B7280;">Target: <strong>100%</strong> of Core Products</div>
+      <div class="kd-bar-wrap"><div class="kd-bar-fill" id="kd3-bar" style="background:#10B981;width:0%;"></div></div>
+    </div>
+  </div>
+
+  <!-- Session bar -->
+  <div style="display:flex;align-items:center;gap:10px;background:#F9FAFB;border:1.5px solid #E5E7EB;border-radius:8px;padding:9px 16px;margin-bottom:14px;flex-wrap:wrap;">
+    <div style="display:flex;align-items:center;gap:6px;">
+      <span style="font-size:11px;font-weight:700;color:#374151;">📅 Session:</span>
+      <span style="font-size:11px;color:#3B82F6;font-weight:600;" id="s1-session-label">Loading...</span>
+    </div>
+    <div style="width:1px;height:16px;background:#E5E7EB;"></div>
+    <div style="font-size:11px;color:#6B7280;">💾 Auto-saved to browser · Data accumulates across sessions</div>
+    <div style="margin-left:auto;display:flex;gap:7px;">
+      <button class="btn btn-outline" onclick="showS1History()" style="font-size:11px;padding:5px 11px;">📋 Session History</button>
+      <button class="btn btn-outline" onclick="archiveS1()" style="font-size:11px;padding:5px 11px;color:#9CA3AF;">📦 Archive</button>
+      <button class="btn btn-outline" onclick="exportAndOpenSharePoint()" style="font-size:11px;padding:5px 11px;color:#1D4ED8;border-color:#BFDBFE;">📂 Save → SharePoint</button>
+      <button class="btn btn-success" onclick="exportExcel()" style="font-size:11px;padding:5px 11px;">⬇ Export Excel</button>
+    </div>
+  </div>
+
+  <!-- History modal -->
+  <div id="s1-history-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;align-items:center;justify-content:center;">
+    <div style="background:#fff;border-radius:12px;padding:24px 28px;width:660px;max-width:95vw;max-height:80vh;display:flex;flex-direction:column;gap:12px;box-shadow:0 20px 60px rgba(0,0,0,.2);">
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <h3 style="font-size:15px;font-weight:800;color:#111827;">📋 Accumulate Log — All Sessions</h3>
+        <button onclick="closeS1History()" style="background:none;border:none;font-size:18px;cursor:pointer;color:#9CA3AF;">✕</button>
+      </div>
+      <div id="s1-history-content" style="overflow-y:auto;flex:1;max-height:400px;"></div>
+      <div style="display:flex;gap:8px;justify-content:flex-end;">
+        <button class="btn btn-outline" onclick="closeS1History()">Close</button>
+        <button class="btn btn-danger" onclick="resetAllS1()" style="background:#fff;color:#EF4444;border-color:#FECACA;font-size:11.5px;">🗑 Reset All Data</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="s1-cols">
+    <!-- LEFT: Key-in Manufacturers -->
+    <div>
+      <div class="s1-panel">
+        <div class="s1-panel-title">🏭 Manufacturer Raw Data <span class="ptag">KEY-IN</span></div>
+
+
+
+        <!-- ── Key-in Form ── -->
+        <div class="add-row-form" id="mfr-entry-form" style="background:#F9FAFB;border:1.5px solid #E5E7EB;border-radius:10px;padding:14px 16px;margin-bottom:14px;">
+
+          <!-- Completeness bar -->
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+            <div style="font-size:10px;font-weight:700;color:#374151;white-space:nowrap;">Raw Data Completeness</div>
+            <div style="flex:1;background:#E5E7EB;border-radius:4px;height:7px;overflow:hidden;">
+              <div id="ar-complete-bar" style="height:7px;border-radius:4px;background:#D1D5DB;width:0%;transition:width .2s;"></div>
+            </div>
+            <div id="ar-complete-pct" style="font-size:10px;font-weight:800;color:#9CA3AF;white-space:nowrap;min-width:38px;text-align:right;">0%</div>
+          </div>
+
+          <!-- Row 1: Name + Country -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">
+            <div>
+              <label class="ar-label">🏭 Manufacture Name <span style="color:#EF4444;">*</span></label>
+              <input type="text" class="ar-input" id="ar-name" oninput="updateArComplete()" onclick="event.stopPropagation()">
+            </div>
+            <div>
+              <label class="ar-label">🌍 Country <span style="color:#EF4444;">*</span></label>
+              <input type="text" class="ar-input" id="ar-country" oninput="updateArComplete()" onclick="event.stopPropagation()">
+            </div>
+          </div>
+
+          <!-- Row 2: Website + Contact Person -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">
+            <div>
+              <label class="ar-label">🌐 Website <span style="color:#EF4444;">*</span></label>
+              <input type="text" class="ar-input" id="ar-web" oninput="updateArComplete()" onclick="event.stopPropagation()">
+            </div>
+            <div>
+              <label class="ar-label">📧 Contact / Email <span style="color:#EF4444;">*</span></label>
+              <input type="text" class="ar-input" id="ar-contact" oninput="updateArComplete()" onclick="event.stopPropagation()">
+            </div>
+          </div>
+
+          <!-- Row 3: Product Category + Tier -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">
+            <div>
+              <label class="ar-label">📦 Product Category <span style="color:#EF4444;">*</span></label>
+              <input type="text" class="ar-input" id="ar-category" oninput="updateArComplete()" onclick="event.stopPropagation()">
+            </div>
+            <div>
+              <label class="ar-label">🏷 Tier <span style="color:#EF4444;">*</span></label>
+              <select class="ar-select" id="ar-tier" onchange="updateArComplete()">
+                <option value="">— Select Tier —</option>
+                <option value="Tier 1">Tier 1 — Direct Manufacturer</option>
+                <option value="Tier 2">Tier 2 — Regional Supplier</option>
+                <option value="Tier 3">Tier 3 — Distributor / Agent</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Row 4: Discovery Source + Note -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">
+            <div>
+              <label class="ar-label">📡 Discovery Source <span style="color:#EF4444;">*</span></label>
+              <select class="ar-select" id="ar-source" onchange="updateArComplete()">
+                <option value="">— Select Source —</option>
+                <option value="Exhibition Directory">Exhibition Directory</option>
+                <option value="Platform B2B">Platform B2B</option>
+                <option value="Associations / Alliances">Associations / Alliances</option>
+                <option value="Community วิชาชีพ">Community วิชาชีพ</option>
+                <option value="Direct Research">Direct Research</option>
+                <option value="Referral">Referral</option>
+              </select>
+            </div>
+            <div>
+              <label class="ar-label">📝 Remark / Note</label>
+              <input type="text" class="ar-input" id="ar-note" placeholder="Optional"
+                onclick="event.stopPropagation()">
+            </div>
+          </div>
+
+          <!-- Row 5: Product / Equipment list (key-in, add rows) -->
+          <div style="margin-bottom:10px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+              <label class="ar-label" style="margin:0;">🧰 Product / Equipment List
+                <span style="color:#9CA3AF;font-size:9px;">(Optional)</span>
+                <span id="ar-prod-count" style="margin-left:8px;font-size:10px;font-weight:700;color:#9CA3AF;"></span>
+              </label>
+              <button type="button" onclick="addProdRow()"
+                style="padding:4px 11px;background:#EFF6FF;border:1.5px solid #BFDBFE;border-radius:6px;
+                       font-size:10.5px;font-weight:700;color:#1D4ED8;font-family:'Inter',sans-serif;cursor:pointer;">
+                ＋ Add Row
+              </button>
+            </div>
+
+            <!-- Equipment table -->
+            <div style="border:1.5px solid #E5E7EB;border-radius:8px;overflow:hidden;">
+              <table style="width:100%;border-collapse:collapse;font-size:11px;font-family:'Inter',sans-serif;">
+                <thead>
+                  <tr style="background:#F9FAFB;">
+                    <th style="text-align:left;padding:6px 9px;font-size:9.5px;font-weight:700;color:#6B7280;letter-spacing:.3px;text-transform:uppercase;border-bottom:1.5px solid #E5E7EB;width:38%;">Equipment / Product</th>
+                    <th style="text-align:left;padding:6px 9px;font-size:9.5px;font-weight:700;color:#6B7280;letter-spacing:.3px;text-transform:uppercase;border-bottom:1.5px solid #E5E7EB;width:30%;">Spec / Model</th>
+                    <th style="text-align:left;padding:6px 9px;font-size:9.5px;font-weight:700;color:#6B7280;letter-spacing:.3px;text-transform:uppercase;border-bottom:1.5px solid #E5E7EB;">Note</th>
+                    <th style="width:34px;border-bottom:1.5px solid #E5E7EB;"></th>
+                  </tr>
+                </thead>
+                <tbody id="ar-prod-tbody">
+                  <!-- rows injected by renderProdRows() -->
+                </tbody>
+              </table>
+            </div>
+            <div id="ar-prod-empty" style="font-size:10.5px;color:#9CA3AF;text-align:center;padding:9px;">
+              ยังไม่มีรายการ — กด <strong>＋ Add Row</strong> เพื่อเพิ่มอุปกรณ์ที่ Supplier มี
+            </div>
+          </div>
+
+          <!-- Submit button row -->
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+            <div id="ar-validation-msg" style="font-size:11px;color:#EF4444;font-weight:600;flex:1;"></div>
+            <button type="button" id="ar-submit-btn" disabled
+              onclick="submitManufacturer();"
+              style="padding:8px 20px;border-radius:7px;font-size:12px;font-weight:700;
+                     font-family:'Inter',sans-serif;transition:all .15s;
+                     background:#F3F4F6;color:#9CA3AF;border:1.5px solid #E5E7EB;
+                     white-space:nowrap;opacity:0.5;cursor:not-allowed;">
+              📋 Submit Entry
+            </button>
+          </div>
+        </div>
+
+        <!-- ── Daily Log ── -->
+        <div style="margin-bottom:10px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:7px;">
+            <div style="font-size:10px;font-weight:700;color:#374151;letter-spacing:.5px;text-transform:uppercase;">
+              📅 Daily Entry Log
+            </div>
+            <div id="mfr-count-label" style="font-size:10px;color:#9CA3AF;">0 entries · Target ≥ 20</div>
+          </div>
+          <!-- Day selector tabs -->
+          <div id="day-tab-bar" style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px;"></div>
+          <!-- Entries for selected day -->
+          <div class="mfr-table-wrap">
+            <table class="mfr-tbl">
+              <thead><tr>
+                <th>#</th>
+                <th>Manufacture Name</th>
+                <th>Country</th>
+                <th>Website</th>
+                <th>Contact</th>
+                <th>Category</th>
+                <th>Tier</th>
+                <th>Source</th>
+                <th>Products</th>
+                <th>Remark</th>
+                <th>Date</th>
+                <th></th>
+              </tr></thead>
+              <tbody id="mfr-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Full width: data preview -->
+  <div class="s1-panel" style="margin-bottom:12px;" id="s1-summary-panel">
+    <div class="s1-panel-title">📊 Data Summary &amp; Readiness Check</div>
+    <div id="s1-summary-content" style="font-size:12px;color:#9CA3AF;font-style:italic;padding:8px 0;">ยังไม่มีข้อมูล — เริ่ม Key-in Manufacturer เพื่อดู Summary</div>
+  </div>
+
+  <!-- Accumulate status bar -->
+  <div class="s1-panel" style="margin-bottom:0;background:#F9FAFB;">
+    <div class="s1-panel-title">📈 Accumulate Status</div>
+    <div id="s1-accumulate-bar" style="font-size:11.5px;color:#6B7280;padding:4px 0;">Loading...</div>
+  </div>
+
+</div><!-- end tab-stage1 -->
+
+
+
+
+<!-- ════════════ EXECUTIVE DASHBOARD ════════════ -->
+<div class="tab-panel" id="tab-biz-dashboard">
+
+<div style="margin-bottom:24px;">
+  <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#9CA3AF;margin-bottom:6px;">VENDOR SOURCING PROCESS</div>
+  <h2 style="font-size:22px;font-weight:800;color:#111827;letter-spacing:-.3px;margin-bottom:4px;">Executive Status Dashboard</h2>
+  <p style="font-size:12.5px;color:#6B7280;" id="biz-project-subtitle">กำลังรอข้อมูล — Submit Demand ใน Stage 0 ก่อน</p>
+</div>
+
+<!-- ── On-Track Indicator Banner ── -->
+<div id="biz-ontrack-banner" style="border-radius:12px;padding:16px 20px;margin-bottom:14px;display:flex;align-items:center;gap:14px;background:#F9FAFB;border:1.5px solid #E5E7EB;">
+  <div id="biz-ontrack-icon" style="font-size:32px;">⏳</div>
+  <div style="flex:1;">
+    <div id="biz-ontrack-label" style="font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#9CA3AF;margin-bottom:4px;">TARGET STATUS</div>
+    <div id="biz-ontrack-title" style="font-size:17px;font-weight:800;color:#374151;">Waiting for Demand Input</div>
+    <div id="biz-ontrack-sub" style="font-size:11.5px;color:#9CA3AF;margin-top:2px;">Submit demand ใน Stage 0 เพื่อเริ่ม tracking</div>
+  </div>
+  <div id="biz-ontrack-pct" style="font-size:36px;font-weight:800;color:#D1D5DB;">—</div>
+</div>
+
+<!-- ── Forecast / Trend Information (short, clear) ── -->
+<div id="biz-forecast" style="display:none;border-radius:10px;padding:13px 17px;margin-bottom:22px;border:1.5px solid #E5E7EB;background:#fff;">
+  <div style="display:flex;align-items:flex-start;gap:11px;">
+    <span id="biz-forecast-icon" style="font-size:20px;flex-shrink:0;margin-top:1px;">🔮</span>
+    <div style="flex:1;">
+      <div style="font-size:9.5px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#9CA3AF;margin-bottom:3px;">Forecast — แนวโน้มการส่งมอบ</div>
+      <div id="biz-forecast-msg" style="font-size:13px;font-weight:700;color:#111827;line-height:1.5;">—</div>
+      <div id="biz-forecast-detail" style="font-size:10.5px;color:#6B7280;margin-top:3px;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── KPI Grid ── -->
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:22px;" id="biz-kpi-grid">
+  <!-- KPI 1: Timeline -->
+  <div style="background:#fff;border:1.5px solid #E5E7EB;border-radius:12px;padding:16px 18px;">
+    <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;color:#9CA3AF;text-transform:uppercase;margin-bottom:8px;">📅 Timeline</div>
+    <div style="font-size:22px;font-weight:800;color:#111827;" id="biz-kpi-weeks">—</div>
+    <div style="font-size:10.5px;color:#6B7280;margin-top:2px;">weeks elapsed / 12</div>
+    <div style="background:#E5E7EB;border-radius:3px;height:5px;margin-top:10px;overflow:hidden;">
+      <div id="biz-kpi-weeks-bar" style="height:5px;border-radius:3px;background:#3B82F6;width:0%;transition:width .5s;"></div>
+    </div>
+  </div>
+  <!-- KPI 2: Manufacturers -->
+  <div style="background:#fff;border:1.5px solid #E5E7EB;border-radius:12px;padding:16px 18px;">
+    <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;color:#9CA3AF;text-transform:uppercase;margin-bottom:8px;">🏭 Manufacturers</div>
+    <div style="font-size:22px;font-weight:800;color:#111827;" id="biz-kpi-mfr">0</div>
+    <div style="font-size:10.5px;color:#6B7280;margin-top:2px;">entries / target 20</div>
+    <div style="background:#E5E7EB;border-radius:3px;height:5px;margin-top:10px;overflow:hidden;">
+      <div id="biz-kpi-mfr-bar" style="height:5px;border-radius:3px;background:#3B82F6;width:0%;transition:width .5s;"></div>
+    </div>
+  </div>
+  <!-- KPI 3: Channels -->
+  <div style="background:#fff;border:1.5px solid #E5E7EB;border-radius:12px;padding:16px 18px;">
+    <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;color:#9CA3AF;text-transform:uppercase;margin-bottom:8px;">📡 Channels</div>
+    <div style="font-size:22px;font-weight:800;color:#111827;" id="biz-kpi-ch">0</div>
+    <div style="font-size:10.5px;color:#6B7280;margin-top:2px;">used / target ≥ 3</div>
+    <div style="background:#E5E7EB;border-radius:3px;height:5px;margin-top:10px;overflow:hidden;">
+      <div id="biz-kpi-ch-bar" style="height:5px;border-radius:3px;background:#8B5CF6;width:0%;transition:width .5s;"></div>
+    </div>
+  </div>
+  <!-- KPI 4: Products -->
+  <div style="background:#fff;border:1.5px solid #E5E7EB;border-radius:12px;padding:16px 18px;">
+    <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;color:#9CA3AF;text-transform:uppercase;margin-bottom:8px;">📦 Products Listed</div>
+    <div style="font-size:22px;font-weight:800;color:#111827;" id="biz-kpi-files">0</div>
+    <div style="font-size:10.5px;color:#6B7280;margin-top:2px;">equipment keyed-in</div>
+    <div style="background:#E5E7EB;border-radius:3px;height:5px;margin-top:10px;overflow:hidden;">
+      <div id="biz-kpi-files-bar" style="height:5px;border-radius:3px;background:#10B981;width:0%;transition:width .5s;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Timeline (Gantt) covering Stage 0-4 ── -->
+<div style="background:#fff;border:1.5px solid #E5E7EB;border-radius:12px;padding:20px 22px;margin-bottom:22px;">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+    <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;color:#9CA3AF;text-transform:uppercase;">🗓 Process Timeline · Stage 0–4 (12 weeks)</div>
+    <div id="biz-timeline-today" style="font-size:10px;font-weight:700;color:#3B82F6;"></div>
+  </div>
+  <div id="biz-timeline"><!-- injected by JS --></div>
+</div>
+
+<!-- ── Stage KPI Matrix (KPI per stage 0-4) ── -->
+<div style="background:#fff;border:1.5px solid #E5E7EB;border-radius:12px;padding:20px 22px;margin-bottom:22px;">
+  <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;color:#9CA3AF;text-transform:uppercase;margin-bottom:14px;">🎯 Stage KPI Matrix · เป้าหมายแต่ละ Stage</div>
+  <div id="biz-stage-kpi" style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px;"><!-- injected by JS --></div>
+</div>
+
+<!-- ── Stage Progress + Risk ── -->
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:22px;">
+
+  <!-- Stage Tracker -->
+  <div style="background:#fff;border:1.5px solid #E5E7EB;border-radius:12px;padding:20px 22px;">
+    <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;color:#9CA3AF;text-transform:uppercase;margin-bottom:16px;">⚡ Stage Progress · KPI</div>
+    <div id="biz-stage-tracker">
+      <!-- injected by JS -->
+    </div>
+  </div>
+
+  <!-- Risk / Alert Panel -->
+  <div style="background:#fff;border:1.5px solid #E5E7EB;border-radius:12px;padding:20px 22px;">
+    <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;color:#9CA3AF;text-transform:uppercase;margin-bottom:16px;">⚠️ Risk Signals</div>
+    <div id="biz-risk-panel">
+      <div style="font-size:12px;color:#9CA3AF;font-style:italic;">รอข้อมูลจาก Sourcing Team...</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── Products in Scope ── -->
+<div style="background:#fff;border:1.5px solid #E5E7EB;border-radius:12px;padding:20px 22px;margin-bottom:22px;" id="biz-products-section" style="display:none;">
+  <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;color:#9CA3AF;text-transform:uppercase;margin-bottom:12px;">📦 Core Products in Scope</div>
+  <div id="biz-product-tags" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
+</div>
+
+<!-- ── Refresh button ── -->
+<div style="text-align:right;margin-top:4px;">
+  <button onclick="refreshBizDashboard()" style="padding:7px 16px;border:1.5px solid #E5E7EB;border-radius:7px;background:#fff;font-size:11.5px;font-weight:600;color:#374151;cursor:pointer;font-family:'Inter',sans-serif;" onmouseover="this.style.background='#F9FAFB'" onmouseout="this.style.background='#fff'">↻ Refresh Data</button>
+</div>
+
+</div><!-- end tab-biz-dashboard -->
+
+
+</body>
+</html>
