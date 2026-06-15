@@ -5,6 +5,27 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Vendor Sourcing Process — TCS</title>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     FIREBASE CLOUD SYNC  ·  วางค่า firebaseConfig ของคุณตรงนี้
+     ════════════════════════════════════════════════════════════════════
+     1) ไปที่ https://console.firebase.google.com → สร้าง project
+     2) Build → Firestore Database → Create database → Start in test mode
+     3) Project settings (⚙️) → Your apps → Web (</>) → คัดลอกค่ามาวางแทนด้านล่าง
+     หากปล่อยค่า "PASTE_..." ไว้ ระบบจะทำงานแบบ offline (localStorage) ตามเดิม
+     ════════════════════════════════════════════════════════════════════ -->
+<script>
+  window.FIREBASE_CONFIG = {
+    apiKey:            "PASTE_API_KEY",
+    authDomain:        "PASTE_PROJECT.firebaseapp.com",
+    projectId:         "PASTE_PROJECT_ID",
+    storageBucket:     "PASTE_PROJECT.appspot.com",
+    messagingSenderId: "PASTE_SENDER_ID",
+    appId:             "PASTE_APP_ID"
+  };
+  // Shared workspace id — ทุกคนที่ใช้ค่าเดียวกันจะเห็นข้อมูลชุดเดียวกัน
+  window.TCS_WORKSPACE = "tcs-default";
+</script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -1014,6 +1035,7 @@ function submitDemand(){
     products:filled, baseDate:startdate, submittedAt:new Date().toISOString()
   };
   try { localStorage.setItem(MP_KEY, JSON.stringify(masterPlanData)); } catch(e){}
+  if (Cloud.ready) Cloud.save('masterplan', masterPlanData);
 
   generateMasterPlan();
   buildDashboard(endDate, baseDate, filled, name, bu, priority);
@@ -1497,6 +1519,84 @@ let manufacturers = [];
 let uploadedFiles = [];
 let checkedChannels = new Set();
 let mfrIdCounter = 1;
+
+// ════════════════════════════════════════════
+//  CLOUD SYNC (Firebase Firestore) — shared data across devices/users
+//  Falls back to localStorage automatically if Firebase isn't configured.
+// ════════════════════════════════════════════
+const Cloud = {
+  ready: false,
+  db: null,
+  ws: (window.TCS_WORKSPACE || 'tcs-default'),
+  _unsub: [],
+  _saving: false,
+
+  configured(){
+    const c = window.FIREBASE_CONFIG || {};
+    return c.apiKey && c.apiKey.indexOf('PASTE_') !== 0 && c.projectId && c.projectId.indexOf('PASTE_') !== 0;
+  },
+
+  // Load Firebase SDK (v9 compat for simple global API) then init
+  async init(){
+    if (!this.configured()) { console.info('[Cloud] Firebase not configured → offline (localStorage) mode'); return false; }
+    try{
+      await this._loadScript('https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js');
+      await this._loadScript('https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js');
+      if (!window.firebase) throw new Error('Firebase SDK not available');
+      if (!firebase.apps.length) firebase.initializeApp(window.FIREBASE_CONFIG);
+      this.db = firebase.firestore();
+      this.ready = true;
+      console.info('[Cloud] Firebase connected · workspace =', this.ws);
+      return true;
+    }catch(e){
+      console.warn('[Cloud] init failed → offline mode:', e.message);
+      this.ready = false;
+      return false;
+    }
+  },
+
+  _loadScript(src){
+    return new Promise((res, rej)=>{
+      if (document.querySelector('script[src="'+src+'"]')) return res();
+      const s = document.createElement('script');
+      s.src = src; s.onload = ()=>res(); s.onerror = ()=>rej(new Error('load fail '+src));
+      document.head.appendChild(s);
+    });
+  },
+
+  _doc(name){ return this.db.collection('workspaces').doc(this.ws).collection('data').doc(name); },
+
+  // Save a named blob to cloud (master plan / stage1)
+  async save(name, obj){
+    if (!this.ready) return false;
+    try{ this._saving = true; await this._doc(name).set({ payload: JSON.stringify(obj), updatedAt: Date.now() }); this._saving = false; return true; }
+    catch(e){ this._saving = false; console.warn('[Cloud] save '+name+' failed:', e.message); return false; }
+  },
+
+  // Subscribe to live updates for a named blob
+  subscribe(name, onData){
+    if (!this.ready) return;
+    const u = this._doc(name).onSnapshot(snap=>{
+      if (this._saving) return;          // ignore our own write echo
+      const d = snap.data();
+      if (d && d.payload){ try{ onData(JSON.parse(d.payload)); }catch(e){} }
+    }, err=>console.warn('[Cloud] subscribe '+name+' err:', err.message));
+    this._unsub.push(u);
+  },
+
+  // One-time read
+  async load(name){
+    if (!this.ready) return null;
+    try{ const snap = await this._doc(name).get(); const d = snap.data(); return (d&&d.payload)?JSON.parse(d.payload):null; }
+    catch(e){ console.warn('[Cloud] load '+name+' failed:', e.message); return null; }
+  },
+
+  async wipe(){
+    if (!this.ready) return;
+    try{ await this._doc('masterplan').delete(); await this._doc('stage1').delete(); }catch(e){}
+  }
+};
+
 let s1Sessions = []; // [{date, added, sessionId}]
 let currentSessionId = '';
 let currentSessionAdded = 0;
@@ -1522,6 +1622,11 @@ function s1Save(){
     localStorage.setItem(S1_SESSIONS_KEY, JSON.stringify(s1Sessions));
     mfrIdCounter = manufacturers.length ? Math.max(...manufacturers.map(m=>m.id))+1 : 1;
   }catch(e){}
+  // Mirror to cloud (shared across devices)
+  if (Cloud.ready) Cloud.save('stage1', {
+    manufacturers, channels:[...checkedChannels], sessions:s1Sessions,
+    files: uploadedFiles.map(u=>({name:u.name,size:u.size,ext:u.ext,status:u.status,uploadedAt:u.uploadedAt}))
+  });
 }
 
 function s1Load(){
@@ -2096,6 +2201,8 @@ function resetAllS1(){
     for(let i=0;i<localStorage.length;i++){ const k=localStorage.key(i); if(k && k.indexOf('tcs_')===0) keys.push(k); }
     keys.forEach(k=>localStorage.removeItem(k));
   }catch(e){}
+  // Also clear shared cloud data so every device resets
+  if (typeof Cloud!=='undefined' && Cloud.ready) Cloud.wipe();
   showToast('🗑 ล้างข้อมูลทั้งหมดเรียบร้อย — พร้อมใช้งานจริง');
 }
 
@@ -2689,6 +2796,84 @@ if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', __initApp);
 } else {
   __initApp();
+}
+
+// ════════════════════════════════════════════
+//  Apply data coming FROM the cloud into the live app + all views
+// ════════════════════════════════════════════
+function applyCloudMasterPlan(mp){
+  if (!mp) return;
+  masterPlanData = mp;
+  try { localStorage.setItem(MP_KEY, JSON.stringify(mp)); } catch(e){}
+  if (mp.baseDate) { try{ generateMasterPlan(); }catch(e){} }
+  // reveal master plan content
+  const mpC=document.getElementById('mp-content'); if(mpC) mpC.style.display='block';
+  const mpE=document.getElementById('mp-empty');   if(mpE) mpE.style.display='none';
+  if(typeof renderSourcingDemandContext==='function') renderSourcingDemandContext();
+  if(typeof refreshOtherStatusBanner==='function') refreshOtherStatusBanner();
+  if(typeof refreshBizDashboard==='function') refreshBizDashboard();
+}
+
+function applyCloudStage1(s1){
+  if (!s1) return;
+  if (Array.isArray(s1.manufacturers)) manufacturers = s1.manufacturers;
+  if (Array.isArray(s1.channels)) checkedChannels = new Set(s1.channels);
+  if (Array.isArray(s1.sessions)) s1Sessions = s1.sessions;
+  if (Array.isArray(s1.files)) uploadedFiles = s1.files;
+  mfrIdCounter = manufacturers.length ? Math.max(...manufacturers.map(m=>m.id))+1 : 1;
+  // persist + refresh all views
+  try{
+    localStorage.setItem(S1_KEY, JSON.stringify(manufacturers));
+    localStorage.setItem(S1_CH_KEY, JSON.stringify([...checkedChannels]));
+    localStorage.setItem(S1_SESSIONS_KEY, JSON.stringify(s1Sessions));
+  }catch(e){}
+  // restore channel checkbox UI
+  document.querySelectorAll('.ch-item').forEach(el=>{
+    const lbl = el.querySelector('.ch-label');
+    if (lbl) el.classList.toggle('checked', checkedChannels.has(lbl.textContent));
+  });
+  if(typeof renderMfrTable==='function') renderMfrTable();
+  if(typeof updateKPIs==='function') updateKPIs();
+  if(typeof refreshOtherStatusBanner==='function') refreshOtherStatusBanner();
+  if(typeof refreshBizDashboard==='function') refreshBizDashboard();
+}
+
+// ════════════════════════════════════════════
+//  Cloud bootstrap — connect, pull latest, then subscribe to live updates
+// ════════════════════════════════════════════
+(async function cloudBootstrap(){
+  const ok = await Cloud.init();
+  const badge = ()=>{ try{ updateCloudBadge(); }catch(e){} };
+  if (!ok){ badge(); return; }
+  // initial pull (cloud wins over local on first load so everyone converges)
+  try{
+    const mp = await Cloud.load('masterplan');
+    if (mp) applyCloudMasterPlan(mp);
+    const s1 = await Cloud.load('stage1');
+    if (s1) applyCloudStage1(s1);
+  }catch(e){ console.warn('[Cloud] initial pull failed', e); }
+  // live subscriptions
+  Cloud.subscribe('masterplan', applyCloudMasterPlan);
+  Cloud.subscribe('stage1', applyCloudStage1);
+  badge();
+})();
+
+// Small status badge so users know if they're on Cloud or Offline
+function updateCloudBadge(){
+  let b = document.getElementById('cloud-badge');
+  if (!b){
+    b = document.createElement('div');
+    b.id = 'cloud-badge';
+    b.style.cssText='position:fixed;bottom:14px;left:14px;z-index:998;font-family:Inter,sans-serif;font-size:10.5px;font-weight:700;padding:5px 11px;border-radius:14px;display:flex;align-items:center;gap:6px;box-shadow:0 2px 8px rgba(0,0,0,.12);';
+    document.body.appendChild(b);
+  }
+  if (Cloud.ready){
+    b.style.background='#ECFDF5'; b.style.color='#047857'; b.style.border='1px solid #6EE7B7';
+    b.innerHTML='● Cloud Sync · ทุกคนเห็นข้อมูลเดียวกัน';
+  } else {
+    b.style.background='#FEF3C7'; b.style.color='#92400E'; b.style.border='1px solid #FDE68A';
+    b.innerHTML='● Offline (เครื่องนี้เท่านั้น) · ยังไม่ได้ตั้งค่า Firebase';
+  }
 }
 
 
