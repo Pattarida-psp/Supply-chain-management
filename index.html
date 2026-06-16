@@ -3,7 +3,7 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, inhitial-scale=1.0">
 <title>Vendor Sourcing Process — TCS</title>
 
 <!-- ════════════════════════════════════════════════════════════════════
@@ -1439,7 +1439,7 @@ function refreshOtherStatusBanner() {
   }
   if (el) el.textContent = 'Stage 1 — Global Discovery (Active)';
   if (pn) pn.textContent = masterPlanData.projectName || '—';
-  const mCount = manufacturers.length;
+  const mCount = new Set(manufacturers.map(m => m.name.trim().toLowerCase())).size;
   if (pr) pr.textContent = mCount + '/20 Manufacturers · ' + (new Set(manufacturers.map(m=>m.source).filter(Boolean)).size) + ' Channels';
 }
 
@@ -1797,7 +1797,7 @@ function submitManufacturer(){
 
   const products = collectProdRows();
 
-  manufacturers.push({
+  if(manufacturers.some(m=>m.name.trim().toLowerCase()===name.trim().toLowerCase())){showToast('Manufacturer "'+name+'" already exists');return;}  manufacturers.push({
     id: mfrIdCounter++, name, country, website: web,
     contact, category, tier, source, note,
     products,
@@ -2236,7 +2236,7 @@ function updateSummary(){
   if(!manufacturers.length) return;
   const byCountry={};
   const byTier={};
-  manufacturers.forEach(m=>{
+  [...new Map(manufacturers.map(m => [m.name.trim().toLowerCase(), m])).values()].forEach(m=>{
     byCountry[m.country]=(byCountry[m.country]||0)+1;
     byTier[m.tier]=(byTier[m.tier]||0)+1;
   });
@@ -2477,7 +2477,7 @@ function applyMasterPlanMode(role) {
 }
 
 function refreshBizDashboard() {
-  const mCount = manufacturers.length;
+  const mCount = new Set(manufacturers.map(m => m.name.trim().toLowerCase())).size;
   const chCount = new Set(manufacturers.map(m=>m.source).filter(Boolean)).size;
   const prodCount = manufacturers.reduce((s,m)=>s+((m.products||[]).length),0);
   const hasPlan = !!masterPlanData;
