@@ -1790,12 +1790,22 @@ function submitManufacturer(){
 
   const products = collectProdRows();
 
-  if(manufacturers.some(m=>m.name.trim().toLowerCase()===name.trim().toLowerCase())){showToast('Manufacturer "'+name+'" already exists');return;}  manufacturers.push({
-    id: mfrIdCounter++, name, country, website: web,
-    contact, category, tier, source, note,
-    products,
-    addedAt: new Date().toISOString(), session: today
-  });
+  if(window._editingMfrId != null) {
+    const idx = manufacturers.findIndex(x => x.id === window._editingMfrId);
+    if(idx !== -1) {
+      manufacturers[idx] = Object.assign(manufacturers[idx], { name, country, website: web, contact, category, tier, source, note, products });
+    }
+    window._editingMfrId = null;
+    const btn2 = document.getElementById('ar-submit-btn');
+    if(btn2){ btn2.textContent = '📋 Submit Entry'; btn2.style.background=''; btn2.style.borderColor=''; }
+  } else {
+    if(manufacturers.some(m=>m.name.trim().toLowerCase()===name.trim().toLowerCase())){showToast('Manufacturer "'+name+'" already exists');return;}  manufacturers.push({
+      id: mfrIdCounter++, name, country, website: web,
+      contact, category, tier, source, note,
+      products,
+      addedAt: new Date().toISOString(), session: today
+    });
+  }
 
   // Clear form
   AR_REQUIRED.forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
@@ -1893,14 +1903,18 @@ function renderMfrTable(){
       <td style="font-size:10px;color:#374151;">${m.category||'<span style="color:#D1D5DB;">—</span>'}</td>
       <td><span class="tier-badge ${TIER_CLASS[m.tier]||'tier-3'}">${m.tier}</span></td>
       <td style="font-size:9.5px;color:#6B7280;">${m.source||'—'}</td>
-      <td style="text-align:center;font-size:10px;">${
+            <td style="font-size:10px;max-width:140px;padding:4px 6px;">${
         (m.products && m.products.length)
-          ? '<span style="display:inline-block;min-width:20px;padding:1px 7px;background:#EFF6FF;color:#1D4ED8;border-radius:10px;font-weight:700;" title="'+m.products.map(p=>p.name+(p.qty?' ('+p.qty+(p.unit?' '+p.unit:'')+')':'')).join(', ').replace(/"/g,'&quot;')+'">'+m.products.length+'</span>'
-          : '<span style="color:#D1D5DB;">—</span>'
+          ? m.products.map(p => `<span style="display:inline-block;background:#EFF6FF;color:#1D4ED8;border-radius:5px;padding:1px 6px;margin:1px 2px 1px 0;font-size:9px;font-weight:600;white-space:nowrap;">${p.name||'?'}</span>`).join('')
+          : '<span style=\"color:#D1D5DB;\">—</span>'
       }</td>
       <td style="font-size:9.5px;color:#9CA3AF;max-width:100px;overflow:hidden;text-overflow:ellipsis;" title="${m.note||''}">${m.note||'—'}</td>
       <td style="font-size:9.5px;color:#9CA3AF;white-space:nowrap;">${mfrDay(m)}</td>
-      <td style="text-align:center;"><button class="del-row" type="button" onclick="event.stopPropagation();deleteMfr(${m.id})" title="Delete">✕</button></td>
+            <td style="text-align:center;white-space:nowrap;min-width:90px;">
+        <button type="button" onclick="event.stopPropagation();editMfr(${m.id})" title="Edit" style="background:#EFF6FF;border:1px solid #BFDBFE;color:#1D4ED8;border-radius:5px;padding:2px 6px;font-size:11px;cursor:pointer;margin-right:2px;">✏️</button>
+        <button type="button" onclick="event.stopPropagation();duplicateMfr(${m.id})" title="Duplicate" style="background:#F0FDF4;border:1px solid #BBF7D0;color:#15803D;border-radius:5px;padding:2px 6px;font-size:11px;cursor:pointer;margin-right:2px;">⧉</button>
+        <button class="del-row" type="button" onclick="event.stopPropagation();deleteMfr(${m.id})" title="Delete">✕</button>
+      </td>
     </tr>`;
   }).join('');
   updateSummary();
@@ -1911,6 +1925,45 @@ function deleteMfr(id){
   s1Save();
   renderMfrTable();updateKPIs();
 }
+
+function editMfr(id){
+  const m = manufacturers.find(x => x.id === id);
+  if(!m) return;
+  const sv = (elId, v) => { const e = document.getElementById(elId); if(e) e.value = v||''; };
+  sv('ar-name',    m.name);
+  sv('ar-country', m.country);
+  sv('ar-web',     m.website);
+  sv('ar-contact', m.contact);
+  sv('ar-tier',    m.tier);
+  sv('ar-source',  m.source);
+  sv('ar-note',    m.note);
+  clearProdRows();
+  (m.products||[]).forEach(p => addProdRow(p));
+  window._editingMfrId = id;
+  const btn = document.getElementById('ar-submit-btn');
+  if(btn){ btn.textContent = '💾 Update Entry'; btn.style.background='#F59E0B'; btn.style.borderColor='#F59E0B'; }
+  updateArComplete();
+  const formEl = document.getElementById('ar-name');
+  if(formEl) formEl.scrollIntoView({behavior:'smooth', block:'center'});
+  showToast('✏️ Editing: ' + m.name);
+}
+
+function duplicateMfr(id){
+  const m = manufacturers.find(x => x.id === id);
+  if(!m) return;
+  const copy = Object.assign({}, m, {
+    id: mfrIdCounter++,
+    addedAt: new Date().toISOString(),
+    products: (m.products||[]).map(p => Object.assign({},p))
+  });
+  const idx2 = manufacturers.indexOf(m);
+  manufacturers.splice(idx2 + 1, 0, copy);
+  s1Save();
+  renderMfrTable();
+  updateKPIs();
+  showToast('⧉ Duplicated: ' + copy.name);
+}
+
 
 // ─── Product / Equipment key-in rows (per manufacturer entry) ───
 let arProdRows = [];          // [{name, model, note}]
