@@ -821,7 +821,7 @@ table.mfr-tbl tbody tr:hover td{background:#F8FAFF;}
 
       <!-- Section 2 -->
       <div class="form-section">
-        <div class="form-section-title">📦 Core Products <span>Required ≥ 1</span></div>
+        <div class="form-section-title">📦 Product Category <span>Required ≥ 1</span></div>
         <div class="product-list" id="prod-list"></div>
         <button class="add-prod-btn" onclick="addProduct()">＋ Add Core Product</button>
         <div class="form-hint" style="margin-top:7px;">แต่ละ Product จะถูกแสดงใน Sourcing Dashboard และ Master Plan</div>
@@ -1091,7 +1091,7 @@ function generateMasterPlan(){
       <div class="brief-chip"><div class="brief-chip-label">End Date (W12)</div><div class="brief-chip-value">${fmt(endDate)}</div><div class="brief-chip-sub">Vendor DB complete</div></div>
       <div class="brief-chip"><div class="brief-chip-label">Total Duration</div><div class="brief-chip-value">12 Weeks</div><div class="brief-chip-sub">Fixed process</div></div>
       <div class="brief-chip"><div class="brief-chip-label">Priority</div><div class="brief-chip-value">${D.priority}</div></div>
-      <div class="brief-chip"><div class="brief-chip-label">Core Products</div><div class="brief-chip-value">${D.products.length} Products</div><div class="brief-chip-sub">${D.products.map(p=>p.name).join(', ')}</div></div>
+      <div class="brief-chip"><div class="brief-chip-label">📦 Product Category</div><div class="brief-chip-value">${D.products.length} Products</div><div class="brief-chip-sub">${D.products.map(p=>p.name).join(', ')}</div></div>
       ${D.countries?`<div class="brief-chip"><div class="brief-chip-label">Target Countries</div><div class="brief-chip-value">${D.countries}</div></div>`:''}
       ${D.cert?`<div class="brief-chip"><div class="brief-chip-label">Certification</div><div class="brief-chip-value">${D.cert}</div></div>`:''}
       ${D.scope?`<div class="brief-chip" style="grid-column:1/-1;"><div class="brief-chip-label">Required Scope</div><div class="brief-chip-value" style="font-size:11px;font-weight:400;color:#374151;">${D.scope}</div></div>`:''}
@@ -1472,7 +1472,7 @@ function renderSourcingDemandContext() {
       ${cell('Scope', D.scope)}
       ${cell('Certification', D.cert)}
       ${cell('Min Volume', D.minv)}
-      ${cell('Core Products', (D.products||[]).length + ' รายการ')}
+      ${cell('📦 Product Category', (D.products||[]).length + ' รายการ')}
     </div>
     <div style="border-top:1px dashed #BFDBFE;padding-top:9px;">
       <div style="font-size:8.5px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:#6B7280;margin-bottom:5px;">Core Products to Source</div>
