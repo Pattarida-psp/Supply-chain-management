@@ -819,14 +819,6 @@ table.mfr-tbl tbody tr:hover td{background:#F8FAFF;}
         </div>
       </div>
 
-      <!-- Section 2 -->
-      <div class="form-section">
-        <div class="form-section-title">📦 Product Category <span>Required ≥ 1</span></div>
-        <div class="product-list" id="prod-list"></div>
-        <button class="add-prod-btn" onclick="addProduct()">＋ Add Product Category</button>
-        <div class="form-hint" style="margin-top:7px;">แต่ละ Product จะถูกแสดงใน Sourcing Dashboard และ Master Plan</div>
-      </div>
-
       <!-- Section 3 -->
       <div class="form-section">
         <div class="form-section-title">🎯 Required Scope &amp; Constraints</div>
@@ -1925,10 +1917,11 @@ let arProdSeq  = 0;
 
 function addProdRow(data) {
   arProdRows.push({
-    _id:  ++arProdSeq,
-    name:  data && data.name  || '',
-    model: data && data.model || '',
-    note:  data && data.note  || ''
+    _id:      ++arProdSeq,
+    name:     data && data.name     || '',
+    category: data && data.category || '',
+    model:    data && data.model    || '',
+    note:     data && data.note     || ''
   });
   renderProdRows();
 }
@@ -1965,6 +1958,13 @@ function renderProdRows() {
     <tr>
       <td style="${cell}"><input type="text" value="${esc(r.name)}"  placeholder="เช่น Transformer"
             oninput="updateProdRow(${r._id},'name',this.value)"  style="${inp}"></td>
+      <td style="${cell}">
+        <select style="width:100%;border:1px solid #E5E7EB;border-radius:5px;padding:5px 7px;font-size:11px;font-family:'Inter',sans-serif;background:#fff;color:#111827;"
+                onchange="updateProdRow(${r._id},'category',this.value)" onclick="event.stopPropagation()">
+          <option value="">— Select —</option>
+          ${Object.keys(PILLAR_COLORS).map(pl=>`<option value="${pl}"${pl===r.category?' selected':''}>${pl}</option>`).join('')}
+        </select>
+      </td>
       <td style="${cell}"><input type="text" value="${esc(r.model)}" placeholder="เช่น 22kV 1000kVA"
             oninput="updateProdRow(${r._id},'model',this.value)" style="${inp}"></td>
       <td style="${cell}"><input type="text" value="${esc(r.note)}"  placeholder="-"
@@ -1981,9 +1981,10 @@ function collectProdRows() {
   return arProdRows
     .filter(r => r.name.trim() !== '')
     .map(r => ({
-      name:  r.name.trim(),
-      model: r.model.trim(),
-      note:  r.note.trim()
+      name:     r.name.trim(),
+      category: r.category || '',
+      model:    r.model.trim(),
+      note:     r.note.trim()
     }));
 }
 function clearProdRows() {
@@ -3069,7 +3070,8 @@ function updateCloudBadge(){
               <table style="width:100%;border-collapse:collapse;font-size:11px;font-family:'Inter',sans-serif;">
                 <thead>
                   <tr style="background:#F9FAFB;">
-                    <th style="text-align:left;padding:6px 9px;font-size:9.5px;font-weight:700;color:#6B7280;letter-spacing:.3px;text-transform:uppercase;border-bottom:1.5px solid #E5E7EB;width:38%;">Equipment / Product</th>
+                    <th style="text-align:left;padding:6px 9px;font-size:9.5px;font-weight:700;color:#6B7280;letter-spacing:.3px;text-transform:uppercase;border-bottom:1.5px solid #E5E7EB;width:27%;">Equipment / Product</th>
+                  <th style="text-align:left;padding:6px 9px;font-size:9.5px;font-weight:700;color:#6B7280;letter-spacing:.3px;text-transform:uppercase;border-bottom:1.5px solid #E5E7EB;width:25%;">📦 Product Category</th>
                     <th style="text-align:left;padding:6px 9px;font-size:9.5px;font-weight:700;color:#6B7280;letter-spacing:.3px;text-transform:uppercase;border-bottom:1.5px solid #E5E7EB;width:30%;">Spec / Model</th>
                     <th style="text-align:left;padding:6px 9px;font-size:9.5px;font-weight:700;color:#6B7280;letter-spacing:.3px;text-transform:uppercase;border-bottom:1.5px solid #E5E7EB;">Note</th>
                     <th style="width:34px;border-bottom:1.5px solid #E5E7EB;"></th>
