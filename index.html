@@ -1701,7 +1701,8 @@ function updateArComplete() {
     return el && el.value.trim() !== '';
   });
   const pct = Math.round(filled.length / AR_REQUIRED.length * 100);
-  const ready = (pct === 100);
+  const prodFilled = arProdRows.filter(r => r.name.trim() !== '').length > 0;
+  const ready = (pct === 100) && prodFilled;
 
   const bar   = document.getElementById('ar-complete-bar');
   const pctEl = document.getElementById('ar-complete-pct');
@@ -1924,16 +1925,19 @@ function addProdRow(data) {
     note:     data && data.note     || ''
   });
   renderProdRows();
+  updateArComplete();
 }
 function removeProdRow(id) {
   arProdRows = arProdRows.filter(r => r._id !== id);
   renderProdRows();
+  updateArComplete();
 }
 function updateProdRow(id, field, value) {
   const r = arProdRows.find(x => x._id === id);
   if (r) r[field] = value;
   // update count only (avoid re-render so input focus is preserved)
   refreshProdCount();
+  updateArComplete();
 }
 function refreshProdCount() {
   const named = arProdRows.filter(r => r.name.trim() !== '').length;
@@ -3044,7 +3048,7 @@ function updateCloudBadge(){
           <div style="margin-bottom:10px;">
             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
               <label class="ar-label" style="margin:0;">🧰 Product / Equipment List
-                <span style="color:#9CA3AF;font-size:9px;">(Optional)</span>
+                <span style="color:#EF4444;font-weight:700;">*</span>
                 <span id="ar-prod-count" style="margin-left:8px;font-size:10px;font-weight:700;color:#9CA3AF;"></span>
               </label>
               <button type="button" onclick="addProdRow()"
