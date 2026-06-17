@@ -1688,10 +1688,10 @@ function toggleChannel(el, name){
 }
 
 // ─── Raw data completeness checker ───
-const AR_REQUIRED = ['ar-name','ar-country','ar-web','ar-contact','ar-category','ar-tier','ar-source'];
+const AR_REQUIRED = ['ar-name','ar-country','ar-web','ar-contact','ar-tier','ar-source'];
 const AR_LABELS = {
   'ar-name':'Manufacture Name','ar-country':'Country','ar-web':'Website',
-  'ar-contact':'Contact / Email','ar-category':'Product Category',
+  'ar-contact':'Contact / Email',
   'ar-tier':'Tier','ar-source':'Discovery Source'
 };
 
@@ -1958,13 +1958,8 @@ function renderProdRows() {
     <tr>
       <td style="${cell}"><input type="text" value="${esc(r.name)}"  placeholder="เช่น Transformer"
             oninput="updateProdRow(${r._id},'name',this.value)"  style="${inp}"></td>
-      <td style="${cell}">
-        <select style="width:100%;border:1px solid #E5E7EB;border-radius:5px;padding:5px 7px;font-size:11px;font-family:'Inter',sans-serif;background:#fff;color:#111827;"
-                onchange="updateProdRow(${r._id},'category',this.value)" onclick="event.stopPropagation()">
-          <option value="">— Select —</option>
-          ${Object.keys(PILLAR_COLORS).map(pl=>`<option value="${pl}"${pl===r.category?' selected':''}>${pl}</option>`).join('')}
-        </select>
-      </td>
+      <td style="${cell}"><input type="text" value="${esc(r.category)}" placeholder="e.g. Power Distribution"
+            oninput="updateProdRow(${r._id},'category',this.value)" style="${inp}"></td>
       <td style="${cell}"><input type="text" value="${esc(r.model)}" placeholder="เช่น 22kV 1000kVA"
             oninput="updateProdRow(${r._id},'model',this.value)" style="${inp}"></td>
       <td style="${cell}"><input type="text" value="${esc(r.note)}"  placeholder="-"
@@ -3013,12 +3008,7 @@ function updateCloudBadge(){
             </div>
           </div>
 
-          <!-- Row 3: Product Category + Tier -->
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">
-            <div>
-              <label class="ar-label">📦 Product Category <span style="color:#EF4444;">*</span></label>
-              <input type="text" class="ar-input" id="ar-category" oninput="updateArComplete()" onclick="event.stopPropagation()">
-            </div>
+          <!-- Row 3: Tier -->
             <div>
               <label class="ar-label">🏷 Tier <span style="color:#EF4444;">*</span></label>
               <select class="ar-select" id="ar-tier" onchange="updateArComplete()">
@@ -3028,7 +3018,6 @@ function updateCloudBadge(){
                 <option value="Tier 3">Tier 3 — Distributor / Agent</option>
               </select>
             </div>
-          </div>
 
           <!-- Row 4: Discovery Source + Note -->
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">
