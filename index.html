@@ -1702,7 +1702,7 @@ function updateArComplete() {
   });
   const pct = Math.round(filled.length / AR_REQUIRED.length * 100);
   const prodFilled = arProdRows.filter(r => r.name.trim() !== '').length > 0;
-  const ready = (pct === 100) && prodFilled;
+  const ready = (pct === 100 && prodFilled) || (window._editingMfrId != null && pct > 0);
 
   const bar   = document.getElementById('ar-complete-bar');
   const pctEl = document.getElementById('ar-complete-pct');
@@ -1719,24 +1719,25 @@ function updateArComplete() {
   }
 
   if (btn) {
+    const isEditMode = (window._editingMfrId != null);
     if (ready) {
-      btn.disabled              = false;
-      btn.style.background      = '#10B981';
-      btn.style.color           = '#fff';
-      btn.style.borderColor     = '#10B981';
-      btn.style.cursor          = 'pointer';
-      btn.style.opacity         = '1';
-      btn.style.pointerEvents   = 'auto';
-      btn.textContent           = '✅ Submit Entry';
+      btn.disabled                  = false;
+      btn.style.background          = isEditMode ? '#F59E0B' : '#10B981';
+      btn.style.color               = '#fff';
+      btn.style.borderColor         = isEditMode ? '#F59E0B' : '#10B981';
+      btn.style.cursor              = 'pointer';
+      btn.style.opacity             = '1';
+      btn.style.pointerEvents       = 'auto';
+      btn.textContent               = isEditMode ? '💾 Update Entry' : '✅ Submit Entry';
     } else {
-      btn.disabled              = true;
-      btn.style.background      = '#F3F4F6';
-      btn.style.color           = '#9CA3AF';
-      btn.style.borderColor     = '#E5E7EB';
-      btn.style.cursor          = 'not-allowed';
-      btn.style.opacity         = '0.5';
-      btn.style.pointerEvents   = 'none';
-      btn.textContent           = '📋 Submit Entry';
+      btn.disabled                  = true;
+      btn.style.background          = '#F3F4F6';
+      btn.style.color               = '#9CA3AF';
+      btn.style.borderColor         = '#E5E7EB';
+      btn.style.cursor              = 'not-allowed';
+      btn.style.opacity             = '0.5';
+      btn.style.pointerEvents       = 'none';
+      btn.textContent               = isEditMode ? '💾 Update Entry' : '📋 Submit Entry';
     }
   }
 
@@ -1797,7 +1798,7 @@ function submitManufacturer(){
     }
     window._editingMfrId = null;
     const btn2 = document.getElementById('ar-submit-btn');
-    if(btn2){ btn2.textContent = '📋 Submit Entry'; btn2.style.background=''; btn2.style.borderColor=''; }
+    if(btn2){ btn2.textContent = '📋 Submit Entry'; btn2.disabled = true; btn2.style.background='#F3F4F6'; btn2.style.color='#9CA3AF'; btn2.style.borderColor='#E5E7EB'; btn2.style.cursor='not-allowed'; btn2.style.opacity='0.5'; btn2.style.pointerEvents='none'; }ntry'; btn2.style.background=''; btn2.style.borderColor=''; }
   } else {
     if(manufacturers.some(m=>m.name.trim().toLowerCase()===name.trim().toLowerCase())){showToast('Manufacturer "'+name+'" already exists');return;}  manufacturers.push({
       id: mfrIdCounter++, name, country, website: web,
@@ -1941,7 +1942,7 @@ function editMfr(id){
   (m.products||[]).forEach(p => addProdRow(p));
   window._editingMfrId = id;
   const btn = document.getElementById('ar-submit-btn');
-  if(btn){ btn.textContent = '💾 Update Entry'; btn.style.background='#F59E0B'; btn.style.borderColor='#F59E0B'; }
+  if(btn){ btn.disabled = false; btn.style.pointerEvents = 'auto'; btn.style.opacity = '1'; btn.style.cursor = 'pointer'; btn.textContent = '💾 Update Entry'; btn.style.background='#F59E0B'; btn.style.borderColor='#F59E0B'; btn.style.color='#fff'; }
   updateArComplete();
   const formEl = document.getElementById('ar-name');
   if(formEl) formEl.scrollIntoView({behavior:'smooth', block:'center'});
