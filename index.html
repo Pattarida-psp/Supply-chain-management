@@ -2103,10 +2103,11 @@ function updateKPIs(){
   const fCount=uploadedFiles.length;
 
   // KPI 1: Manufacturer count
-  const p1=Math.min(100,Math.round(mCount/20*100));
+  const mfrTarget = (masterPlanData && masterPlanData.products && masterPlanData.products.length > 0) ? masterPlanData.products.length * 20 : 20;
+  const p1=Math.min(100,Math.round(mCount/mfrTarget*100));
   document.getElementById('kd1-val').textContent=mCount;
   document.getElementById('kd1-bar').style.width=p1+'%';
-  const ok1=mCount>=20;
+  const ok1=mCount>=mfrTarget;
   setKPIStatus('kd1-status',ok1,'✅ Met','⚠ In Progress',mCount>0);
 
   // KPI 2: Discovery channel coverage (distinct sources among entries, target ≥ 3)
@@ -2571,7 +2572,8 @@ function refreshBizDashboard() {
   }
 
   // ── Progress (S1 is the only stage with live data input)
-  const mPct = Math.min(100, Math.round(mCount / 20 * 100));
+  const mfrTarget = (masterPlanData.products && masterPlanData.products.length > 0) ? masterPlanData.products.length * 20 : 20;
+  const mPct = Math.min(100, Math.round(mCount / mfrTarget * 100));
   const chPct = Math.min(100, Math.round(chCount / 3 * 100));
   const s1Pct = Math.round((mPct + chPct) / 2);          // Stage 1 completion
   const overall = s1Pct;                                  // overall driven by S1 for now
@@ -2642,7 +2644,7 @@ function refreshBizDashboard() {
     document.getElementById(barId).style.width = p+'%';
     document.getElementById(barId).style.background = ok ? okColor : baseColor;
   };
-  setBar('biz-kpi-mfr','biz-kpi-mfr-bar',mCount,mPct,'#10B981','#3B82F6',mCount>=20);
+  setBar('biz-kpi-mfr','biz-kpi-mfr-bar',mCount,mPct,'#10B981','#3B82F6',mCount>=mfrTarget);
   setBar('biz-kpi-ch','biz-kpi-ch-bar',chCount,chPct,'#10B981','#8B5CF6',chCount>=3);
   const fPct = Math.min(100, prodCount>0?100:0);
   setBar('biz-kpi-files','biz-kpi-files-bar',prodCount,fPct,'#10B981','#10B981',prodCount>0);
@@ -2673,13 +2675,16 @@ function bizStageStatus(stageId, mCount, chCount, prodCount, hasPlan){
   // Returns {state:'done'|'active'|'pending', pctText}
   if (stageId==='S0') return { state: hasPlan?'done':'pending', detail: hasPlan?'Scope & Core Products defined':'รอ Submit Demand' };
   if (stageId==='S1') {
-    const done = mCount>=20 && chCount>=3;
+    const mfrTarget1 = (masterPlanData && masterPlanData.products && masterPlanData.products.length > 0) ? masterPlanData.products.length * 20 : 20;
+    const done = mCount>=mfrTarget1 && chCount>=3;
     const active = (mCount>0||chCount>0) && !done;
     return { state: done?'done':active?'active':'pending',
-             detail: 'Mfr '+mCount+'/20 · Ch '+chCount+'/3 · Prod '+prodCount };
+             detail: 'Mfr '+mCount+'/'+mfrTarget1+' · Ch '+chCount+'/3 · Prod '+prodCount };
+
   }
   // S2-S4: gated behind S1; no live input yet
-  const s1Done = mCount>=20 && chCount>=3;
+  const mfrTarget2 = (masterPlanData && masterPlanData.products && masterPlanData.products.length > 0) ? masterPlanData.products.length * 20 : 20;
+  const s1Done = mCount>=mfrTarget2 && chCount>=3;
   return { state: s1Done?'pending':'pending', detail: s1Done?'พร้อมเริ่มเมื่อ S1 ส่งต่อ':'รอ Stage 1 ผ่าน KPI' };
 }
 
@@ -2758,15 +2763,16 @@ function renderBizStageKPIs(mCount, chCount, prodCount, hasPlan){
   const host = document.getElementById('biz-stage-kpi');
   if (!host) return;
   const nProds = (masterPlanData && masterPlanData.products) ? masterPlanData.products.length : 0;
-  const s1Done = mCount>=20 && chCount>=3;
+  const mfrTarget = (masterPlanData && masterPlanData.products && masterPlanData.products.length > 0) ? masterPlanData.products.length * 20 : 20;
+  const s1Done = mCount>=mfrTarget && chCount>=3;
 
   const cards = [
     { id:'S0', name:'Demand Mapping', hex:'#6B7280',
       kpi:'Core Product & Scope', cur: hasPlan ? (nProds+' products defined') : '—',
       pctNum: hasPlan?100:0, state: hasPlan?'done':'pending' },
     { id:'S1', name:'Global Discovery', hex:'#3B82F6',
-      kpi:'≥20 Mfr · ≥3 Channels', cur: mCount+'/20 · '+chCount+'/3 ch',
-      pctNum: Math.round(((Math.min(mCount/20,1))+(Math.min(chCount/3,1)))/2*100),
+      kpi:'≥20 Mfr per product · ≥3 Channels', cur: mCount+'/'+mfrTarget+' · '+chCount+'/3 ch',
+      pctNum: Math.round(((Math.min(mCount/mfrTarget,1))+(Math.min(chCount/3,1)))/2*100),
       state: s1Done?'done':(mCount>0||chCount>0)?'active':'pending' },
     { id:'S2', name:'Preliminary Screening', hex:'#8B5CF6',
       kpi:'≥10 Preliminary Qualified', cur: s1Done?'พร้อมเริ่ม':'รอ S1',
