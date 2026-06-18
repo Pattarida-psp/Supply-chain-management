@@ -484,7 +484,7 @@ table.mfr-tbl tbody tr:hover td{background:#F8FAFF;}
     <div class="rbac-label">Select your role</div>
     <div class="rbac-roles">
       <button class="rbac-role-btn role-business" onclick="selectRole('business')">
-        <div class="rbac-role-icon">📊</div>
+        <div class="rbac-role-icon">\uD83D\uDCCA</div>
         <div class="rbac-role-body">
           <div class="rbac-role-name">Business</div>
           <div class="rbac-role-desc">Keys in demand · เห็น Status ภาพรวม หลัง Assign</div>
@@ -492,7 +492,7 @@ table.mfr-tbl tbody tr:hover td{background:#F8FAFF;}
         <span class="rbac-role-arrow">›</span>
       </button>
       <button class="rbac-role-btn role-sourcing" onclick="selectRole('sourcing')">
-        <div class="rbac-role-icon">🔍</div>
+        <div class="rbac-role-icon">\uD83D\uDD0D</div>
         <div class="rbac-role-body">
           <div class="rbac-role-name">Sourcing</div>
           <div class="rbac-role-desc">เห็น Master Plan · Key-in & Upload Stage 1 data</div>
@@ -500,7 +500,7 @@ table.mfr-tbl tbody tr:hover td{background:#F8FAFF;}
         <span class="rbac-role-arrow">›</span>
       </button>
       <button class="rbac-role-btn role-other" onclick="selectRole('other')">
-        <div class="rbac-role-icon">👁</div>
+        <div class="rbac-role-icon">\uD83D\uDC41</div>
         <div class="rbac-role-body">
           <div class="rbac-role-name">Other / View Only</div>
           <div class="rbac-role-desc">เห็นภาพรวม Process Overview & Status เท่านั้น</div>
@@ -532,10 +532,10 @@ table.mfr-tbl tbody tr:hover td{background:#F8FAFF;}
 <!-- Tab Bar -->
 <div class="tab-bar" id="main-tab-bar">
   <button class="tab-btn active" id="btn-t1" onclick="showTab('process',this)" style="display:none;">
-    📋 Process Overview
+    \uD83D\uDCCB Process Overview
   </button>
   <button class="tab-btn" id="btn-t2" onclick="showTab('masterplan',this)" style="display:none;">
-    📅 Master Plan
+    \uD83D\uDCC5 Master Plan
     <span class="tab-badge badge-blue" id="mp-badge">AUTO</span>
   </button>
   <button class="tab-btn" id="btn-t3" onclick="showTab('stage0',this)" style="display:none;">
@@ -543,15 +543,15 @@ table.mfr-tbl tbody tr:hover td{background:#F8FAFF;}
     <span class="tab-badge badge-orange">BUSINESS</span>
   </button>
   <button class="tab-btn" id="btn-biz-dash" onclick="showTab('biz-dashboard',this)" style="display:none;">
-    📊 Executive Dashboard
+    \uD83D\uDCCA Executive Dashboard
     <span class="tab-badge badge-orange">ON TRACK?</span>
   </button>
   <button class="tab-btn" id="btn-t4" onclick="showTab('stage1',this)" style="display:none;">
-    🔍 Stage 1 — Global Discovery
+    \uD83D\uDD0D Stage 1 — Global Discovery
     <span class="tab-badge badge-blue">SOURCING</span>
   </button>
   <button class="tab-btn" id="btn-lock" onclick="showTab('lock',this)" style="display:none;">
-    🔐 Admin
+    \uD83D\uDD10 Admin
   </button>
   <!-- Spacer pushes logout to far right -->
   <div style="flex:1;"></div>
@@ -682,7 +682,7 @@ table.mfr-tbl tbody tr:hover td{background:#F8FAFF;}
   <!-- Empty state -->
   <div id="mp-empty">
     <div class="mp-empty">
-      <div class="mp-empty-icon">📅</div>
+      <div class="mp-empty-icon">\uD83D\uDCC5</div>
       <h3>Master Plan will appear here</h3>
       <p id="mp-empty-desc">Business Unit ต้อง Submit Demand ใน Stage 0 ก่อน<br>จากนั้น Master Plan จะ Generate อัตโนมัติ ครบทุก Stage 0–4</p>
       <!-- Business: show link to Stage 0 -->
@@ -705,7 +705,7 @@ table.mfr-tbl tbody tr:hover td{background:#F8FAFF;}
       <div class="mp-actions" style="margin-bottom:0;" id="mp-action-bar">
         <!-- Business only: edit + PDF -->
         <span id="mp-edit-controls" style="display:none;gap:6px;align-items:center;">
-          <button class="btn btn-success" onclick="exportMasterPlanPDF()">📄 Export PDF</button>
+          <button class="btn btn-success" onclick="exportMasterPlanPDF()">\uD83D\uDCC4 Export PDF</button>
           <button class="btn" style="background:#F59E0B;color:#fff;border-color:#F59E0B;"
             onclick="showTab('stage0', document.getElementById('btn-t3'))">
             ✏️ Edit Demand →
@@ -713,10 +713,10 @@ table.mfr-tbl tbody tr:hover td{background:#F8FAFF;}
         </span>
         <!-- Sourcing only: PDF (view) -->
         <span id="mp-view-controls" style="display:none;gap:6px;align-items:center;">
-          <button class="btn btn-success" onclick="exportMasterPlanPDF()">📄 Export PDF</button>
+          <button class="btn btn-success" onclick="exportMasterPlanPDF()">\uD83D\uDCC4 Export PDF</button>
           <span style="font-size:10px;font-weight:600;color:#9CA3AF;padding:4px 10px;
             background:#F3F4F6;border-radius:6px;border:1px solid #E5E7EB;">
-            👁 View Only
+            \uD83D\uDC41 View Only
           </span>
         </span>
       </div>
@@ -725,13 +725,13 @@ table.mfr-tbl tbody tr:hover td{background:#F8FAFF;}
     <div class="brief-banner" id="mp-brief"></div>
     <!-- Products -->
     <div class="products-section">
-      <h3>📦 Core Products in Scope</h3>
+      <h3>\uD83D\uDCE6 Core Products in Scope</h3>
       <div class="product-tags" id="mp-product-tags"></div>
     </div>
     <!-- Stage Summary -->
     <div class="stage-summary" id="mp-stage-summary"></div>
     <!-- Gantt -->
-    <div style="font-size:12px;font-weight:700;color:#374151;margin-bottom:10px;">📊 Gantt Chart — Full Process (Stage 0–4)</div>
+    <div style="font-size:12px;font-weight:700;color:#374151;margin-bottom:10px;">\uD83D\uDCCA Gantt Chart — Full Process (Stage 0–4)</div>
     <div class="gantt-wrap" id="mp-gantt"></div>
     <div class="bottom-note" id="mp-footer"></div>
   </div>
@@ -740,12 +740,12 @@ table.mfr-tbl tbody tr:hover td{background:#F8FAFF;}
 <!-- ════════════ TAB: LOCK SCREEN ════════════ -->
 <div class="tab-panel" id="tab-lock">
   <div class="lock-screen">
-    <div class="lock-icon">🔐</div>
+    <div class="lock-icon">\uD83D\uDD10</div>
     <h2>Admin Access Required</h2>
     <p>Tab นี้สำหรับ Admin เท่านั้น<br>กรุณาใส่ Password เพื่อเข้าถึง Stage 0 — Demand Input</p>
     <div class="lock-form">
       <input type="password" class="lock-input" id="pwd-input" placeholder="Enter password" onkeydown="if(event.key==='Enter')checkPwd()">
-      <button class="lock-btn" onclick="checkPwd()">🔓 Unlock Admin Access</button>
+      <button class="lock-btn" onclick="checkPwd()">\uD83D\uDD13 Unlock Admin Access</button>
       <div class="lock-error" id="pwd-error"></div>
       <div class="lock-hint">hint: TCS + current year</div>
     </div>
@@ -770,20 +770,20 @@ table.mfr-tbl tbody tr:hover td{background:#F8FAFF;}
         <div style="flex:1;height:2px;background:linear-gradient(90deg,#F59E0B,#3B82F6);margin:0 6px;margin-bottom:12px;"></div>
         <div style="width:0;height:0;border-top:4px solid transparent;border-bottom:4px solid transparent;border-left:7px solid #3B82F6;margin-bottom:12px;"></div>
         <div style="display:flex;flex-direction:column;align-items:center;gap:3px;">
-          <div style="width:32px;height:32px;border-radius:50%;background:#3B82F6;display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;">👥</div>
+          <div style="width:32px;height:32px;border-radius:50%;background:#3B82F6;display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;">\uD83D\uDC65</div>
           <div style="font-size:9px;font-weight:600;color:#6B7280;text-align:center;">Sourcing<br>Receives</div>
         </div>
         <div style="flex:1;height:2px;background:linear-gradient(90deg,#3B82F6,#10B981);margin:0 6px;margin-bottom:12px;"></div>
         <div style="width:0;height:0;border-top:4px solid transparent;border-bottom:4px solid transparent;border-left:7px solid #10B981;margin-bottom:12px;"></div>
         <div style="display:flex;flex-direction:column;align-items:center;gap:3px;">
-          <div style="width:32px;height:32px;border-radius:50%;background:#10B981;display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;">📅</div>
+          <div style="width:32px;height:32px;border-radius:50%;background:#10B981;display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;">\uD83D\uDCC5</div>
           <div style="font-size:9px;font-weight:600;color:#6B7280;text-align:center;">Master Plan<br>Auto-generated</div>
         </div>
       </div>
 
       <!-- Section 1 -->
       <div class="form-section">
-        <div class="form-section-title">📌 Project Information <span>Required</span></div>
+        <div class="form-section-title">\uD83D\uDCCC Project Information <span>Required</span></div>
         <div class="form-row">
           <div class="form-group">
             <label class="form-label">Project / Initiative Name <span class="req">*</span></label>
@@ -800,16 +800,16 @@ table.mfr-tbl tbody tr:hover td{background:#F8FAFF;}
             <input type="date" class="form-input" id="f-reqdate">
           </div>
           <div class="form-group">
-            <label class="form-label">🚀 Process Start Date <span class="req">*</span></label>
+            <label class="form-label">\uD83D\uDE80 Process Start Date <span class="req">*</span></label>
             <input type="date" class="form-input" id="f-startdate" onchange="previewTimeline()">
             <div class="form-hint">วันเริ่ม Stage 0 — End Date คำนวณอัตโนมัติ (+12 weeks)</div>
           </div>
           <div class="form-group">
             <label class="form-label">Priority Level</label>
             <select class="form-select" id="f-priority">
-              <option value="Normal">🟢 Normal</option>
-              <option value="High">🟡 High</option>
-              <option value="Critical">🔴 Critical</option>
+              <option value="Normal">\uD83D\uDFE2 Normal</option>
+              <option value="High">\uD83D\uDFE1 High</option>
+              <option value="Critical">\uD83D\uDD34 Critical</option>
             </select>
           </div>
         </div>
@@ -821,7 +821,7 @@ table.mfr-tbl tbody tr:hover td{background:#F8FAFF;}
 
       <!-- Section 3 -->
       <div class="form-section">
-        <div class="form-section-title">🎯 Required Scope &amp; Constraints</div>
+        <div class="form-section-title">\uD83C\uDFAF Required Scope &amp; Constraints</div>
         <div class="form-row single">
           <div class="form-group">
             <label class="form-label">Required Scope / Specification</label>
@@ -867,23 +867,23 @@ table.mfr-tbl tbody tr:hover td{background:#F8FAFF;}
       <h3>✅ Demand Submitted Successfully!</h3>
       <p>Master Plan (Stage 0–4) ถูก Generate อัตโนมัติแล้ว · Sourcing Team ได้รับ Assignment</p>
       <div class="success-actions">
-        <button class="btn btn-outline" onclick="resetForm()">📝 New Request</button>
+        <button class="btn btn-outline" onclick="resetForm()">\uD83D\uDCDD New Request</button>
         <button class="btn" style="background:#F59E0B;color:#fff;border-color:#F59E0B;"
           onclick="showTab('biz-dashboard', document.getElementById('btn-biz-dash'))">
-          📊 View Executive Dashboard →
+          \uD83D\uDCCA View Executive Dashboard →
         </button>
         <button class="btn" style="background:#3B82F6;color:#fff;border-color:#3B82F6;"
           onclick="showTab('masterplan', document.getElementById('btn-t2'))"
           id="btn-view-masterplan">
-          📅 View Master Plan →
+          \uD83D\uDCC5 View Master Plan →
         </button>
       </div>
     </div>
     <div class="dash-alert" id="d-alert"></div>
-    <div style="font-size:12px;font-weight:700;color:#374151;margin-bottom:10px;">📦 Products Queued for Sourcing</div>
+    <div style="font-size:12px;font-weight:700;color:#374151;margin-bottom:10px;">\uD83D\uDCE6 Products Queued for Sourcing</div>
     <div class="product-cards" id="d-cards"></div>
     <div class="tl-bar-section">
-      <div class="tl-bar-title">📅 Timeline at a Glance</div>
+      <div class="tl-bar-title">\uD83D\uDCC5 Timeline at a Glance</div>
       <div id="d-bars"></div>
     </div>
   </div>
@@ -981,7 +981,7 @@ function logout(e){
   document.getElementById('pwd-input').value='';
   document.getElementById('pwd-error').textContent='';
   showTab('process', document.getElementById('btn-t1'));
-  showToast('🔐 Logged out');
+  showToast('\uD83D\uDD10 Logged out');
 }
 
 // ════════ TIMELINE PREVIEW ════════
@@ -1076,14 +1076,14 @@ function generateMasterPlan(){
 
   // Brief banner
   document.getElementById('mp-brief').innerHTML=`
-    <div class="brief-banner-title">📥 Stage 0 Input — ${D.projectName}</div>
+    <div class="brief-banner-title">\uD83D\uDCE5 Stage 0 Input — ${D.projectName}</div>
     <div class="brief-grid">
       <div class="brief-chip"><div class="brief-chip-label">Business Unit</div><div class="brief-chip-value">${D.bu}</div></div>
       <div class="brief-chip"><div class="brief-chip-label">Start Date (W1)</div><div class="brief-chip-value">${fmt(base)}</div><div class="brief-chip-sub">S0 Demand Mapping begins</div></div>
       <div class="brief-chip"><div class="brief-chip-label">End Date (W12)</div><div class="brief-chip-value">${fmt(endDate)}</div><div class="brief-chip-sub">Vendor DB complete</div></div>
       <div class="brief-chip"><div class="brief-chip-label">Total Duration</div><div class="brief-chip-value">12 Weeks</div><div class="brief-chip-sub">Fixed process</div></div>
       <div class="brief-chip"><div class="brief-chip-label">Priority</div><div class="brief-chip-value">${D.priority}</div></div>
-      <div class="brief-chip"><div class="brief-chip-label">📦 Product Category</div><div class="brief-chip-value">${D.products.length} Products</div><div class="brief-chip-sub">${D.products.map(p=>p.name).join(', ')}</div></div>
+      <div class="brief-chip"><div class="brief-chip-label">\uD83D\uDCE6 Product Category</div><div class="brief-chip-value">${D.products.length} Products</div><div class="brief-chip-sub">${D.products.map(p=>p.name).join(', ')}</div></div>
       ${D.countries?`<div class="brief-chip"><div class="brief-chip-label">Target Countries</div><div class="brief-chip-value">${D.countries}</div></div>`:''}
       ${D.cert?`<div class="brief-chip"><div class="brief-chip-label">Certification</div><div class="brief-chip-value">${D.cert}</div></div>`:''}
       ${D.scope?`<div class="brief-chip" style="grid-column:1/-1;"><div class="brief-chip-label">Required Scope</div><div class="brief-chip-value" style="font-size:11px;font-weight:400;color:#374151;">${D.scope}</div></div>`:''}
@@ -1111,7 +1111,7 @@ function generateMasterPlan(){
       <div class="ss-name">${s.name}</div>
       <div class="ss-dates" style="color:${s.hex};">${fmtS(weekStart(base,s.wS))} – ${fmtS(weekEnd(base,s.wE))}</div>
       <div class="ss-weeks">W${s.wS}${s.wS!==s.wE?'–'+s.wE:''} · ${s.wE-s.wS+1}w</div>
-      <div class="ss-kpi" style="color:${s.hex};border-color:${s.border};">📌 ${s.kpi}</div>
+      <div class="ss-kpi" style="color:${s.hex};border-color:${s.border};">\uD83D\uDCCC ${s.kpi}</div>
     </div>`).join('');
 
   // Gantt — full 12 weeks, all rows
@@ -1237,14 +1237,14 @@ function exportMasterPlanPDF(){
       @media print{ @page{margin:14mm;} body{margin:0;} }
     </style></head><body>
     <div class="pdf-head">
-      <h1>📋 Master Plan — ${proj}</h1>
+      <h1>\uD83D\uDCCB Master Plan — ${proj}</h1>
       <div class="meta">BU: ${masterPlanData.bu||'—'} · Priority: ${masterPlanData.priority||'—'} · Exported: ${dateStr}</div>
     </div>
     ${clone.innerHTML}
     <script>window.onload=function(){setTimeout(function(){window.print();},300);};<\/script>
   </body></html>`);
   win.document.close();
-  showToast('📄 เปิดหน้าต่าง PDF — เลือก "Save as PDF" ในกล่อง Print');
+  showToast('\uD83D\uDCC4 เปิดหน้าต่าง PDF — เลือก "Save as PDF" ในกล่อง Print');
 }
 
 // ════════ TOAST ════════
@@ -1356,9 +1356,9 @@ function applyRole(role) {
   const badge = document.getElementById('rbac-role-badge');
   badge.classList.add('show');
   const config = {
-    business: { label:'📊 Business', bg:'#EFF6FF', color:'#1D4ED8', border:'#BFDBFE' },
-    sourcing: { label:'🔍 Sourcing', bg:'#ECFDF5', color:'#065F46', border:'#6EE7B7' },
-    other:    { label:'👁 Viewer',   bg:'#F3F4F6', color:'#374151', border:'#D1D5DB' },
+    business: { label:'\uD83D\uDCCA Business', bg:'#EFF6FF', color:'#1D4ED8', border:'#BFDBFE' },
+    sourcing: { label:'\uD83D\uDD0D Sourcing', bg:'#ECFDF5', color:'#065F46', border:'#6EE7B7' },
+    other:    { label:'\uD83D\uDC41 Viewer',   bg:'#F3F4F6', color:'#374151', border:'#D1D5DB' },
   };
   const c = config[role];
   badge.textContent = c.label;
@@ -1390,7 +1390,7 @@ function applyS1SourcingView() {
     const banner = document.createElement('div');
     banner.id = 'sourcing-welcome-banner';
     banner.style.cssText = 'background:linear-gradient(135deg,#ECFDF5,#D1FAE5);border:1.5px solid #6EE7B7;border-radius:10px;padding:12px 18px;margin-bottom:18px;display:flex;align-items:center;gap:10px;';
-    banner.innerHTML = '<span style="font-size:18px;">🔍</span><div><div style="font-size:10px;font-weight:700;color:#10B981;letter-spacing:1px;text-transform:uppercase;margin-bottom:2px;">Sourcing Access</div><div style="font-size:12.5px;color:#065F46;font-weight:600;">คุณมีสิทธิ์ Key-in Manufacturer · อัปโหลด Product Lists · ดู Master Plan ได้ครบ</div></div>';
+    banner.innerHTML = '<span style="font-size:18px;">\uD83D\uDD0D</span><div><div style="font-size:10px;font-weight:700;color:#10B981;letter-spacing:1px;text-transform:uppercase;margin-bottom:2px;">Sourcing Access</div><div style="font-size:12.5px;color:#065F46;font-weight:600;">คุณมีสิทธิ์ Key-in Manufacturer · อัปโหลด Product Lists · ดู Master Plan ได้ครบ</div></div>';
     s1header.parentNode.insertBefore(banner, s1header);
   }
 }
@@ -1401,7 +1401,7 @@ function injectStatusBannerForOther() {
     const banner = document.createElement('div');
     banner.id = 'other-status-banner';
     banner.style.cssText = 'background:#F9FAFB;border:1.5px solid #E5E7EB;border-radius:10px;padding:14px 18px;margin-bottom:22px;display:flex;align-items:center;gap:12px;';
-    banner.innerHTML = `<span style="font-size:22px;">👁</span>
+    banner.innerHTML = `<span style="font-size:22px;">\uD83D\uDC41</span>
     <div style="flex:1;">
       <div style="font-size:10px;font-weight:700;color:#9CA3AF;letter-spacing:1px;text-transform:uppercase;margin-bottom:5px;">View Only Access — Process Status</div>
       <div style="display:flex;gap:16px;flex-wrap:wrap;">
@@ -1452,7 +1452,7 @@ function renderSourcingDemandContext() {
   box.style.display = 'block';
   box.innerHTML = `
     <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
-      <span style="font-size:16px;">📥</span>
+      <span style="font-size:16px;">\uD83D\uDCE5</span>
       <div style="font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#1D4ED8;">Demand from Business · Stage 0 Input</div>
       <span style="margin-left:auto;font-size:9.5px;color:#6B7280;">Due: <strong style="color:#1D4ED8;">${dueLabel}</strong></span>
     </div>
@@ -1464,7 +1464,7 @@ function renderSourcingDemandContext() {
       ${cell('Scope', D.scope)}
       ${cell('Certification', D.cert)}
       ${cell('Min Volume', D.minv)}
-      ${cell('📦 Product Category', (D.products||[]).length + ' รายการ')}
+      ${cell('\uD83D\uDCE6 Product Category', (D.products||[]).length + ' รายการ')}
     </div>
     <div style="border-top:1px dashed #BFDBFE;padding-top:9px;">
       <div style="font-size:8.5px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:#6B7280;margin-bottom:5px;">Core Products to Source</div>
@@ -1612,9 +1612,9 @@ let currentSessionId = '';
 let currentSessionAdded = 0;
 
 const TIER_CLASS = {'Tier 1':'tier-1','Tier 2':'tier-2','Tier 3':'tier-3'};
-const COUNTRY_FLAG = {'Thailand':'🇹🇭','China':'🇨🇳','Japan':'🇯🇵','Germany':'🇩🇪','USA':'🇺🇸','France':'🇫🇷','UK':'🇬🇧','Korea':'🇰🇷','Taiwan':'🇹🇼','India':'🇮🇳','Italy':'🇮🇹','Sweden':'🇸🇪'};
+const COUNTRY_FLAG = {'Thailand':'\uD83C\uDDF9\uD83C\uDDED','China':'\uD83C\uDDE8\uD83C\uDDF3','Japan':'\uD83C\uDDEF\uD83C\uDDF5','Germany':'\uD83C\uDDE9\uD83C\uDDEA','USA':'\uD83C\uDDFA\uD83C\uDDF8','France':'\uD83C\uDDEB\uD83C\uDDF7','UK':'\uD83C\uDDEC\uD83C\uDDE7','Korea':'\uD83C\uDDF0\uD83C\uDDF7','Taiwan':'\uD83C\uDDF9\uD83C\uDDFC','India':'\uD83C\uDDEE\uD83C\uDDF3','Italy':'\uD83C\uDDEE\uD83C\uDDF9','Sweden':'\uD83C\uDDF8\uD83C\uDDEA'};
 
-function countryFlag(c){ return COUNTRY_FLAG[c]||'🌍'; }
+function countryFlag(c){ return COUNTRY_FLAG[c]||'\uD83C\uDF0D'; }
 
 // Safe day key for a manufacturer (guards legacy/malformed records without addedAt)
 function mfrDay(m){
@@ -1728,7 +1728,7 @@ function updateArComplete() {
       btn.style.cursor              = 'pointer';
       btn.style.opacity             = '1';
       btn.style.pointerEvents       = 'auto';
-      btn.textContent               = isEditMode ? '💾 Update Entry' : '✅ Submit Entry';
+      btn.textContent               = isEditMode ? '\uD83D\uDCBE Update Entry' : '✅ Submit Entry';
     } else {
       btn.disabled                  = true;
       btn.style.background          = '#F3F4F6';
@@ -1737,7 +1737,7 @@ function updateArComplete() {
       btn.style.cursor              = 'not-allowed';
       btn.style.opacity             = '0.5';
       btn.style.pointerEvents       = 'none';
-      btn.textContent               = isEditMode ? '💾 Update Entry' : '📋 Submit Entry';
+      btn.textContent               = isEditMode ? '\uD83D\uDCBE Update Entry' : '\uD83D\uDCCB Submit Entry';
     }
   }
 
@@ -1798,7 +1798,7 @@ function submitManufacturer(){
     }
     window._editingMfrId = null;
     const btn2 = document.getElementById('ar-submit-btn');
-    if(btn2){ btn2.textContent = '📋 Submit Entry'; btn2.disabled = true; btn2.style.background='#F3F4F6'; btn2.style.color='#9CA3AF'; btn2.style.borderColor='#E5E7EB'; btn2.style.cursor='not-allowed'; btn2.style.opacity='0.5'; btn2.style.pointerEvents='none'; }ntry'; btn2.style.background=''; btn2.style.borderColor=''; }
+    if(btn2){ btn2.textContent = '\uD83D\uDCCB Submit Entry'; btn2.disabled = true; btn2.style.background='#F3F4F6'; btn2.style.color='#9CA3AF'; btn2.style.borderColor='#E5E7EB'; btn2.style.cursor='not-allowed'; btn2.style.opacity='0.5'; btn2.style.pointerEvents='none'; }ntry'; btn2.style.background=''; btn2.style.borderColor=''; }
   } else {
     if(manufacturers.some(m=>m.name.trim().toLowerCase()===name.trim().toLowerCase())){showToast('Manufacturer "'+name+'" already exists');return;}  manufacturers.push({
       id: mfrIdCounter++, name, country, website: web,
@@ -1855,7 +1855,7 @@ function renderDayTabs(){
         border:1.5px solid ${isSelected?'#3B82F6':'#E5E7EB'};
         background:${isSelected?'#EFF6FF':'#fff'};
         color:${isSelected?'#1D4ED8':'#6B7280'};">
-      ${isToday?'📍 ':''}${d} <span style="background:${isSelected?'#3B82F6':'#E5E7EB'};color:${isSelected?'#fff':'#374151'};border-radius:10px;padding:1px 6px;font-size:9.5px;">${cnt}</span>
+      ${isToday?'\uD83D\uDCCD ':''}${d} <span style="background:${isSelected?'#3B82F6':'#E5E7EB'};color:${isSelected?'#fff':'#374151'};border-radius:10px;padding:1px 6px;font-size:9.5px;">${cnt}</span>
     </button>`;
   }).join('');
 }
@@ -1942,7 +1942,7 @@ function editMfr(id){
   (m.products||[]).forEach(p => addProdRow(p));
   window._editingMfrId = id;
   const btn = document.getElementById('ar-submit-btn');
-  if(btn){ btn.disabled = false; btn.style.pointerEvents = 'auto'; btn.style.opacity = '1'; btn.style.cursor = 'pointer'; btn.textContent = '💾 Update Entry'; btn.style.background='#F59E0B'; btn.style.borderColor='#F59E0B'; btn.style.color='#fff'; }
+  if(btn){ btn.disabled = false; btn.style.pointerEvents = 'auto'; btn.style.opacity = '1'; btn.style.cursor = 'pointer'; btn.textContent = '\uD83D\uDCBE Update Entry'; btn.style.background='#F59E0B'; btn.style.borderColor='#F59E0B'; btn.style.color='#fff'; }
   updateArComplete();
   const formEl = document.getElementById('ar-name');
   if(formEl) formEl.scrollIntoView({behavior:'smooth', block:'center'});
@@ -2079,14 +2079,14 @@ function processFiles(files){
 }
 function removeFile(name){uploadedFiles=uploadedFiles.filter(u=>u.name!==name);s1Save();renderFileList();updateKPIs();}
 
-const EXT_ICON={'pdf':'📄','xlsx':'📊','xls':'📊','csv':'📋','docx':'📝','doc':'📝','txt':'📃'};
+const EXT_ICON={'pdf':'\uD83D\uDCC4','xlsx':'\uD83D\uDCCA','xls':'\uD83D\uDCCA','csv':'\uD83D\uDCCB','docx':'\uD83D\uDCDD','doc':'\uD83D\uDCDD','txt':'\uD83D\uDCC3'};
 function renderFileList(){
   const el=document.getElementById('file-list');
   if(!el) return; // file-list panel was removed; nothing to render
   if(!uploadedFiles.length){el.innerHTML='';return;}
   el.innerHTML=uploadedFiles.map(u=>`
     <div class="file-item">
-      <span class="fi-icon">${EXT_ICON[u.ext]||'📎'}</span>
+      <span class="fi-icon">${EXT_ICON[u.ext]||'\uD83D\uDCCE'}</span>
       <span class="fi-name" title="${u.name}">${u.name}</span>
       <span class="fi-size">${(u.size/1024).toFixed(0)} KB</span>
       <span class="fi-status ${u.status==='Queued'?'fi-pending':'fi-ok'}">${u.status==='Queued'?'Ready to Save':'✓ Logged'}</span>
@@ -2216,7 +2216,7 @@ function showS1History(){
       const dayMfrs = manufacturers.filter(m=>mfrDay(m)===date);
       const isToday = date===new Date().toISOString().slice(0,10);
       html += `<tr style="background:${isToday?'#EFF6FF':'#fff'};">
-        <td style="padding:7px 10px;border-bottom:1px solid #F3F4F6;font-weight:${isToday?'700':'400'};color:${isToday?'#1D4ED8':'#374151'};">${date}${isToday?' 📍':''}</td>
+        <td style="padding:7px 10px;border-bottom:1px solid #F3F4F6;font-weight:${isToday?'700':'400'};color:${isToday?'#1D4ED8':'#374151'};">${date}${isToday?' \uD83D\uDCCD':''}</td>
         <td style="padding:7px 10px;border-bottom:1px solid #F3F4F6;text-align:center;font-weight:700;color:#3B82F6;">${dayMfrs.length||sess.added}</td>
         <td style="padding:7px 10px;border-bottom:1px solid #F3F4F6;text-align:center;color:#10B981;">${sess.files||0}</td>
         <td style="padding:7px 10px;border-bottom:1px solid #F3F4F6;font-size:10.5px;color:#6B7280;">${dayMfrs.map(m=>m.name).join(', ')||'—'}</td>
@@ -2239,7 +2239,7 @@ function archiveS1(){
   exportExcel(); // auto-download before archive
   const archKey = 'tcs_s1_archive_'+new Date().toISOString().slice(0,16).replace(/:/g,'-');
   try{ localStorage.setItem(archKey, JSON.stringify({manufacturers,uploadedFiles:uploadedFiles.map(u=>({name:u.name,size:u.size,ext:u.ext,status:u.status,uploadedAt:u.uploadedAt})),channels:[...checkedChannels],sessions:s1Sessions})); }catch(e){}
-  showToast('📦 Archived & Excel downloaded');
+  showToast('\uD83D\uDCE6 Archived & Excel downloaded');
 }
 
 // ─── Reset All (destructive) ───
@@ -2275,7 +2275,7 @@ function resetAllS1(){
   }catch(e){}
   // Also clear shared cloud data so every device resets
   if (typeof Cloud!=='undefined' && Cloud.ready) Cloud.wipe();
-  showToast('🗑 ล้างข้อมูลทั้งหมดเรียบร้อย — พร้อมใช้งานจริง');
+  showToast('\uD83D\uDDD1 ล้างข้อมูลทั้งหมดเรียบร้อย — พร้อมใช้งานจริง');
 }
 
 function setKPIStatus(id,met,okText,warnText,hasData){
@@ -2409,7 +2409,7 @@ function exportAndOpenSharePoint(){
   // Step 3: Open SharePoint folder
   setTimeout(() => {
     window.open(SHAREPOINT_FOLDER_URL, '_blank', 'noopener');
-    showToast('📂 Excel downloaded · SharePoint กำลังเปิด...');
+    showToast('\uD83D\uDCC2 Excel downloaded · SharePoint กำลังเปิด...');
   }, 800);
 }
 
@@ -2425,7 +2425,7 @@ function exportDrivePackage(){
     '**Project:** '+proj,
     '**Exported:** '+new Date().toLocaleString('en-GB'),
     '',
-    '## 📁 SharePoint Upload Path',
+    '## \uD83D\uDCC1 SharePoint Upload Path',
     '**Folder:** Global Sourcing → ' + (masterPlanData ? masterPlanData.projectName : 'Stage1'),
     '**URL:** https://preciseth-my.sharepoint.com/:f:/g/personal/pattarida_k_precise_co_th/IgDqjkEjab5CQoZZ_kzMipj9AVkT5O2nfsdc2haDN1IwEPM?e=6SG3Va',
     '',
@@ -2438,14 +2438,14 @@ function exportDrivePackage(){
     ...uploadedFiles.map(f=>'        └── '+f.name),
     '```',
     '',
-    '## 📊 KPI Status',
+    '## \uD83D\uDCCA KPI Status',
     '| KPI | Current | Target | Status |',
     '|-----|---------|--------|--------|',
     '| Manufacturer Count | '+manufacturers.length+' | ≥ 20 | '+(manufacturers.length>=20?'✅ Met':'⚠ In Progress')+' |',
     '| Discovery Channels Coverage | '+(new Set(manufacturers.map(m=>m.source).filter(Boolean)).size)+' | ≥ 3 | '+((new Set(manufacturers.map(m=>m.source).filter(Boolean)).size)>=3?'✅ Met':'⚠ In Progress')+' |',
     '| Files Uploaded | '+uploadedFiles.length+' | 100% | '+(uploadedFiles.length>0?'✅ Has Files':'⚠ Pending')+' |',
     '',
-    '## 🏭 Manufacturers ('+manufacturers.length+')',
+    '## \uD83C\uDFED Manufacturers ('+manufacturers.length+')',
     '| # | Name | Country | Website | Tier |',
     '|---|------|---------|---------|------|',
     ...manufacturers.map((m,i)=>`| ${i+1} | ${m.name} | ${m.country} | ${m.website||'—'} | ${m.tier} |`),
@@ -2455,7 +2455,7 @@ function exportDrivePackage(){
   a.href=URL.createObjectURL(blob);
   a.download='README-Stage1-'+date+'.md';
   a.click();
-  showToast('📋 README.md downloaded — upload พร้อม Excel ขึ้น SharePoint');
+  showToast('\uD83D\uDCCB README.md downloaded — upload พร้อม Excel ขึ้น SharePoint');
 
   // Mark files as "logged"
   uploadedFiles.forEach(u=>u.status='Logged');
@@ -2505,7 +2505,7 @@ function applyMasterPlanMode(role) {
       banner.style.display = 'flex';
       banner.style.cssText += 'align-items:center;gap:10px;background:linear-gradient(135deg,#ECFDF5,#D1FAE5);border:1.5px solid #6EE7B7;border-radius:10px;padding:10px 16px;margin-bottom:16px;';
       banner.innerHTML = `
-        <span style="font-size:18px;">👁</span>
+        <span style="font-size:18px;">\uD83D\uDC41</span>
         <div style="flex:1;">
           <div style="font-size:9.5px;font-weight:700;color:#065F46;letter-spacing:1px;text-transform:uppercase;">Sourcing — View Only Mode</div>
           <div style="font-size:11.5px;color:#047857;margin-top:1px;">Master Plan ที่ Business สร้างไว้ · ดูได้อย่างเดียว ไม่สามารถแก้ไขได้</div>
@@ -2539,7 +2539,7 @@ function refreshBizDashboard() {
   // ── Subtitle
   const sub = document.getElementById('biz-project-subtitle');
   if (sub) sub.textContent = hasPlan
-    ? '📌 Project: ' + masterPlanData.projectName + ' · BU: ' + (masterPlanData.bu || '—') + ' · Priority: ' + (masterPlanData.priority || '—')
+    ? '\uD83D\uDCCC Project: ' + masterPlanData.projectName + ' · BU: ' + (masterPlanData.bu || '—') + ' · Priority: ' + (masterPlanData.priority || '—')
     : 'กำลังรอข้อมูล — Submit Demand ใน Stage 0 ก่อน';
 
   const banner = document.getElementById('biz-ontrack-banner');
@@ -2622,8 +2622,8 @@ function refreshBizDashboard() {
     setBanner('linear-gradient(135deg,#ECFDF5,#D1FAE5)','#6EE7B7','✅','#065F46','On Track — Stage 1 KPI ครบแล้ว','#047857','พร้อมส่งต่อ Stage 2 — Preliminary Screening','#10B981');
     setFC('#ECFDF5','#6EE7B7','✅','ดำเนินตามแผน — คาดส่งมอบ W12 ตามกำหนด','Stage 1 เสร็จภายในกรอบเวลา · downstream (S2–S4) ยังมีเวลาเพียงพอ');
   } else if (verdict==='early') {
-    setBanner('linear-gradient(135deg,#EFF6FF,#DBEAFE)','#BFDBFE','🚀','#1E40AF','Kickoff — เพิ่งเริ่มกระบวนการ','#1D4ED8','อยู่ในช่วง Stage 0–1 เริ่มต้น','#3B82F6');
-    setFC('#EFF6FF','#BFDBFE','🚀','เพิ่งเริ่มโครงการ — ยังประเมินแนวโน้มไม่ได้','เริ่ม Key-in Manufacturer ใน Stage 1 เพื่อให้ระบบคำนวณ forecast');
+    setBanner('linear-gradient(135deg,#EFF6FF,#DBEAFE)','#BFDBFE','\uD83D\uDE80','#1E40AF','Kickoff — เพิ่งเริ่มกระบวนการ','#1D4ED8','อยู่ในช่วง Stage 0–1 เริ่มต้น','#3B82F6');
+    setFC('#EFF6FF','#BFDBFE','\uD83D\uDE80','เพิ่งเริ่มโครงการ — ยังประเมินแนวโน้มไม่ได้','เริ่ม Key-in Manufacturer ใน Stage 1 เพื่อให้ระบบคำนวณ forecast');
   } else if (verdict==='ontrack') {
     setBanner('linear-gradient(135deg,#ECFDF5,#D1FAE5)','#6EE7B7','✅','#065F46','On Track — ดำเนินได้ตามแผน','#047857','Overall '+overall+'% · Stage 1 ทันกำหนด','#10B981');
     setFC('#ECFDF5','#6EE7B7','✅','ตามอัตราปัจจุบัน คาดเสร็จทันกำหนด W12','Stage 1 คาดเสร็จ ~W'+projS1Week+' (ภายในแผน W4)');
@@ -2631,8 +2631,8 @@ function refreshBizDashboard() {
     setBanner('linear-gradient(135deg,#FFFBEB,#FEF3C7)','#FDE68A','⚠️','#92400E','Attention — เริ่มช้ากว่าแผน','#B45309','Stage 1 ล่าช้า อาจกระทบ downstream','#F59E0B');
     setFC('#FFFBEB','#FDE68A','⚠️','ตามอัตราปัจจุบัน Stage 1 จะเสร็จ ~W'+projS1Week+' (ช้ากว่าแผน '+slip+' สัปดาห์) เสี่ยงเลื่อนส่งมอบ','เร่ง Key-in Manufacturer ให้ถึง 20 ราย · ขณะนี้ '+mCount+'/20 · '+chCount+'/3 channels');
   } else { // behind
-    setBanner('linear-gradient(135deg,#FEF2F2,#FEE2E2)','#FECACA','🔴','#991B1B','Behind Schedule — ต้องเร่งด่วน','#DC2626','Progress '+overall+'% ที่ W'+curWeek+' ต่ำกว่าที่ควรเป็น','#EF4444');
-    setFC('#FEF2F2','#FECACA','🔴','ช้ากว่าแผนมาก — คาดทั้งโปรเจกต์เสร็จ ~W'+projEndWeek+' เกินกำหนด '+(projEndWeek-12)+' สัปดาห์','ต้องเร่ง Stage 1 ทันที · ขาดอีก '+Math.max(0,20-mCount)+' ราย, '+Math.max(0,3-chCount)+' channels เพื่อปลดล็อก Stage 2');
+    setBanner('linear-gradient(135deg,#FEF2F2,#FEE2E2)','#FECACA','\uD83D\uDD34','#991B1B','Behind Schedule — ต้องเร่งด่วน','#DC2626','Progress '+overall+'% ที่ W'+curWeek+' ต่ำกว่าที่ควรเป็น','#EF4444');
+    setFC('#FEF2F2','#FECACA','\uD83D\uDD34','ช้ากว่าแผนมาก — คาดทั้งโปรเจกต์เสร็จ ~W'+projEndWeek+' เกินกำหนด '+(projEndWeek-12)+' สัปดาห์','ต้องเร่ง Stage 1 ทันที · ขาดอีก '+Math.max(0,20-mCount)+' ราย, '+Math.max(0,3-chCount)+' channels เพื่อปลดล็อก Stage 2');
   }
 
   // ── KPI bars
