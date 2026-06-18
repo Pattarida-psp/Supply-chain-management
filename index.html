@@ -484,7 +484,7 @@ table.mfr-tbl tbody tr:hover td{background:#F8FAFF;}
     <div class="rbac-label">Select your role</div>
     <div class="rbac-roles">
       <button class="rbac-role-btn role-business" onclick="selectRole('business')">
-        <div class="rbac-role-icon">\uD83D\uDCCA</div>
+        <div class="rbac-role-icon">📊</div>
         <div class="rbac-role-body">
           <div class="rbac-role-name">Business</div>
           <div class="rbac-role-desc">Keys in demand · เห็น Status ภาพรวม หลัง Assign</div>
@@ -492,7 +492,7 @@ table.mfr-tbl tbody tr:hover td{background:#F8FAFF;}
         <span class="rbac-role-arrow">›</span>
       </button>
       <button class="rbac-role-btn role-sourcing" onclick="selectRole('sourcing')">
-        <div class="rbac-role-icon">\uD83D\uDD0D</div>
+        <div class="rbac-role-icon">🔍</div>
         <div class="rbac-role-body">
           <div class="rbac-role-name">Sourcing</div>
           <div class="rbac-role-desc">เห็น Master Plan · Key-in & Upload Stage 1 data</div>
@@ -500,7 +500,7 @@ table.mfr-tbl tbody tr:hover td{background:#F8FAFF;}
         <span class="rbac-role-arrow">›</span>
       </button>
       <button class="rbac-role-btn role-other" onclick="selectRole('other')">
-        <div class="rbac-role-icon">\uD83D\uDC41</div>
+        <div class="rbac-role-icon">👁</div>
         <div class="rbac-role-body">
           <div class="rbac-role-name">Other / View Only</div>
           <div class="rbac-role-desc">เห็นภาพรวม Process Overview & Status เท่านั้น</div>
@@ -532,10 +532,10 @@ table.mfr-tbl tbody tr:hover td{background:#F8FAFF;}
 <!-- Tab Bar -->
 <div class="tab-bar" id="main-tab-bar">
   <button class="tab-btn active" id="btn-t1" onclick="showTab('process',this)" style="display:none;">
-    \uD83D\uDCCB Process Overview
+    📋 Process Overview
   </button>
   <button class="tab-btn" id="btn-t2" onclick="showTab('masterplan',this)" style="display:none;">
-    \uD83D\uDCC5 Master Plan
+    📅 Master Plan
     <span class="tab-badge badge-blue" id="mp-badge">AUTO</span>
   </button>
   <button class="tab-btn" id="btn-t3" onclick="showTab('stage0',this)" style="display:none;">
@@ -543,15 +543,15 @@ table.mfr-tbl tbody tr:hover td{background:#F8FAFF;}
     <span class="tab-badge badge-orange">BUSINESS</span>
   </button>
   <button class="tab-btn" id="btn-biz-dash" onclick="showTab('biz-dashboard',this)" style="display:none;">
-    \uD83D\uDCCA Executive Dashboard
+    📊 Executive Dashboard
     <span class="tab-badge badge-orange">ON TRACK?</span>
   </button>
   <button class="tab-btn" id="btn-t4" onclick="showTab('stage1',this)" style="display:none;">
-    \uD83D\uDD0D Stage 1 — Global Discovery
+    🔍 Stage 1 — Global Discovery
     <span class="tab-badge badge-blue">SOURCING</span>
   </button>
   <button class="tab-btn" id="btn-lock" onclick="showTab('lock',this)" style="display:none;">
-    \uD83D\uDD10 Admin
+    🔐 Admin
   </button>
   <!-- Spacer pushes logout to far right -->
   <div style="flex:1;"></div>
@@ -682,7 +682,7 @@ table.mfr-tbl tbody tr:hover td{background:#F8FAFF;}
   <!-- Empty state -->
   <div id="mp-empty">
     <div class="mp-empty">
-      <div class="mp-empty-icon">\uD83D\uDCC5</div>
+      <div class="mp-empty-icon">📅</div>
       <h3>Master Plan will appear here</h3>
       <p id="mp-empty-desc">Business Unit ต้อง Submit Demand ใน Stage 0 ก่อน<br>จากนั้น Master Plan จะ Generate อัตโนมัติ ครบทุก Stage 0–4</p>
       <!-- Business: show link to Stage 0 -->
@@ -705,7 +705,7 @@ table.mfr-tbl tbody tr:hover td{background:#F8FAFF;}
       <div class="mp-actions" style="margin-bottom:0;" id="mp-action-bar">
         <!-- Business only: edit + PDF -->
         <span id="mp-edit-controls" style="display:none;gap:6px;align-items:center;">
-          <button class="btn btn-success" onclick="exportMasterPlanPDF()">\uD83D\uDCC4 Export PDF</button>
+          <button class="btn btn-success" onclick="exportMasterPlanPDF()">📄 Export PDF</button>
           <button class="btn" style="background:#F59E0B;color:#fff;border-color:#F59E0B;"
             onclick="showTab('stage0', document.getElementById('btn-t3'))">
             ✏️ Edit Demand →
@@ -713,10 +713,10 @@ table.mfr-tbl tbody tr:hover td{background:#F8FAFF;}
         </span>
         <!-- Sourcing only: PDF (view) -->
         <span id="mp-view-controls" style="display:none;gap:6px;align-items:center;">
-          <button class="btn btn-success" onclick="exportMasterPlanPDF()">\uD83D\uDCC4 Export PDF</button>
+          <button class="btn btn-success" onclick="exportMasterPlanPDF()">📄 Export PDF</button>
           <span style="font-size:10px;font-weight:600;color:#9CA3AF;padding:4px 10px;
             background:#F3F4F6;border-radius:6px;border:1px solid #E5E7EB;">
-            \uD83D\uDC41 View Only
+            👁 View Only
           </span>
         </span>
       </div>
@@ -725,13 +725,13 @@ table.mfr-tbl tbody tr:hover td{background:#F8FAFF;}
     <div class="brief-banner" id="mp-brief"></div>
     <!-- Products -->
     <div class="products-section">
-      <h3>\uD83D\uDCE6 Core Products in Scope</h3>
+      <h3>📦 Core Products in Scope</h3>
       <div class="product-tags" id="mp-product-tags"></div>
     </div>
     <!-- Stage Summary -->
     <div class="stage-summary" id="mp-stage-summary"></div>
     <!-- Gantt -->
-    <div style="font-size:12px;font-weight:700;color:#374151;margin-bottom:10px;">\uD83D\uDCCA Gantt Chart — Full Process (Stage 0–4)</div>
+    <div style="font-size:12px;font-weight:700;color:#374151;margin-bottom:10px;">📊 Gantt Chart — Full Process (Stage 0–4)</div>
     <div class="gantt-wrap" id="mp-gantt"></div>
     <div class="bottom-note" id="mp-footer"></div>
   </div>
@@ -740,12 +740,12 @@ table.mfr-tbl tbody tr:hover td{background:#F8FAFF;}
 <!-- ════════════ TAB: LOCK SCREEN ════════════ -->
 <div class="tab-panel" id="tab-lock">
   <div class="lock-screen">
-    <div class="lock-icon">\uD83D\uDD10</div>
+    <div class="lock-icon">🔐</div>
     <h2>Admin Access Required</h2>
     <p>Tab นี้สำหรับ Admin เท่านั้น<br>กรุณาใส่ Password เพื่อเข้าถึง Stage 0 — Demand Input</p>
     <div class="lock-form">
       <input type="password" class="lock-input" id="pwd-input" placeholder="Enter password" onkeydown="if(event.key==='Enter')checkPwd()">
-      <button class="lock-btn" onclick="checkPwd()">\uD83D\uDD13 Unlock Admin Access</button>
+      <button class="lock-btn" onclick="checkPwd()">🔓 Unlock Admin Access</button>
       <div class="lock-error" id="pwd-error"></div>
       <div class="lock-hint">hint: TCS + current year</div>
     </div>
@@ -770,20 +770,20 @@ table.mfr-tbl tbody tr:hover td{background:#F8FAFF;}
         <div style="flex:1;height:2px;background:linear-gradient(90deg,#F59E0B,#3B82F6);margin:0 6px;margin-bottom:12px;"></div>
         <div style="width:0;height:0;border-top:4px solid transparent;border-bottom:4px solid transparent;border-left:7px solid #3B82F6;margin-bottom:12px;"></div>
         <div style="display:flex;flex-direction:column;align-items:center;gap:3px;">
-          <div style="width:32px;height:32px;border-radius:50%;background:#3B82F6;display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;">\uD83D\uDC65</div>
+          <div style="width:32px;height:32px;border-radius:50%;background:#3B82F6;display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;">👥</div>
           <div style="font-size:9px;font-weight:600;color:#6B7280;text-align:center;">Sourcing<br>Receives</div>
         </div>
         <div style="flex:1;height:2px;background:linear-gradient(90deg,#3B82F6,#10B981);margin:0 6px;margin-bottom:12px;"></div>
         <div style="width:0;height:0;border-top:4px solid transparent;border-bottom:4px solid transparent;border-left:7px solid #10B981;margin-bottom:12px;"></div>
         <div style="display:flex;flex-direction:column;align-items:center;gap:3px;">
-          <div style="width:32px;height:32px;border-radius:50%;background:#10B981;display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;">\uD83D\uDCC5</div>
+          <div style="width:32px;height:32px;border-radius:50%;background:#10B981;display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;">📅</div>
           <div style="font-size:9px;font-weight:600;color:#6B7280;text-align:center;">Master Plan<br>Auto-generated</div>
         </div>
       </div>
 
       <!-- Section 1 -->
       <div class="form-section">
-        <div class="form-section-title">\uD83D\uDCCC Project Information <span>Required</span></div>
+        <div class="form-section-title">📌 Project Information <span>Required</span></div>
         <div class="form-row">
           <div class="form-group">
             <label class="form-label">Project / Initiative Name <span class="req">*</span></label>
@@ -800,16 +800,16 @@ table.mfr-tbl tbody tr:hover td{background:#F8FAFF;}
             <input type="date" class="form-input" id="f-reqdate">
           </div>
           <div class="form-group">
-            <label class="form-label">\uD83D\uDE80 Process Start Date <span class="req">*</span></label>
+            <label class="form-label">🚀 Process Start Date <span class="req">*</span></label>
             <input type="date" class="form-input" id="f-startdate" onchange="previewTimeline()">
             <div class="form-hint">วันเริ่ม Stage 0 — End Date คำนวณอัตโนมัติ (+12 weeks)</div>
           </div>
           <div class="form-group">
             <label class="form-label">Priority Level</label>
             <select class="form-select" id="f-priority">
-              <option value="Normal">\uD83D\uDFE2 Normal</option>
-              <option value="High">\uD83D\uDFE1 High</option>
-              <option value="Critical">\uD83D\uDD34 Critical</option>
+              <option value="Normal">🟢 Normal</option>
+              <option value="High">🟡 High</option>
+              <option value="Critical">🔴 Critical</option>
             </select>
           </div>
         </div>
@@ -821,7 +821,7 @@ table.mfr-tbl tbody tr:hover td{background:#F8FAFF;}
 
       <!-- Section 3 -->
       <div class="form-section">
-        <div class="form-section-title">\uD83C\uDFAF Required Scope &amp; Constraints</div>
+        <div class="form-section-title">🎯 Required Scope &amp; Constraints</div>
         <div class="form-row single">
           <div class="form-group">
             <label class="form-label">Required Scope / Specification</label>
@@ -867,23 +867,23 @@ table.mfr-tbl tbody tr:hover td{background:#F8FAFF;}
       <h3>✅ Demand Submitted Successfully!</h3>
       <p>Master Plan (Stage 0–4) ถูก Generate อัตโนมัติแล้ว · Sourcing Team ได้รับ Assignment</p>
       <div class="success-actions">
-        <button class="btn btn-outline" onclick="resetForm()">\uD83D\uDCDD New Request</button>
+        <button class="btn btn-outline" onclick="resetForm()">📝 New Request</button>
         <button class="btn" style="background:#F59E0B;color:#fff;border-color:#F59E0B;"
           onclick="showTab('biz-dashboard', document.getElementById('btn-biz-dash'))">
-          \uD83D\uDCCA View Executive Dashboard →
+          📊 View Executive Dashboard →
         </button>
         <button class="btn" style="background:#3B82F6;color:#fff;border-color:#3B82F6;"
           onclick="showTab('masterplan', document.getElementById('btn-t2'))"
           id="btn-view-masterplan">
-          \uD83D\uDCC5 View Master Plan →
+          📅 View Master Plan →
         </button>
       </div>
     </div>
     <div class="dash-alert" id="d-alert"></div>
-    <div style="font-size:12px;font-weight:700;color:#374151;margin-bottom:10px;">\uD83D\uDCE6 Products Queued for Sourcing</div>
+    <div style="font-size:12px;font-weight:700;color:#374151;margin-bottom:10px;">📦 Products Queued for Sourcing</div>
     <div class="product-cards" id="d-cards"></div>
     <div class="tl-bar-section">
-      <div class="tl-bar-title">\uD83D\uDCC5 Timeline at a Glance</div>
+      <div class="tl-bar-title">📅 Timeline at a Glance</div>
       <div id="d-bars"></div>
     </div>
   </div>
