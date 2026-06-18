@@ -1536,6 +1536,7 @@ let manufacturers = [];
 let uploadedFiles = [];
 let checkedChannels = new Set();
 let mfrIdCounter = 1;
+window._editingMfrId = null;
 
 // ════════════════════════════════════════════
 //  CLOUD SYNC (Firebase Firestore) — shared data across devices/users
@@ -1709,7 +1710,8 @@ function updateArComplete() {
     return el && el.value.trim() !== '';
   });
   const pct = Math.round(filled.length / AR_REQUIRED.length * 100);
-  const ready = (pct === 100);
+  const isEditMode = (window._editingMfrId != null);
+  const ready = (pct === 100) || (isEditMode && pct > 0);
 
   const bar   = document.getElementById('ar-complete-bar');
   const pctEl = document.getElementById('ar-complete-pct');
@@ -1734,7 +1736,7 @@ function updateArComplete() {
       btn.style.cursor          = 'pointer';
       btn.style.opacity         = '1';
       btn.style.pointerEvents   = 'auto';
-      btn.textContent           = '✅ Submit Entry';
+      btn.textContent           = isEditMode ? '💾 Update Entry' : '✅ Submit Entry';
     } else {
       btn.disabled              = true;
       btn.style.background      = '#F3F4F6';
@@ -1797,12 +1799,22 @@ function submitManufacturer(){
 
   const products = collectProdRows();
 
-  manufacturers.push({
-    id: mfrIdCounter++, name, country, website: web,
-    contact, category, tier, source, note,
-    products,
-    addedAt: new Date().toISOString(), session: today
-  });
+  if (window._editingMfrId != null) {
+    const idx = manufacturers.findIndex(x => x.id === window._editingMfrId);
+    if (idx !== -1) {
+      manufacturers[idx] = Object.assign(manufacturers[idx], {
+        name, country, website: web, contact, category, tier, source, note, products
+      });
+    }
+    window._editingMfrId = null;
+  } else {
+    manufacturers.push({
+      id: mfrIdCounter++, name, country, website: web,
+      contact, category, tier, source, note,
+      products,
+      addedAt: new Date().toISOString(), session: today
+    });
+  }
 
   // Clear form
   AR_REQUIRED.forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
@@ -1907,7 +1919,7 @@ function renderMfrTable(){
       }</td>
       <td style="font-size:9.5px;color:#9CA3AF;max-width:100px;overflow:hidden;text-overflow:ellipsis;" title="${m.note||''}">${m.note||'—'}</td>
       <td style="font-size:9.5px;color:#9CA3AF;white-space:nowrap;">${mfrDay(m)}</td>
-      <td style="text-align:center;"><button class="del-row" type="button" onclick="event.stopPropagation();deleteMfr(${m.id})" title="Delete">✕</button></td>
+      <td style="text-align:center;"><button class="edit-row" type="button" onclick="event.stopPropagation();editMfr(${m.id})" title="Edit" style="background:#F59E0B;color:#fff;border:none;border-radius:4px;padding:2px 7px;cursor:pointer;font-size:11px;margin-right:4px;">✏️</button><button class="del-row" type="button" onclick="event.stopPropagation();deleteMfr(${m.id})" title="Delete">✕</button></td>
     </tr>`;
   }).join('');
   updateSummary();
@@ -1917,6 +1929,31 @@ function deleteMfr(id){
   manufacturers=manufacturers.filter(m=>m.id!==id);
   s1Save();
   renderMfrTable();updateKPIs();
+}
+
+function editMfr(id){
+  const m = manufacturers.find(x => x.id === id);
+  if(!m) return;
+  const sv = (elId, v) => { const e = document.getElementById(elId); if(e) e.value = v||''; };
+  sv('ar-name',     m.name);
+  sv('ar-country',  m.country);
+  sv('ar-web',      m.website);
+  sv('ar-contact',  m.contact);
+  sv('ar-category', m.category);
+  sv('ar-tier',     m.tier);
+  sv('ar-source',   m.source);
+  sv('ar-note',     m.note);
+  clearProdRows();
+  (m.products||[]).forEach(p => addProdRow(p));
+  window._editingMfrId = id;
+  const btn = document.getElementById('ar-submit-btn');
+  if(btn){ btn.disabled = false; btn.style.pointerEvents = 'auto'; btn.style.opacity = '1';
+           btn.style.cursor = 'pointer'; btn.textContent = '💾 Update Entry';
+           btn.style.background='#F59E0B'; btn.style.borderColor='#F59E0B'; btn.style.color='#fff'; }
+  updateArComplete();
+  const formEl = document.getElementById('ar-name');
+  if(formEl) formEl.scrollIntoView({behavior:'smooth', block:'center'});
+  showToast('🖊️ Editing: ' + m.name);
 }
 
 // ─── Product / Equipment key-in rows (per manufacturer entry) ───
