@@ -1798,7 +1798,7 @@ function submitManufacturer(){
     }
     window._editingMfrId = null;
     const btn2 = document.getElementById('ar-submit-btn');
-    if(btn2){ btn2.textContent = '\uD83D\uDCCB Submit Entry'; btn2.disabled = true; btn2.style.background='#F3F4F6'; btn2.style.color='#9CA3AF'; btn2.style.borderColor='#E5E7EB'; btn2.style.cursor='not-allowed'; btn2.style.opacity='0.5'; btn2.style.pointerEvents='none'; }ntry'; btn2.style.background=''; btn2.style.borderColor=''; }
+    if(btn2){ btn2.textContent = '\uD83D\uDCCB Submit Entry'; btn2.disabled = true; btn2.style.background='#F3F4F6'; btn2.style.color='#9CA3AF'; btn2.style.borderColor='#E5E7EB'; btn2.style.cursor='not-allowed'; btn2.style.opacity='0.5'; btn2.style.pointerEvents='none'; }
   } else {
     if(manufacturers.some(m=>m.name.trim().toLowerCase()===name.trim().toLowerCase())){showToast('Manufacturer "'+name+'" already exists');return;}  manufacturers.push({
       id: mfrIdCounter++, name, country, website: web,
