@@ -2105,6 +2105,7 @@ function updateKPIs(){
   // KPI 1: Manufacturer count
   const mfrTarget = (masterPlanData && masterPlanData.products && masterPlanData.products.length > 0) ? masterPlanData.products.length * 20 : 20;
   const p1=Math.min(100,Math.round(mCount/mfrTarget*100));
+  const targetNumEl = document.getElementById('kd1-target-num'); if(targetNumEl) targetNumEl.textContent = '≥ '+mfrTarget;
   document.getElementById('kd1-val').textContent=mCount;
   document.getElementById('kd1-bar').style.width=p1+'%';
   const ok1=mCount>=mfrTarget;
@@ -2645,6 +2646,7 @@ function refreshBizDashboard() {
     document.getElementById(barId).style.background = ok ? okColor : baseColor;
   };
   setBar('biz-kpi-mfr','biz-kpi-mfr-bar',mCount,mPct,'#10B981','#3B82F6',mCount>=mfrTarget);
+  const mfrLabelEl = document.getElementById('biz-kpi-mfr-target'); if(mfrLabelEl) mfrLabelEl.textContent = 'entries / target '+mfrTarget;
   setBar('biz-kpi-ch','biz-kpi-ch-bar',chCount,chPct,'#10B981','#8B5CF6',chCount>=3);
   const fPct = Math.min(100, prodCount>0?100:0);
   setBar('biz-kpi-files','biz-kpi-files-bar',prodCount,fPct,'#10B981','#10B981',prodCount>0);
@@ -2978,7 +2980,7 @@ function updateCloudBadge(){
       <div class="kd-top"><span class="kd-icon">🏭</span><span class="kd-status" id="kd1-status" style="background:#FEF3C7;color:#92400E;">In Progress</span></div>
       <div class="kd-label">Manufacturer Count</div>
       <div class="kd-value" id="kd1-val" style="color:#1D4ED8;">0</div>
-      <div class="kd-target" style="color:#6B7280;">Target: <strong>≥ 20</strong> raw entries</div>
+      <div id="kd1-target" class="kd-target" style="color:#6B7280;">Target: <strong id="kd1-target-num">≥ 20</strong> raw entries</div>
       <div class="kd-bar-wrap"><div class="kd-bar-fill" id="kd1-bar" style="background:#3B82F6;width:0%;"></div></div>
     </div>
     <div class="kd-card" style="background:#F5F3FF;border-color:#DDD6FE;">
@@ -3254,7 +3256,7 @@ function updateCloudBadge(){
   <div style="background:#fff;border:1.5px solid #E5E7EB;border-radius:12px;padding:16px 18px;">
     <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;color:#9CA3AF;text-transform:uppercase;margin-bottom:8px;">🏭 Manufacturers</div>
     <div style="font-size:22px;font-weight:800;color:#111827;" id="biz-kpi-mfr">0</div>
-    <div style="font-size:10.5px;color:#6B7280;margin-top:2px;">entries / target 20</div>
+    <div id="biz-kpi-mfr-target" style="font-size:10.5px;color:#6B7280;margin-top:2px;">entries / target 20</div>
     <div style="background:#E5E7EB;border-radius:3px;height:5px;margin-top:10px;overflow:hidden;">
       <div id="biz-kpi-mfr-bar" style="height:5px;border-radius:3px;background:#3B82F6;width:0%;transition:width .5s;"></div>
     </div>
