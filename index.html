@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, inhitial-scale=1.0">
 <title>Vendor Sourcing Process — TCS</title>
 
-<!-- ════════════════════════════════════════════════════════════════════
+<!-- ═════════════════════════════════════════════════h═══════════════════
      FIREBASE CLOUD SYNC  ·  วางค่า firebaseConfig ของคุณตรงนี้
      ════════════════════════════════════════════════════════════════════
      1) ไปที่ https://console.firebase.google.com → สร้าง project
@@ -1783,7 +1783,7 @@ function submitManufacturer(){
   const country  = document.getElementById('ar-country').value.trim();
   const web      = document.getElementById('ar-web').value.trim();
   const contact  = document.getElementById('ar-contact').value.trim();
-  const category = document.getElementById('ar-category').value.trim();
+  const categoryEl = document.getElementById('ar-category'); const category = categoryEl ? categoryEl.value.trim() : '';
   const tier     = document.getElementById('ar-tier').value;
   const source   = document.getElementById('ar-source').value;
   const note     = document.getElementById('ar-note').value.trim();
