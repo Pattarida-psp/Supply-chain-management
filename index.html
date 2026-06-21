@@ -1976,7 +1976,8 @@ function addProdRow(data) {
     name:     data && data.name     || '',
     category: data && data.category || '',
     model:    data && data.model    || '',
-    note:     data && data.note     || ''
+    note:     data && data.note     || '',
+           customerSegment: data && data.customerSegment || ''
   });
   renderProdRows();
   updateArComplete();
@@ -2022,6 +2023,7 @@ function renderProdRows() {
             oninput="updateProdRow(${r._id},'model',this.value)" style="${inp}"></td>
       <td style="${cell}"><input type="text" value="${esc(r.note)}"  placeholder="-"
             oninput="updateProdRow(${r._id},'note',this.value)"  style="${inp}"></td>
+                <td style="${cell}"><select oninput="updateProdRow(${r._id},'customerSegment',this.value)" style="${inp}"><option value="">-- Segment --</option>${['Factory','Hospital','Hotel','Home','Building'].map(opt=>`<option value="${opt}"${r.customerSegment===opt?' selected':''}>${opt}</option>`).join('')}</select></td>
       <td style="${cell}text-align:center;">
         <button type="button" onclick="removeProdRow(${r._id})"
           style="padding:3px 7px;background:#FEF2F2;border:1px solid #FECACA;border-radius:5px;font-size:10px;color:#EF4444;cursor:pointer;">✕</button>
@@ -2037,7 +2039,8 @@ function collectProdRows() {
       name:     r.name.trim(),
       category: r.category || '',
       model:    r.model.trim(),
-      note:     r.note.trim()
+      note:     r.note.trim(),
+                 customerSegment: r.customerSegment || ''
     }));
 }
 function clearProdRows() {
@@ -2350,7 +2353,7 @@ function buildProductList(){
   const out=[];
   manufacturers.forEach((m,mi)=>{
     (m.products||[]).forEach((p)=>{
-      out.push([ mi+1, m.name, m.country||'', m.tier||'', m.source||'', p.name, p.model||'', p.note||'' ]);
+      out.push([ mi+1, m.name, m.country||'', m.tier||'', m.source||'', p.name, p.model||'', p.note||'', p.customerSegment||'' ]);
     });
   });
   return out;
@@ -2388,7 +2391,7 @@ function _doXLSX(headers, rows, proj){
   XLSX.utils.book_append_sheet(wb,ws,'Manufacturers');
 
   // Sheet 2: Product / Equipment list (detail of keyed-in products)
-  const prodHeaders=['Mfr #','Manufacturer','Country','Tier','Discovery Source','Equipment / Product','Spec / Model','Note'];
+  const prodHeaders=['Mfr #','Manufacturer','Country','Tier','Discovery Source','Equipment / Product','Spec / Model','Note','Customer Segment'];
   const prodRows=buildProductList();
   const ws3=XLSX.utils.aoa_to_sheet([prodHeaders,...(prodRows.length?prodRows:[['—','(ยังไม่มีรายการอุปกรณ์)','','','','','','']])]);
   ws3['!cols']=[{wch:6},{wch:26},{wch:14},{wch:10},{wch:20},{wch:30},{wch:24},{wch:30}];
