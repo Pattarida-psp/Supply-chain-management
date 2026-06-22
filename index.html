@@ -923,7 +923,7 @@ const PILLAR_COLORS = {
   'Energy Conservation':'#10B981','Renewable Energy':'#F59E0B','Power Quality':'#EF4444','Other':'#6B7280'
 };
 
-let masterPlanData = null;
+let masterPlanData = null; let masterPlanList = []; let mpViewMode = 'total'; let mpSelectedIdx = 0;
 let products = [{id:1, name:'', pillar:'Power Distribution', scope:''}];
 let nextPid = 2;
 
@@ -1043,8 +1043,9 @@ function submitDemand(){
     priority, scope, countries, cert, minv, notes,
     products:filled, baseDate:startdate, submittedAt:new Date().toISOString()
   };
-  try { localStorage.setItem(MP_KEY, JSON.stringify(masterPlanData)); } catch(e){}
-  if (Cloud.ready) Cloud.save('masterplan', masterPlanData);
+  masterPlanList.push(JSON.parse(JSON.stringify(masterPlanData)));
+  try { localStorage.setItem(MP_KEY, JSON.stringify(masterPlanData)); localStorage.setItem('tcs_mp_list', JSON.stringify(masterPlanList)); } catch(e){}
+  if (Cloud.ready) Cloud.save('masterplan', {current:masterPlanData, list:masterPlanList});
 
   generateMasterPlan();
   buildDashboard(endDate, baseDate, filled, name, bu, priority);
@@ -2693,42 +2694,40 @@ function bizStageStatus(stageId, mCount, chCount, prodCount, hasPlan){
   return { state: s1Done?'pending':'pending', detail: s1Done?'พร้อมเริ่มเมื่อ S1 ส่งต่อ':'รอ Stage 1 ผ่าน KPI' };
 }
 
-function renderBizTimeline(curWeek, _data){
-  const host = document.getElementById('biz-mp-view');
-  const todayEl = document.getElementById('biz-mp-today');
-  if (!host) return;
-  if (todayEl) todayEl.textContent = curWeek>0 ? ('● Now: Week '+Math.min(curWeek,12)) : '';
-  if(!masterPlanData){host.innerHTML='<div style="text-align:center;padding:24px;color:#9CA3AF;font-size:12px;">ยังไม่มี Master Plan</div>';return;} const TW=12;
-  // Week axis header
-  let axis='<div style="display:grid;grid-template-columns:120px repeat('+TW+',1fr);gap:0;align-items:center;margin-bottom:6px;">';
-  axis+='<div></div>';
-  for(let w=1;w<=TW;w++){
-    const isNow = (w===Math.min(curWeek,TW) && curWeek>0);
-    axis+='<div style="text-align:center;font-size:8.5px;font-weight:700;color:'+(isNow?'#3B82F6':'#9CA3AF')+';">W'+w+'</div>';
-  }
-  axis+='</div>';
-
-  const rows = (masterPlanData&&masterPlanData.stages?masterPlanData.stages.map(s=>({id:s.id,name:s.name,w:[s.wS,s.wE],hex:s.hex})):BIZ_STAGES).map(s=>{
-    let bars='';
-    for(let w=1;w<=TW;w++){
-      const inStage = w>=s.w[0] && w<=s.w[1];
-      const isNow = (w===Math.min(curWeek,TW) && curWeek>0);
-      let bg = inStage ? s.hex : 'transparent';
-      let style='height:16px;border-right:1px solid #F3F4F6;position:relative;';
-      if(inStage){ style+='background:'+s.hex+';'; if(w===s.w[0])style+='border-radius:5px 0 0 5px;'; if(w===s.w[1])style+='border-radius:0 5px 5px 0;'; }
-      if(isNow){ style+='box-shadow: inset 2px 0 0 #EF4444, inset -2px 0 0 #EF4444;'; }
-      bars+='<div style="'+style+'"></div>';
-    }
-    return '<div style="display:grid;grid-template-columns:120px repeat('+TW+',1fr);gap:0;align-items:center;margin-bottom:5px;">'+
-      '<div style="font-size:10px;font-weight:700;color:#374151;padding-right:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:'+s.hex+';margin-right:5px;"></span>'+s.id+' '+s.name+'</div>'+
-      bars+'</div>';
-  }).join('');
-
-  host.innerHTML = axis + rows +
-    '<div style="margin-top:8px;font-size:9px;color:#9CA3AF;display:flex;gap:14px;flex-wrap:wrap;">'+
-    '<span><span style="display:inline-block;width:18px;height:3px;background:#EF4444;vertical-align:middle;"></span> เส้นแดง = สัปดาห์ปัจจุบัน</span>'+
-    '<span>แถบสี = ช่วงเวลาแต่ละ Stage ตามแผน 12 สัปดาห์</span></div>';
+function setMpView(mode){
+  mpViewMode=mode;
+  const bT=document.getElementById('mp-view-total'),bI=document.getElementById('mp-view-indv'),sel=document.getElementById('mp-demand-selector');
+  if(bT){bT.style.background=mode==='total'?'#3B82F6':'#fff';bT.style.color=mode==='total'?'#fff':'#6B7280';bT.style.borderColor=mode==='total'?'#3B82F6':'#D1D5DB';}
+  if(bI){bI.style.background=mode==='individual'?'#3B82F6':'#fff';bI.style.color=mode==='individual'?'#fff':'#6B7280';bI.style.borderColor=mode==='individual'?'#3B82F6':'#D1D5DB';}
+  if(sel)sel.style.display=mode==='individual'?'block':'none';
+  if(typeof refreshBizDashboard==='function')refreshBizDashboard();
 }
+function renderMpTotalView(curWeek){
+  const TW=12;const clrs=['#3B82F6','#10B981','#F59E0B','#EF4444','#8B5CF6','#EC4899','#14B8A6','#F97316'];
+  const wks=Array.from({length:TW},(_,i)=>`<div style="flex:1;text-align:center;font-size:8px;color:#9CA3AF;">${i+1}</div>`).join('');
+  const rows=masterPlanList.map((d,idx)=>{
+    const nm=d.projectName||d.bu||('Demand '+(idx+1)),base=(d.startDate||d.baseDate||''),clr=clrs[idx%clrs.length];
+    const bars=(d.stages||[]).map(s=>{const wS=s.wS||1,wE=s.wE||1,left=((wS-1)/TW*100).toFixed(1),w=((wE-wS+1)/TW*100).toFixed(1);return `<div style="position:absolute;left:${left}%;width:${w}%;height:100%;background:${s.hex||clr};opacity:0.85;border-radius:3px;" title="${s.name}"></div>`;}).join('');
+    const tl=curWeek>0?`<div style="position:absolute;left:${((curWeek-1)/TW*100).toFixed(1)}%;top:-2px;bottom:-2px;width:2px;background:#EF4444;border-radius:1px;z-index:2;"></div>`:'';
+    return `<div style="display:flex;align-items:center;gap:6px;margin-bottom:5px;"><div style="width:120px;font-size:9px;color:#374151;text-align:right;flex-shrink:0;line-height:1.2;">${nm}<br><span style="color:#9CA3AF;font-size:8px;">${base.substring(0,10)}</span></div><div style="flex:1;height:18px;background:#F3F4F6;border-radius:4px;position:relative;">${bars}${tl}</div></div>`;
+  }).join('');
+  return `<div style="padding:4px 0;"><div style="display:flex;gap:6px;margin-bottom:4px;margin-left:126px;">${wks}</div>${rows}</div>`;
+}
+function renderBizTimeline(curWeek, _data){
+  const host=document.getElementById('biz-mp-view'),todayEl=document.getElementById('biz-mp-today');
+  if(!host)return;
+  if(todayEl)todayEl.textContent=curWeek>0?('● Now: Week '+Math.min(curWeek,12)):'';
+  const selEl=document.getElementById('mp-demand-select'),cntEl=document.getElementById('mp-demand-count');
+  if(selEl&&masterPlanList.length>0)selEl.innerHTML=masterPlanList.map((d,i)=>`<option value="${i}" ${i===mpSelectedIdx?'selected':''}>[${i+1}] ${d.projectName||d.bu||'Demand '+(i+1)} (${(d.startDate||d.baseDate||'').substring(0,10)})</option>`).join('');
+  if(cntEl)cntEl.textContent=masterPlanList.length>0?`(${masterPlanList.length} demand${masterPlanList.length>1?'s':''})`:'';
+  if(!masterPlanData&&masterPlanList.length===0){host.innerHTML='<div style="text-align:center;padding:24px;color:#9CA3AF;font-size:12px;">ยังไม่มี Master Plan</div>';return;}
+  if(mpViewMode==='total'&&masterPlanList.length>1){host.innerHTML=renderMpTotalView(curWeek);return;}
+  let stagesList;
+  if(mpViewMode==='individual'&&masterPlanList.length>0){const d=masterPlanList[Math.min(mpSelectedIdx,masterPlanList.length-1)];stagesList=d&&d.stages?d.stages.map(s=>({id:s.id,name:s.name,w:[s.wS,s.wE],hex:s.hex})):(masterPlanData&&masterPlanData.stages?masterPlanData.stages.map(s=>({id:s.id,name:s.name,w:[s.wS,s.wE],hex:s.hex})):BIZ_STAGES);}
+  else{stagesList=(masterPlanData&&masterPlanData.stages?masterPlanData.stages.map(s=>({id:s.id,name:s.name,w:[s.wS,s.wE],hex:s.hex})):BIZ_STAGES);}
+  const TW=12;
+  const rows=stagesList.map(s=>{const wS=s.w?s.w[0]:s.wS,wE=s.w?s.w[1]:s.wE,left=((wS-1)/TW*100).toFixed(1),width=((wE-wS+1)/TW*100).toFixed(1),cur=curWeek>=wS&&curWeek<=wE;return `<div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;"><div style="width:110px;font-size:9.5px;color:#374151;text-align:right;flex-shrink:0;">${s.name||s.id}</div><div style="flex:1;height:18px;background:#F3F4F6;border-radius:4px;position:relative;"><div style="position:absolute;left:${left}%;width:${width}%;height:100%;background:${s.hex||'#3B82F6'};border-radius:4px;${cur?'box-shadow:0 0 0 2px #F59E0B':''};"></div>${curWeek>0?`<div style="position:absolute;left:${((curWeek-1)/TW*100).toFixed(1)}%;top:-2px;bottom:-2px;width:2px;background:#EF4444;border-radius:1px;"></div>`:''}</div></div>`;}).join('');
+  host.innerHTML=`<div style="padding:4px 0;">${rows}</div>`;
 
 function renderBizStages(curWeek, mCount, chCount, prodCount, hasPlan){
   const tracker = document.getElementById('biz-stage-tracker');
@@ -2886,9 +2885,9 @@ if (document.readyState === 'loading') {
 // ════════════════════════════════════════════
 function applyCloudMasterPlan(mp){
   if (!mp) return;
-  masterPlanData = mp;
-  try { localStorage.setItem(MP_KEY, JSON.stringify(mp)); } catch(e){}
-  if (mp.baseDate) { try{ generateMasterPlan(); }catch(e){} }
+  if(mp.list&&Array.isArray(mp.list)){masterPlanList=mp.list; masterPlanData=mp.current||masterPlanList[masterPlanList.length-1];}else{masterPlanData=mp;}
+  try { localStorage.setItem(MP_KEY, JSON.stringify(masterPlanData)); localStorage.setItem('tcs_mp_list', JSON.stringify(masterPlanList)); } catch(e){}
+  if ((masterPlanData||{}).baseDate) { try{ generateMasterPlan(); }catch(e){} }
   // reveal master plan content
   const mpC=document.getElementById('mp-content'); if(mpC) mpC.style.display='block';
   const mpE=document.getElementById('mp-empty');   if(mpE) mpE.style.display='none';
@@ -3289,6 +3288,15 @@ function updateCloudBadge(){
   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
     <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;color:#9CA3AF;text-transform:uppercase;">🗓 Master Plan · Order from Business</div>
     <div id="biz-mp-today" style="font-size:10px;font-weight:700;color:#3B82F6;"></div>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap;">
+    <div style="font-size:11px;font-weight:600;color:#6B7280;">มุมมอง:</div>
+    <button id="mp-view-total" onclick="setMpView('total')" style="font-size:11px;padding:4px 12px;border-radius:20px;border:1.5px solid #3B82F6;background:#3B82F6;color:#fff;cursor:pointer;font-weight:600;">Total</button>
+    <button id="mp-view-indv" onclick="setMpView('individual')" style="font-size:11px;padding:4px 12px;border-radius:20px;border:1.5px solid #D1D5DB;background:#fff;color:#6B7280;cursor:pointer;font-weight:600;">Individual</button>
+    <div id="mp-demand-selector" style="display:none;margin-left:8px;">
+      <select id="mp-demand-select" onchange="mpSelectedIdx=parseInt(this.value);renderBizDashboard()" style="font-size:11px;padding:4px 8px;border:1.5px solid #D1D5DB;border-radius:8px;"></select>
+    </div>
+    <span id="mp-demand-count" style="font-size:10px;color:#9CA3AF;margin-left:4px;"></span>
   </div>
   <div id="biz-mp-view"><!-- injected by JS --></div>
 </div>
