@@ -2897,7 +2897,7 @@ function applyCloudMasterPlan(mp){
   if(typeof refreshBizDashboard==='function') refreshBizDashboard();
 }
 
-function applyCloudStage1(s1){
+function applyCloudStage1(s1){ if(s1&&Array.isArray(s1.manufacturers)&&s1.manufacturers.length===0&&manufacturers.length>0){console.warn('[Cloud] skipping empty cloud overwrite – local data preserved');return;}
   if (!s1) return;
   if (Array.isArray(s1.manufacturers)) manufacturers = s1.manufacturers;
   if (Array.isArray(s1.channels)) checkedChannels = new Set(s1.channels);
