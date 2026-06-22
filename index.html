@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, inhitial-scale=1.0">
-<title>Vendor Sourcing Process — TCS</title>
+<title>Vendor Sourcing Process — TCS</title>h
 
 <!-- ═════════════════════════════════════════════════h═══════════════════
      FIREBASE CLOUD SYNC  ·  วางค่า firebaseConfig ของคุณตรงนี้
@@ -2694,11 +2694,11 @@ function bizStageStatus(stageId, mCount, chCount, prodCount, hasPlan){
 }
 
 function renderBizTimeline(curWeek, _data){
-  const host = document.getElementById('biz-timeline');
-  const todayEl = document.getElementById('biz-timeline-today');
+  const host = document.getElementById('biz-mp-view');
+  const todayEl = document.getElementById('biz-mp-today');
   if (!host) return;
   if (todayEl) todayEl.textContent = curWeek>0 ? ('● Now: Week '+Math.min(curWeek,12)) : '';
-  const TW=12;
+  if(!masterPlanData){host.innerHTML='<div style="text-align:center;padding:24px;color:#9CA3AF;font-size:12px;">ยังไม่มี Master Plan</div>';return;} const TW=12;
   // Week axis header
   let axis='<div style="display:grid;grid-template-columns:120px repeat('+TW+',1fr);gap:0;align-items:center;margin-bottom:6px;">';
   axis+='<div></div>';
@@ -2708,7 +2708,7 @@ function renderBizTimeline(curWeek, _data){
   }
   axis+='</div>';
 
-  const rows = BIZ_STAGES.map(s=>{
+  const rows = (masterPlanData&&masterPlanData.stages?masterPlanData.stages.map(s=>({id:s.id,name:s.name,w:[s.wS,s.wE],hex:s.hex})):BIZ_STAGES).map(s=>{
     let bars='';
     for(let w=1;w<=TW;w++){
       const inStage = w>=s.w[0] && w<=s.w[1];
@@ -3284,13 +3284,13 @@ function updateCloudBadge(){
   </div>
 </div>
 
-<!-- ── Timeline (Gantt) covering Stage 0-4 ── -->
+<!-- ── Master Plan from Business ── -->
 <div style="background:#fff;border:1.5px solid #E5E7EB;border-radius:12px;padding:20px 22px;margin-bottom:22px;">
   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
-    <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;color:#9CA3AF;text-transform:uppercase;">🗓 Process Timeline · Stage 0–4 (12 weeks)</div>
-    <div id="biz-timeline-today" style="font-size:10px;font-weight:700;color:#3B82F6;"></div>
+    <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;color:#9CA3AF;text-transform:uppercase;">🗓 Master Plan · Order from Business</div>
+    <div id="biz-mp-today" style="font-size:10px;font-weight:700;color:#3B82F6;"></div>
   </div>
-  <div id="biz-timeline"><!-- injected by JS --></div>
+  <div id="biz-mp-view"><!-- injected by JS --></div>
 </div>
 
 <!-- ── Stage KPI Matrix (KPI per stage 0-4) ── -->
